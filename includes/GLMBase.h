@@ -1,0 +1,20 @@
+//
+//  GlmBase.h
+//  dyne
+//
+//  Created by Elliot Patros on 12/10/15.
+//  Copyright (c) 2015 Elliot Patros. All rights reserved.
+//
+
+#ifndef dyne_GlmBase_h
+#define dyne_GlmBase_h
+
+#define GLM_SWIZZLE
+#define GLM_FORCE_RADIANS
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
+
+#endif
