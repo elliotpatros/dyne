@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include <vector>
+#include <pthread.h>
+#include <unistd.h> // for chdir and usleep
 
 using std::cout;
 using std::endl;

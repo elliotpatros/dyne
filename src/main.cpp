@@ -6,21 +6,32 @@
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#include "DyneBase.h"
 #include "AssimpBase.h"
 #include "FreeTypeBase.h"
 #include "GLMBase.h"
 #include "OpenGLBase.h"
 #include "OSCBase.h"
+#include "Maths.h"
+#include "Application.h"
 
-#include <unistd.h> // for chdir
-
-int main(int argc, const char* argv[])
+/** change application's current directory
+ *  to project build folder
+ */
+void makeProjDirCurrentDir(void)
 {
-    // change application's current directory to project build folder
-    chdir(string(string(getenv("HOME")) + "/Dropbox/dyne").c_str());
+    char* baseDir = getenv("HOME");
+    const char* appDir = "/Dropbox/dyne";
+    chdir(strcat(baseDir, appDir));
+
+}
+
+int main(void)
+{
+    makeProjDirCurrentDir();
     
+    Application& app {Application::getInstance() };
+    app.setup();
+    app.run();
     
-    cout << "we made it!\n";
     return 0;
 }

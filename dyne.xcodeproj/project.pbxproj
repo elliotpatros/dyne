@@ -17,6 +17,8 @@
 		58820D941C9C86F8006285C7 /* libassimp.3.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 58820D931C9C86F8006285C7 /* libassimp.3.1.1.dylib */; };
 		58820D961C9C872C006285C7 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 58820D951C9C872C006285C7 /* libfreetype.6.dylib */; };
 		58820DA21C9C8A47006285C7 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DA01C9C8A47006285C7 /* Application.cpp */; };
+		58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DA31C9C8CFE006285C7 /* Timer.cpp */; };
+		58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DAB1C9C9441006285C7 /* PosixThread.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -346,6 +348,14 @@
 		58820D9F1C9C87CF006285C7 /* OSCBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCBase.h; sourceTree = "<group>"; };
 		58820DA01C9C8A47006285C7 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		58820DA11C9C8A47006285C7 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		58820DA31C9C8CFE006285C7 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		58820DA41C9C8CFE006285C7 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		58820DA71C9C9058006285C7 /* CircleLUT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLUT.h; sourceTree = "<group>"; };
+		58820DA81C9C9058006285C7 /* Maths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maths.h; sourceTree = "<group>"; };
+		58820DA91C9C9058006285C7 /* Sizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sizes.h; sourceTree = "<group>"; };
+		58820DAA1C9C9058006285C7 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
+		58820DAB1C9C9441006285C7 /* PosixThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PosixThread.cpp; sourceTree = "<group>"; };
+		58820DAC1C9C9441006285C7 /* PosixThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThread.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +382,7 @@
 			children = (
 				58820C3A1C9C8674006285C7 /* src */,
 				58820D991C9C87CF006285C7 /* includes */,
+				58820DA61C9C9058006285C7 /* globals */,
 				58820C3C1C9C8674006285C7 /* thirdparty */,
 				58820D971C9C8757006285C7 /* frameworks */,
 				58820C311C9C8369006285C7 /* Products */,
@@ -392,6 +403,10 @@
 				58820C3B1C9C8674006285C7 /* main.cpp */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
+				58820DA31C9C8CFE006285C7 /* Timer.cpp */,
+				58820DA41C9C8CFE006285C7 /* Timer.h */,
+				58820DAB1C9C9441006285C7 /* PosixThread.cpp */,
+				58820DAC1C9C9441006285C7 /* PosixThread.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -871,6 +886,17 @@
 			path = includes;
 			sourceTree = "<group>";
 		};
+		58820DA61C9C9058006285C7 /* globals */ = {
+			isa = PBXGroup;
+			children = (
+				58820DA71C9C9058006285C7 /* CircleLUT.h */,
+				58820DA81C9C9058006285C7 /* Maths.h */,
+				58820DA91C9C9058006285C7 /* Sizes.h */,
+				58820DAA1C9C9058006285C7 /* World.h */,
+			);
+			path = globals;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -927,8 +953,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */,
 				58820DA21C9C8A47006285C7 /* Application.cpp in Sources */,
 				58820D791C9C8674006285C7 /* main.cpp in Sources */,
+				58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
