@@ -21,35 +21,36 @@ Timer::~Timer(void)
 
 bool Timer::start(void)
 {
-    return runPThread();
+    return runThread();
 }
 
 bool Timer::startMs(float ms)
 {
     setIntervalMs(ms);
-    return runPThread();
+    return start();
 }
 
 bool Timer::startHz(float hz)
 {
     setIntervalMs(hzToMs(hz));
-    return runPThread();
+    return start();
 }
 
 void Timer::stop(void)
 {
-    joinPThread();
+    cancelThread();
 }
 
-void Timer::threadedFunction(void* posix)
+void Timer::threadedFunction(void* arg) noexcept
 {
-    PosixThread* const t = (PosixThread *)posix;
+    Timer* const t = (Timer *)arg;
     
-    for (int i = 0; i < 40; ++i)
+    while (!shouldQuit(t))
     {
-        usleep(intervalMs);
-        cout << i << "...\n";
+        t->timerCallback();
+        
         if (shouldQuit(t)) {return; }
+        usleep(intervalMs);
     }
 }
 

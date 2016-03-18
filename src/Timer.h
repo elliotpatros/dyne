@@ -31,7 +31,9 @@ private:
     
     inline void setIntervalMs(float ms) noexcept;
     int intervalMs;
-    void threadedFunction(void* posix);
+    
+    void threadedFunction(void* arg) noexcept;
+    virtual void timerCallback(void) = 0;
 };
 
 #endif

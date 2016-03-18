@@ -31,9 +31,11 @@ void Application::setup(void)
 
 void Application::run(void) noexcept
 {
-    timer.startMs(200.f);
-    
-    usleep(1000*5000);
-    cout << "ok!\n";
+    startMs(500.f);
+    usleep(1000*2000);
 }
 
+void Application::timerCallback(void) noexcept
+{
+    cout << "fuc yesh!\n";
+}

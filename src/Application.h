@@ -14,7 +14,7 @@
 #include "DyneBase.h"
 #include "Timer.h"
 
-class Application
+class Application : private Timer
 {
 public:
     static Application& getInstance(void);
@@ -22,7 +22,7 @@ public:
     void setup(void);
     void run(void) noexcept;
     
-    Timer timer;
+    void timerCallback(void) noexcept;
     
     
 private:

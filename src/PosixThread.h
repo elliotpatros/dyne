@@ -13,29 +13,21 @@
 
 class PosixThread
 {
-public:
-    typedef struct
-    {
-        PosixThread* This;
-        void* arg;
-    } PThread_Arg;
-    
-    
 protected:
     PosixThread(void);
+    ~PosixThread(void);
     
-    bool runPThread(void);
-    void joinPThread(void);
-    
-    /** Actual thread */
+    bool runThread(void) noexcept;
+    void joinThread(void) noexcept;
+    void cancelThread(void) noexcept;
     virtual void threadedFunction(void* arg) = 0;
     static bool shouldQuit(PosixThread* t) noexcept;
     
+    pthread_t thread;
+    pthread_mutex_t* quitFlag;
+    
     
 private:
-    pthread_t thread;
-    pthread_mutex_t quitFlag;
-    
     static void* func(void* This);
 };
 
