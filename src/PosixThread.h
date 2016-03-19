@@ -15,16 +15,15 @@ class PosixThread
 {
 protected:
     PosixThread(void);
-    ~PosixThread(void);
+    virtual ~PosixThread(void);
     
     bool runThread(void) noexcept;
     void joinThread(void) noexcept;
     void cancelThread(void) noexcept;
     virtual void threadedFunction(void* arg) = 0;
-    static bool shouldQuit(PosixThread* t) noexcept;
     
     pthread_t thread;
-    pthread_mutex_t* quitFlag;
+    bool shouldQuit;
     
     
 private:

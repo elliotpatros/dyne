@@ -9,27 +9,25 @@
 #include "PosixThread.h"
 
 PosixThread::PosixThread(void)
-: quitFlag((pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)))
+//: shouldQuit(false),
+//thread(0)
 {
     thread = 0;
+    shouldQuit = true;
 }
 
 PosixThread::~PosixThread(void)
 {
-    if (quitFlag != 0) {free(quitFlag); }
-    
-    quitFlag = 0;
+    cancelThread();
 }
 
 /** returns true if the thread successfully starts */
 bool PosixThread::runThread(void) noexcept
 {
-    if (   (thread == 0)        // thread is unused
-        && (quitFlag != 0)      // mutex is valid
-        && (shouldQuit(this)))  // mutex is not busy
+    if (   (thread == 0)         // thread is unused
+        && (shouldQuit == true)) // mutex is not busy
     {
-        pthread_mutex_init(quitFlag, NULL);
-        pthread_mutex_lock(quitFlag);
+        shouldQuit = false;
         return (pthread_create(&thread, NULL, func, this) == 0);
     }
     
@@ -41,16 +39,14 @@ void PosixThread::joinThread(void) noexcept
     if (thread != 0)
     {
         (void)pthread_join(thread, NULL);
+        thread = 0;
     }
 }
 
 void PosixThread::cancelThread(void) noexcept
 {
-    if (thread != 0)
-    {
-        pthread_mutex_unlock(quitFlag);
-        (void)pthread_join(thread, NULL);
-    }
+    shouldQuit = true;
+    joinThread();
 }
 
 void* PosixThread::func(void* This)
@@ -58,9 +54,4 @@ void* PosixThread::func(void* This)
     ((PosixThread *)This)->threadedFunction(This);
     
     return NULL;
-}
-
-bool PosixThread::shouldQuit(PosixThread* t) noexcept
-{
-    return pthread_mutex_trylock(t->quitFlag) != EBUSY;
 }

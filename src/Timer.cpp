@@ -14,13 +14,11 @@ Timer::Timer(void)
     stop();
 }
 
-Timer::~Timer(void)
-{
-    stop();
-}
-
 bool Timer::start(void)
 {
+    fromtime = system_clock::now();
+    totime = fromtime + intervalMicro;
+    
     return runThread();
 }
 
@@ -45,16 +43,16 @@ void Timer::threadedFunction(void* arg) noexcept
 {
     Timer* const t = (Timer *)arg;
     
-    while (!shouldQuit(t))
+    while (!t->shouldQuit)
     {
         t->timerCallback();
-        
-        if (shouldQuit(t)) {return; }
-        usleep(intervalMs);
+        fromtime = totime;
+        totime += intervalMicro;
+        sleep_until(totime);
     }
 }
 
 void Timer::setIntervalMs(float ms) noexcept
 {
-    intervalMs = roundToInt(ms * 1000.f);
+    intervalMicro = microseconds(llroundl(ms * 1000.f));
 }
