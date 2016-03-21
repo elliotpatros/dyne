@@ -54,5 +54,5 @@ void Timer::threadedFunction(void* arg) noexcept
 
 void Timer::setIntervalMs(float ms) noexcept
 {
-    intervalMicro = microseconds(llroundl(ms * 1000.f));
+    intervalMicro = (microseconds)llroundl(ms * 1000.f);
 }
