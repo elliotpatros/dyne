@@ -31,8 +31,8 @@ void Application::setup(void)
 
 void Application::run(void) noexcept
 {
-    startMs(100.f);
-    usleep(1000*500);
+    startMs(250.f);
+    usleep(1000*10000);
 }
 
 void Application::timerCallback(void) noexcept
