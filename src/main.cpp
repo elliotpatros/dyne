@@ -14,8 +14,9 @@
 #include "Maths.h"
 #include "Application.h"
 
-/** change application's current directory
- *  to project build folder
+/*
+ * change application's current directory
+ * to project build folder
  */
 void makeProjDirCurrentDir(void)
 {
@@ -30,7 +31,7 @@ int main(void)
     makeProjDirCurrentDir();
     
     Application& app {Application::getInstance() };
-    app.setup();
+    if (app.setup()) {return 1; }
     app.run();
     
     return 0;

@@ -8,34 +8,48 @@
 
 #include "Application.h"
 
+//==============================================================================
+// constructor & destructor
+//==============================================================================
 Application& Application::getInstance(void)
 {
     static Application instance;
     return instance;
 }
 
-Application::Application(void)
+
+Application::Application(void) :
+mainWindow(nullptr)
 {
-    
+    mainWindow = (OpenGLWindow*)malloc(sizeof(OpenGLWindow));
 }
 
 Application::~Application(void)
 {
-    
+    if (mainWindow != nullptr) {free(mainWindow); }
+    mainWindow = nullptr;
 }
 
-void Application::setup(void)
-{
+//==============================================================================
+// start up
+//==============================================================================
+bool Application::setup(void)
+{   // returns true if errors
+    if (mainWindow->setup("dyne", {600, 400})) {return true; }
     
+    // capture mouse
+    // set key callbacks
+    // setup camera
+    
+    mainWindow->show();
+    
+    return false;
 }
 
+//==============================================================================
+// game loop
+//==============================================================================
 void Application::run(void) noexcept
 {
-    startHz(60.f);
-    usleep(1000*100);
-}
-
-void Application::timerCallback(void) noexcept
-{
-    cout << "fuc yesh!\n";
+    mainWindow->loop();
 }

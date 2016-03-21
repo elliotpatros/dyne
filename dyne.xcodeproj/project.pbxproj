@@ -19,6 +19,8 @@
 		58820DA21C9C8A47006285C7 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DA01C9C8A47006285C7 /* Application.cpp */; };
 		58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DA31C9C8CFE006285C7 /* Timer.cpp */; };
 		58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DAB1C9C9441006285C7 /* PosixThread.cpp */; };
+		58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58D192091CA0870900D1617A /* OpenGLWindow.cpp */; };
+		58D192111CA09F5A00D1617A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 58820C451C9C8674006285C7 /* glew.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -356,6 +358,8 @@
 		58820DAA1C9C9058006285C7 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		58820DAB1C9C9441006285C7 /* PosixThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PosixThread.cpp; sourceTree = "<group>"; };
 		58820DAC1C9C9441006285C7 /* PosixThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThread.h; sourceTree = "<group>"; };
+		58D192091CA0870900D1617A /* OpenGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLWindow.cpp; sourceTree = "<group>"; };
+		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,10 +407,8 @@
 				58820C3B1C9C8674006285C7 /* main.cpp */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
-				58820DA31C9C8CFE006285C7 /* Timer.cpp */,
-				58820DA41C9C8CFE006285C7 /* Timer.h */,
-				58820DAB1C9C9441006285C7 /* PosixThread.cpp */,
-				58820DAC1C9C9441006285C7 /* PosixThread.h */,
+				58D1920C1CA0871100D1617A /* Timing */,
+				58D1920D1CA0871D00D1617A /* Graphics */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -897,6 +899,26 @@
 			path = globals;
 			sourceTree = "<group>";
 		};
+		58D1920C1CA0871100D1617A /* Timing */ = {
+			isa = PBXGroup;
+			children = (
+				58820DA31C9C8CFE006285C7 /* Timer.cpp */,
+				58820DA41C9C8CFE006285C7 /* Timer.h */,
+				58820DAB1C9C9441006285C7 /* PosixThread.cpp */,
+				58820DAC1C9C9441006285C7 /* PosixThread.h */,
+			);
+			name = Timing;
+			sourceTree = "<group>";
+		};
+		58D1920D1CA0871D00D1617A /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				58D192091CA0870900D1617A /* OpenGLWindow.cpp */,
+				58D1920A1CA0870900D1617A /* OpenGLWindow.h */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -953,7 +975,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58D192111CA09F5A00D1617A /* glew.c in Sources */,
 				58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */,
+				58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */,
 				58820DA21C9C8A47006285C7 /* Application.cpp in Sources */,
 				58820D791C9C8674006285C7 /* main.cpp in Sources */,
 				58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */,
@@ -1104,6 +1128,7 @@
 				58820C391C9C8369006285C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

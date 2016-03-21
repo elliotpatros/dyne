@@ -11,18 +11,15 @@
 #ifndef __dyne__Application__
 #define __dyne__Application__
 
-#include "DyneBase.h"
-#include "Timer.h"
+#include "OpenGLWindow.h"
 
-class Application : private Timer
+class Application
 {
 public:
     static Application& getInstance(void);
     
-    void setup(void);
+    bool setup(void);
     void run(void) noexcept;
-    
-    void timerCallback(void) noexcept;
     
     
 private:
@@ -31,6 +28,8 @@ private:
     ~Application(void);
     Application(Application const&);
     void operator=(Application const&);
+    
+    OpenGLWindow* mainWindow;
 };
 
 #endif
