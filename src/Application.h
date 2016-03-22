@@ -17,7 +17,6 @@ class Application
 {
 public:
     static Application& getInstance(void);
-    
     bool setup(void);
     void run(void) noexcept;
     

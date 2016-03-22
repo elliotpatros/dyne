@@ -41,15 +41,14 @@ bool Application::setup(void)
     // set key callbacks
     // setup camera
     
-    mainWindow->show();
-    
     return false;
 }
 
 //==============================================================================
-// game loop
+// loop
 //==============================================================================
 void Application::run(void) noexcept
 {
+    mainWindow->show();
     mainWindow->loop();
 }
