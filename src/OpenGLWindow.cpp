@@ -28,24 +28,20 @@ OpenGLWindow::~OpenGLWindow(void)
 //==============================================================================
 bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
 {
-    // start glfw (window manager)
     if (setupGLFW()) {return true; }
-    
-    // make window
-    window = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
-    if (window == nullptr) {return true; }
-    glfwGetWindowSize(window, &windowSize.x, &windowSize.y);
-    glfwMakeContextCurrent(window);
-    
-    // start glew (openGL interface)
-    if(setupGLEW()) {return true; }
+    if (makeWindow(title, size)) {return true; }
+    if (setupGLEW()) {return true; }
     
     return false;
 }
 
 bool OpenGLWindow::setupGLFW(void) noexcept
 {   // returns true if errors
-    if ((glfwIsRunning = glfwInit()) == GL_FALSE) {return true; }
+    if ((glfwIsRunning = glfwInit()) == GL_FALSE)
+    {
+        IO::post("failed to start GLFW");
+        return true;
+    }
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -58,11 +54,14 @@ bool OpenGLWindow::setupGLFW(void) noexcept
     return false;
 }
 
-
 bool OpenGLWindow::setupGLEW(void) noexcept
 {   // returns true if errors
     glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {return true; }
+    if (glewInit() != GLEW_OK)
+    {
+        IO::post("failed to start GLEW");
+        return true;
+    }
     
     glViewport(0, 0, windowSize.x, windowSize.y);
     
@@ -78,6 +77,22 @@ bool OpenGLWindow::setupGLEW(void) noexcept
     glClearColor(0.f, 0.f, 0.f, 1.f);
     glfwSwapInterval (1);
     
+    
+    return false;
+}
+
+bool OpenGLWindow::makeWindow(const string title, const ivec2 size) noexcept
+{   // returns true if errors
+    // make window
+    window = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
+    if (window == nullptr)
+    {
+        IO::post("failed to create GLFW window");
+        return true;
+    }
+    
+    glfwMakeContextCurrent(window);
+    glfwGetWindowSize(window, &windowSize.x, &windowSize.y);
     
     return false;
 }

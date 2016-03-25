@@ -35,6 +35,7 @@ private:
     GLFWwindow* window;
     bool glfwIsRunning;
     bool setupGLFW(void) noexcept;
+    bool makeWindow(const string title, const ivec2 size) noexcept;
     
     // GLEW
     bool setupGLEW(void) noexcept;

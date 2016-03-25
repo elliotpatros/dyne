@@ -53,7 +53,7 @@ private:
         }
         catch (exception &e)
         {
-            cout << "caught exception" << e.what() << endl;
+            post("caught exception", e.what());
             return;
         }
         
