@@ -10,6 +10,8 @@
 		581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64461CA5FF9F008C8BFC /* Mesh.cpp */; };
 		581E644B1CA6089B008C8BFC /* VertexAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64491CA6089B008C8BFC /* VertexAttribute.cpp */; };
 		581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E644C1CA60DB0008C8BFC /* Model.cpp */; };
+		581E64511CA6147F008C8BFC /* Vertex_Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E644F1CA6147F008C8BFC /* Vertex_Color.cpp */; };
+		581E64541CA61923008C8BFC /* GravityBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64521CA61923008C8BFC /* GravityBall.cpp */; };
 		583244611CA5F43100D14A4D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5832445F1CA5F43100D14A4D /* Shader.cpp */; };
 		58820D791C9C8674006285C7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820C3B1C9C8674006285C7 /* main.cpp */; };
 		58820D7F1C9C8674006285C7 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58820D501C9C8674006285C7 /* libglfw3.a */; };
@@ -46,6 +48,12 @@
 		581E644A1CA6089B008C8BFC /* VertexAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexAttribute.h; sourceTree = "<group>"; };
 		581E644C1CA60DB0008C8BFC /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		581E644D1CA60DB0008C8BFC /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		581E644F1CA6147F008C8BFC /* Vertex_Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex_Color.cpp; sourceTree = "<group>"; };
+		581E64501CA6147F008C8BFC /* Vertex_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex_Color.h; sourceTree = "<group>"; };
+		581E64521CA61923008C8BFC /* GravityBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GravityBall.cpp; sourceTree = "<group>"; };
+		581E64531CA61923008C8BFC /* GravityBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravityBall.h; sourceTree = "<group>"; };
+		581E64561CA62399008C8BFC /* color-body.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "color-body.vs"; sourceTree = "<group>"; };
+		581E64571CA623A5008C8BFC /* color-body.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = "color-body.fs"; sourceTree = "<group>"; };
 		5832445F1CA5F43100D14A4D /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		583244601CA5F43100D14A4D /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		58820C301C9C8369006285C7 /* dyne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dyne; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,12 +401,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		581E64551CA6237C008C8BFC /* glsl */ = {
+			isa = PBXGroup;
+			children = (
+				581E64561CA62399008C8BFC /* color-body.vs */,
+				581E64571CA623A5008C8BFC /* color-body.fs */,
+			);
+			path = glsl;
+			sourceTree = "<group>";
+		};
 		58820C271C9C8369006285C7 = {
 			isa = PBXGroup;
 			children = (
 				58820C3A1C9C8674006285C7 /* src */,
 				58820D991C9C87CF006285C7 /* includes */,
 				58820DA61C9C9058006285C7 /* globals */,
+				581E64551CA6237C008C8BFC /* glsl */,
 				58820C3C1C9C8674006285C7 /* thirdparty */,
 				58820D971C9C8757006285C7 /* frameworks */,
 				58820C311C9C8369006285C7 /* Products */,
@@ -419,6 +437,8 @@
 				58820C3B1C9C8674006285C7 /* main.cpp */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
+				581E64521CA61923008C8BFC /* GravityBall.cpp */,
+				581E64531CA61923008C8BFC /* GravityBall.h */,
 				58D1920C1CA0871100D1617A /* Timing */,
 				58D1920D1CA0871D00D1617A /* Graphics */,
 			);
@@ -931,6 +951,8 @@
 				583244601CA5F43100D14A4D /* Shader.h */,
 				581E64461CA5FF9F008C8BFC /* Mesh.cpp */,
 				581E64471CA5FF9F008C8BFC /* Mesh.h */,
+				581E644F1CA6147F008C8BFC /* Vertex_Color.cpp */,
+				581E64501CA6147F008C8BFC /* Vertex_Color.h */,
 				581E644C1CA60DB0008C8BFC /* Model.cpp */,
 				581E644D1CA60DB0008C8BFC /* Model.h */,
 				581E64491CA6089B008C8BFC /* VertexAttribute.cpp */,
@@ -998,9 +1020,11 @@
 				58D192111CA09F5A00D1617A /* glew.c in Sources */,
 				58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */,
 				58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */,
+				581E64511CA6147F008C8BFC /* Vertex_Color.cpp in Sources */,
 				581E644B1CA6089B008C8BFC /* VertexAttribute.cpp in Sources */,
 				58820DA21C9C8A47006285C7 /* Application.cpp in Sources */,
 				583244611CA5F43100D14A4D /* Shader.cpp in Sources */,
+				581E64541CA61923008C8BFC /* GravityBall.cpp in Sources */,
 				58820D791C9C8674006285C7 /* main.cpp in Sources */,
 				581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */,
 				581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */,

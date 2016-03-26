@@ -23,22 +23,22 @@ protected:
     string name;
 };
 
-class VA_Position : private VertexAttribute
+class VA_Position : public VertexAttribute
 {
 public:
-    VA_Position(void);
+    VA_Position(const GLuint location);
 };
 
-class VA_Normal : private VertexAttribute
+class VA_Normal : public VertexAttribute
 {
 public:
-    VA_Normal(void);
+    VA_Normal(const GLuint location);
 };
 
-class VA_Color : private VertexAttribute
+class VA_Color : public VertexAttribute
 {
 public:
-    VA_Color(void);
+    VA_Color(const GLuint location);
 };
 
 #endif

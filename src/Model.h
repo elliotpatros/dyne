@@ -17,8 +17,6 @@ template<typename Vertex>
 class Model
 {
 public:
-    Model(void);
-    
     void draw(void) const noexcept;
     void load(const string path);
     

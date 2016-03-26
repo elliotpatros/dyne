@@ -25,16 +25,14 @@ public:
     void draw(void) const noexcept;
     void initialize(void);
     
-    virtual void enableVertexAttributes(void) = 0;
-    virtual void loadVertices(aiMesh* m) = 0;
+    void loadVertices(aiMesh* m) noexcept;
     void loadIndices(aiMesh* m) noexcept;
     
 private:
     GLuint vertexArray, vertexBuffer, elementBuffer;
     GLsizei nIndices;
-    vector<Vertex> vertices;
+    vector<typename Vertex::Type> vertices;
     vector<GLuint> indices;
 };
-
 
 #endif

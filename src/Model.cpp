@@ -8,11 +8,6 @@
 
 #include "Model.h"
 
-template<typename Vertex>
-Model<Vertex>::Model(void)
-{
-    
-}
 
 //==============================================================================
 // loop
@@ -61,7 +56,7 @@ template<typename Vertex>
 void Model<Vertex>::processMesh(aiMesh* aimesh) noexcept
 {
     Mesh<Vertex> mesh;
-    mesh.enableVertexAttributes(aimesh);
+    mesh.loadVertices(aimesh);
     mesh.loadIndices(aimesh);
     
     return mesh;

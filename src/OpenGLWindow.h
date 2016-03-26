@@ -13,6 +13,8 @@
 #include "GLMBase.h"
 #include "OpenGLBase.h"
 
+#include "GravityBall.h"
+
 class OpenGLWindow
 {
 public:
@@ -31,6 +33,10 @@ public:
     
     
 private:
+    GravityBall ball;
+    
+    
+    
     // GLFW
     GLFWwindow* window;
     bool glfwIsRunning;

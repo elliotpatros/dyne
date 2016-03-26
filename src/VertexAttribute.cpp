@@ -16,20 +16,23 @@ void VertexAttribute::enable(const GLsizei stride,
     (location, nValues, GL_FLOAT, GL_FALSE, stride, (GLvoid*)offset);
 }
 
-VA_Position::VA_Position(void)
+VA_Position::VA_Position(const GLuint loc)
 {
+    location = loc;
     nValues = 3;
     name = "position";
 }
 
-VA_Normal::VA_Normal(void)
+VA_Normal::VA_Normal(const GLuint loc)
 {
+    location = loc;
     nValues = 3;
     name = "normal";
 }
 
-VA_Color::VA_Color(void)
+VA_Color::VA_Color(const GLuint loc)
 {
+    location = loc;
     nValues = 3;
     name = "color";
 }

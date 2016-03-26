@@ -43,8 +43,17 @@ void Mesh<Vertex>::initialize(void)
                  &indices[0],
                  GL_STATIC_DRAW);
     
-    enableVertexAttributes();
+    Vertex::enableVertexAttributes();
     glBindVertexArray(0);
+}
+
+template<class Vertex>
+void Mesh<Vertex>::loadVertices(aiMesh* m) noexcept
+{
+    for (GLuint vertex = 0; vertex < m->mNumVertices; ++vertex)
+    {
+        vertices.push_back(Vertex::loadVertex(m, vertex));
+    }
 }
 
 template<class Vertex>

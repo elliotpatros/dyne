@@ -8,7 +8,7 @@
 
 #include "Shader.h"
 
-const string Shader::glslPath {"glsl_source/"};
+const string Shader::glslPath {"glsl/"};
 
 Shader::Shader(void)
 {
