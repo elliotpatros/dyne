@@ -63,7 +63,7 @@ bool Shader::checkCompileError(const GLuint shader) const noexcept
     if (!success)
     {
         glGetShaderInfoLog(shader, logSize, NULL, infoLog);
-        post("shader failed to compile: ", infoLog);
+        IO::post("shader failed to compile: ", infoLog);
         return true;
     }
     else
@@ -81,7 +81,7 @@ bool Shader::checkLinkingError(const GLuint program) const noexcept
     if (!success)
     {
         glGetProgramInfoLog (program, logSize, NULL, infoLog);
-        post("shader failed to link: ", infoLog);
+        IO::post("shader failed to link: ", infoLog);
         return true;
     }
     else
