@@ -12,6 +12,7 @@
 #include "DyneBase.h"
 #include "OpenGLBase.h"
 #include "GLMBase.h"
+#include "AssimpBase.h"
 
 #include "Shader.h"
 
@@ -25,6 +26,8 @@ public:
     void initialize(void);
     
     virtual void enableVertexAttributes(void) = 0;
+    virtual void loadVertices(aiMesh* m) = 0;
+    void loadIndices(aiMesh* m) noexcept;
     
 private:
     GLuint vertexArray, vertexBuffer, elementBuffer;

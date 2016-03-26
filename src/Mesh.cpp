@@ -47,6 +47,19 @@ void Mesh<Vertex>::initialize(void)
     glBindVertexArray(0);
 }
 
+template<class Vertex>
+void Mesh<Vertex>::loadIndices(aiMesh* m) noexcept
+{
+    for (GLuint face = 0; face < m->mNumFaces; ++face)
+    {
+        aiFace aiface(m->mFaces[face]);
+        for (GLuint i = 0; i < aiface.mNumIndices; ++i)
+        {
+            indices.push_back(aiface.mIndices[i]);
+        }
+    }
+}
+
 //==============================================================================
 // loop
 //==============================================================================

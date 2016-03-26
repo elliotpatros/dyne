@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64461CA5FF9F008C8BFC /* Mesh.cpp */; };
 		581E644B1CA6089B008C8BFC /* VertexAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64491CA6089B008C8BFC /* VertexAttribute.cpp */; };
+		581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E644C1CA60DB0008C8BFC /* Model.cpp */; };
 		583244611CA5F43100D14A4D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5832445F1CA5F43100D14A4D /* Shader.cpp */; };
 		58820D791C9C8674006285C7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820C3B1C9C8674006285C7 /* main.cpp */; };
 		58820D7F1C9C8674006285C7 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58820D501C9C8674006285C7 /* libglfw3.a */; };
@@ -43,6 +44,8 @@
 		581E64471CA5FF9F008C8BFC /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		581E64491CA6089B008C8BFC /* VertexAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexAttribute.cpp; sourceTree = "<group>"; };
 		581E644A1CA6089B008C8BFC /* VertexAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexAttribute.h; sourceTree = "<group>"; };
+		581E644C1CA60DB0008C8BFC /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		581E644D1CA60DB0008C8BFC /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		5832445F1CA5F43100D14A4D /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		583244601CA5F43100D14A4D /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		58820C301C9C8369006285C7 /* dyne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dyne; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -928,6 +931,8 @@
 				583244601CA5F43100D14A4D /* Shader.h */,
 				581E64461CA5FF9F008C8BFC /* Mesh.cpp */,
 				581E64471CA5FF9F008C8BFC /* Mesh.h */,
+				581E644C1CA60DB0008C8BFC /* Model.cpp */,
+				581E644D1CA60DB0008C8BFC /* Model.h */,
 				581E64491CA6089B008C8BFC /* VertexAttribute.cpp */,
 				581E644A1CA6089B008C8BFC /* VertexAttribute.h */,
 			);
@@ -997,6 +1002,7 @@
 				58820DA21C9C8A47006285C7 /* Application.cpp in Sources */,
 				583244611CA5F43100D14A4D /* Shader.cpp in Sources */,
 				58820D791C9C8674006285C7 /* main.cpp in Sources */,
+				581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */,
 				581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */,
 				58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */,
 			);
