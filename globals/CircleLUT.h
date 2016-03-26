@@ -13,7 +13,6 @@
 #include <stdlib.h> // for malloc
 #include <math.h>
 #include "Maths.h"
-#include "Sizes.h"
 
 class CircleLUT
 {
@@ -40,12 +39,12 @@ private:
     N(powf(2.f, 16.f) ),
     nOverTwopi(N * rTwopi),
     nMinusOne(unsigned(roundToInt(N) ) - 1),
-    cosPhase(N/4)
+    cosPhase(N/4.f)
     {
         const unsigned uiN = unsigned (N);
         try
         {
-            sineTable = (float*)malloc(uiN * SizeOf::f);
+            sineTable = (float*)malloc(uiN * sizeof(GLfloat));
             if (sineTable == nullptr)
             {
                 throw runtime_error ("sine table failed to initialize");
@@ -53,7 +52,7 @@ private:
         }
         catch (exception &e)
         {
-            post("caught exception", e.what());
+            IO::post("caught exception", e.what());
             return;
         }
         

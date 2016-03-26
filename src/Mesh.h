@@ -16,12 +16,16 @@
 
 #include "Shader.h"
 
-template<class Vertex>
+struct Vertex
+{
+    vec3 position;
+    vec3 normal;
+    vec3 color;
+};
+
 class Mesh
 {
 public:
-    Mesh(void);
-    
     void draw(void) const noexcept;
     void initialize(void);
     
@@ -31,7 +35,7 @@ public:
 private:
     GLuint vertexArray, vertexBuffer, elementBuffer;
     GLsizei nIndices;
-    vector<typename Vertex::Type> vertices;
+    vector<Vertex> vertices;
     vector<GLuint> indices;
 };
 

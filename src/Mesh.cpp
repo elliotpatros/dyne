@@ -11,23 +11,16 @@
 //==============================================================================
 // startup
 //==============================================================================
-template<class Vertex>
-Mesh<Vertex>::Mesh(void)
-{
-    
-}
-
-template<class Vertex>
-void Mesh<Vertex>::initialize(void)
+void Mesh::initialize(void)
 {
     nIndices = static_cast<GLsizei>(indices.size());
     
     // generate vbo and ebo
-    glGenBuffers(1, vertexBuffer);
-    glGenBuffers(1, elementBuffer);
+    glGenBuffers(1, &vertexBuffer);
+    glGenBuffers(1, &elementBuffer);
     
     // generate and bind vao
-    glGenVertexArrays(1, vertexArray);
+    glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);
     
     // bind vertex information to vbo and ebo
@@ -43,21 +36,53 @@ void Mesh<Vertex>::initialize(void)
                  &indices[0],
                  GL_STATIC_DRAW);
     
-    Vertex::enableVertexAttributes();
+    // position
+    glEnableVertexAttribArray(0);           // location
+    glVertexAttribPointer(0,                // location
+                          3,                // n values
+                          GL_FLOAT,         // default
+                          GL_FALSE,         // default
+                          sizeof(Vertex),   // stride
+                          (GLvoid*)0);      // offset
+    
+    // normal
+    glEnableVertexAttribArray(1);          
+    glVertexAttribPointer(1,               
+                          3,               
+                          GL_FLOAT,        
+                          GL_FALSE,        
+                          sizeof(Vertex),
+                          (GLvoid*)offsetof(Vertex, normal));
+    
+    // color
+    glEnableVertexAttribArray(2);           
+    glVertexAttribPointer(2,                
+                          3,                
+                          GL_FLOAT,         
+                          GL_FALSE,         
+                          sizeof(Vertex),   
+                          (GLvoid*)offsetof(Vertex, color));
+    
     glBindVertexArray(0);
 }
 
-template<class Vertex>
-void Mesh<Vertex>::loadVertices(aiMesh* m) noexcept
+void Mesh::loadVertices(aiMesh* m) noexcept
 {
+    vertices.resize(m->mNumVertices);
+    
     for (GLuint vertex = 0; vertex < m->mNumVertices; ++vertex)
     {
-        vertices.push_back(Vertex::loadVertex(m, vertex));
+        vertices[vertex] = {.position = vec3(m->mVertices[vertex].x,
+                                             m->mVertices[vertex].y,
+                                             m->mVertices[vertex].z),
+                            .normal = vec3(m->mNormals[vertex].x,
+                                           m->mNormals[vertex].y,
+                                           m->mNormals[vertex].z),
+                            .color = vec3(1.f, 1.f, 1.f) };
     }
 }
 
-template<class Vertex>
-void Mesh<Vertex>::loadIndices(aiMesh* m) noexcept
+void Mesh::loadIndices(aiMesh* m) noexcept
 {
     for (GLuint face = 0; face < m->mNumFaces; ++face)
     {
@@ -72,8 +97,7 @@ void Mesh<Vertex>::loadIndices(aiMesh* m) noexcept
 //==============================================================================
 // loop
 //==============================================================================
-template<class Vertex>
-void Mesh<Vertex>::draw(void) const noexcept
+void Mesh::draw(void) const noexcept
 {
     glBindVertexArray(vertexArray);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);

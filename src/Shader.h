@@ -22,7 +22,7 @@ class Shader
 {
 public:
     Shader(void);
-    Shader(const string vsDir, const string fsDir);
+    explicit Shader(const string vsDir, const string fsDir);
     
     bool checkCompileError(const GLuint shader) const noexcept;
     bool checkLinkingError(const GLuint program) const noexcept;

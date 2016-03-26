@@ -8,12 +8,10 @@
 
 #include "Model.h"
 
-
 //==============================================================================
 // loop
 //==============================================================================
-template<typename Vertex>
-void Model<Vertex>::draw(void) const noexcept
+void Model::draw(void) const noexcept
 {
     for (GLuint i = 0; i < nMeshes; ++i) {meshes[i].draw(); }
 }
@@ -21,11 +19,10 @@ void Model<Vertex>::draw(void) const noexcept
 //==============================================================================
 // load
 //==============================================================================
-template<typename Vertex>
-void Model<Vertex>::load(const string path)
+void Model::load(const string path) noexcept
 {
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile("resources/" + path,
+    const aiScene* scene = importer.ReadFile("/Users/empco/Dropbox/dyne/resources/" + path,
                                              aiProcess_Triangulate |
                                              aiProcess_JoinIdenticalVertices);
     
@@ -41,21 +38,24 @@ void Model<Vertex>::load(const string path)
     nMeshes = static_cast<GLuint>(meshes.size());
 }
 
-template<typename Vertex>
-void Model<Vertex>::processNode(aiNode* node, const aiScene* scene) noexcept
+void Model::processNode(aiNode* node, const aiScene* scene) noexcept
 {
     for (GLuint i = 0; i < node->mNumMeshes; ++i)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(this->processMesh(mesh));
+        meshes.push_back(processMesh(mesh));
         meshes.back().initialize();
+    }
+    
+    for (GLuint i = 0; i < node->mNumChildren; ++i)
+    {
+        processNode(node->mChildren[i], scene);
     }
 }
 
-template<typename Vertex>
-void Model<Vertex>::processMesh(aiMesh* aimesh) noexcept
+Mesh Model::processMesh(aiMesh* aimesh) noexcept
 {
-    Mesh<Vertex> mesh;
+    Mesh mesh;
     mesh.loadVertices(aimesh);
     mesh.loadIndices(aimesh);
     

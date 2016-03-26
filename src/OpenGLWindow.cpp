@@ -15,7 +15,7 @@ OpenGLWindow::OpenGLWindow(void) :
 window(nullptr),
 glfwIsRunning(false)
 {
-    
+
 }
 
 OpenGLWindow::~OpenGLWindow(void)
@@ -31,6 +31,9 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     if (setupGLFW()) {return true; }
     if (makeWindow(title, size)) {return true; }
     if (setupGLEW()) {return true; }
+    
+    Camera::getInstance().setWindowProperties(window, windowSize);
+    GravityBall::setup();
     
     return false;
 }
@@ -66,16 +69,16 @@ bool OpenGLWindow::setupGLEW(void) noexcept
     glViewport(0, 0, windowSize.x, windowSize.y);
     
     // set OpenGL properties
-    glEnable (GL_DEPTH_TEST);
-    glDepthFunc (GL_LESS);
-    glEnable (GL_MULTISAMPLE);
-    glEnable (GL_CULL_FACE);
-    glCullFace (GL_BACK);
-    glFrontFace (GL_CCW);
-    glEnable (GL_BLEND);
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glClearColor(0.f, 0.f, 0.f, 1.f);
-    glfwSwapInterval (1);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_MULTISAMPLE);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(1.f, 0.5f, 0.f, 1.f);
+    glfwSwapInterval(1);
     
     
     return false;

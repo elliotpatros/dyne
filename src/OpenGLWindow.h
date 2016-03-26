@@ -13,6 +13,7 @@
 #include "GLMBase.h"
 #include "OpenGLBase.h"
 
+#include "Camera.h"
 #include "GravityBall.h"
 
 class OpenGLWindow
@@ -34,8 +35,6 @@ public:
     
 private:
     GravityBall ball;
-    
-    
     
     // GLFW
     GLFWwindow* window;

@@ -8,7 +8,7 @@
 
 #include "Shader.h"
 
-const string Shader::glslPath {"glsl/"};
+const string Shader::glslPath{"/Users/empco/Dropbox/dyne/glsl/"};
 
 Shader::Shader(void)
 {
@@ -17,39 +17,46 @@ Shader::Shader(void)
 
 Shader::Shader(const string vsDir, const string fsDir)
 {
-    // get source code from file
-    ifstream vsFileStream(glslPath + vsDir);
-    ifstream fsFileStream(glslPath + fsDir);
-    const string svsCode((istreambuf_iterator<char>(vsFileStream)),
-                         istreambuf_iterator<char>());
-    const string sfsCode((istreambuf_iterator<char>(fsFileStream)),
-                         istreambuf_iterator<char>());
-    vsFileStream.close();
-    fsFileStream.close();
-    const GLchar* vsCode(svsCode.c_str());
-    const GLchar* fsCode(sfsCode.c_str());
-    
-    // compile shaders
-    const GLuint vsId(glCreateShader(GL_VERTEX_SHADER));
-    glShaderSource(vsId, 1, &vsCode, NULL);
-    glCompileShader(vsId);
-    checkCompileError(vsId);
-    
-    const GLuint fsId(glCreateShader(GL_FRAGMENT_SHADER));
-    glShaderSource(fsId, 1, &fsCode, NULL);
-    glCompileShader(fsId);
-    checkCompileError(fsId);
-    
-    // link shaders
-    programId = glCreateProgram();
-    glAttachShader(programId, vsId);
-    glAttachShader(programId, fsId);
-    glLinkProgram(programId);
-    checkLinkingError(programId);
-    
-    // clean up
-    glDeleteShader(vsId);
-    glDeleteShader(fsId);
+    try
+    {
+        // get source code from file
+        ifstream vsFileStream(glslPath + vsDir);
+        ifstream fsFileStream(glslPath + fsDir);
+        const string svsCode((istreambuf_iterator<char>(vsFileStream)),
+                             istreambuf_iterator<char>());
+        const string sfsCode((istreambuf_iterator<char>(fsFileStream)),
+                             istreambuf_iterator<char>());
+        vsFileStream.close();
+        fsFileStream.close();
+        const GLchar* vsCode(svsCode.c_str());
+        const GLchar* fsCode(sfsCode.c_str());
+        
+        // compile shaders
+        const GLuint vsId(glCreateShader(GL_VERTEX_SHADER));
+        glShaderSource(vsId, 1, &vsCode, NULL);
+        glCompileShader(vsId);
+        checkCompileError(vsId);
+        
+        const GLuint fsId(glCreateShader(GL_FRAGMENT_SHADER));
+        glShaderSource(fsId, 1, &fsCode, NULL);
+        glCompileShader(fsId);
+        checkCompileError(fsId);
+        
+        // link shaders
+        programId = glCreateProgram();
+        glAttachShader(programId, vsId);
+        glAttachShader(programId, fsId);
+        glLinkProgram(programId);
+        checkLinkingError(programId);
+        
+        // clean up
+        glDeleteShader(vsId);
+        glDeleteShader(fsId);
+    }
+    catch (ifstream::failure error)
+    {
+        IO::post("shader ifstream failed", error.what());
+    }
 }
 
 

@@ -27,13 +27,16 @@ using std::unique_ptr;
 
 struct IO
 {
-    inline static void post(void) {}
+    inline static void post(void)
+    {
+        cout << endl;
+    }
+    
     template<typename Type, typename... Types>
     inline static void post(Type type, Types... types)
     {
         cout << type;
         post(types...);
-        if (sizeof...(Types) == 0) {cout << endl; }
     }
 };
 

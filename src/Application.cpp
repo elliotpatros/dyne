@@ -21,12 +21,12 @@ Application& Application::getInstance(void)
 Application::Application(void) :
 mainWindow(nullptr)
 {
-    mainWindow = (OpenGLWindow*)malloc(sizeof(OpenGLWindow));
+    mainWindow = new OpenGLWindow();
 }
 
 Application::~Application(void)
 {
-    if (mainWindow != nullptr) {free(mainWindow); }
+    if (mainWindow != nullptr) {delete mainWindow; }
     mainWindow = nullptr;
 }
 

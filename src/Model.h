@@ -13,20 +13,19 @@
 #include "AssimpBase.h"
 #include "Mesh.h"
 
-template<typename Vertex>
 class Model
 {
 public:
     void draw(void) const noexcept;
-    void load(const string path);
+    void load(const string path) noexcept;
     
     
 private:
     GLuint nMeshes;
-    vector<Mesh<Vertex>> meshes;
+    vector<Mesh> meshes;
     
     void processNode(aiNode* node, const aiScene* scene) noexcept;
-    void processMesh(aiMesh* mesh) noexcept;
+    Mesh processMesh(aiMesh* mesh) noexcept;
 };
 
 #endif
