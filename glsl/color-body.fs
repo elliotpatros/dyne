@@ -31,7 +31,8 @@ void main()
     
     // attenuation
     float dist = length(lightDist);
-    float atten = 1.f / (1.f + (light.linear * dist) + (light.quadratic * (dist * dist) ));
+    float atten = 1.f / (1.f + (light.linear * dist) +
+                         (light.quadratic * (dist * dist)));
     
     // diffuse
     float diff = max(dot(normal, lightDir), 0.f);
@@ -44,7 +45,7 @@ void main()
     vec3 ambient = fsColor * light.ambient;
     vec3 diffuse = light.diffuse * (diff * fsColor);
     vec3 specular = light.specular * (spec * fsColor);
-    vec3 lightColor = ambient + ( (diffuse + specular) * atten);
+    vec3 lightColor = ambient + ((diffuse + specular) * atten);
     
     color = vec4(lightColor, 1.f);
 }

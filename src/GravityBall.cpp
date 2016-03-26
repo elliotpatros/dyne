@@ -8,14 +8,26 @@
 
 #include "GravityBall.h"
 
-vector<GravityBall*> GravityBall::gravityBalls{vector<GravityBall*>()};
-Shader GravityBall::shader{Shader()};
-Model GravityBall::model{Model()};
-Camera& GravityBall::camera{Camera::getInstance()};
+//==============================================================================
+// initialize static members
+//==============================================================================
+// glsl uniform locations
 GLuint GravityBall::viewPosLoc{0};
 GLuint GravityBall::lookAtLoc{0};
 GLuint GravityBall::transformLoc{0};
 
+// shader, model and camera
+Shader GravityBall::shader{Shader()};
+Model GravityBall::model{Model()};
+Camera& GravityBall::camera{Camera::getInstance()};
+
+// all balls
+vector<GravityBall*> GravityBall::gravityBalls{vector<GravityBall*>()};
+
+
+//==============================================================================
+// start up
+//==============================================================================
 GravityBall::GravityBall(void)
 {
     gravityBalls.push_back(this);
@@ -44,6 +56,9 @@ void GravityBall::setup(void) noexcept
                        glm::value_ptr(camera.getProjection()));
 }
 
+//==============================================================================
+// loop
+//==============================================================================
 void GravityBall::render(void) noexcept
 {
     shader.use();

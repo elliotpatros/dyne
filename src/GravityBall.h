@@ -29,16 +29,20 @@ private:
     static GLuint lookAtLoc;
     static GLuint transformLoc;
     
-    static Camera& camera;
-    
-    // looping stuff
-    static void updateCamera(void) noexcept;
-    void updateGraphics(void) noexcept;
+    // gravity ball transform matrix
     mat4 transform;
+    void updateGraphics(void) noexcept;
     
-    static vector<GravityBall*> gravityBalls;
+    // camera
+    static Camera& camera;
+    static void updateCamera(void) noexcept;
+    
+    // shader and model
     static Shader shader;
     static Model model;
+    
+    // all balls
+    static vector<GravityBall*> gravityBalls;
 };
 
 #endif

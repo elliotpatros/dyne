@@ -13,6 +13,8 @@
 #include "GLMBase.h"
 #include "OpenGLBase.h"
 
+#include "Time.h"
+#include "Input.h"
 #include "Camera.h"
 #include "GravityBall.h"
 
@@ -44,6 +46,11 @@ private:
     
     // GLEW
     bool setupGLEW(void) noexcept;
+    
+    // global things
+    Time& time;
+    Input& input;
+    Camera& camera;
     
     // size (pixels)
     ivec2 windowSize;

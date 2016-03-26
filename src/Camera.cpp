@@ -13,19 +13,19 @@
 //==============================================================================
 Camera::Camera(void) :
 // constants
-maxPitch(89.0),
-speed(20.0),
-mouseSensitivity(0.1f),
-nearField(0.1f),
-farField(1000.0),
+maxPitch{89.0},
+speed{20.0},
+mouseSensitivity{0.1f},
+nearField{0.1f},
+farField{1000.0},
 
 // defaults
-defaultPosition(0.0, 5.0, 20.0),
-defaultFront(0.0, 0.0, -1.0),
-defaultUp(0.0, 1.0, 0.0),
-defaultPitch(0.0),
-defaultYaw(-90.0),
-defaultFov(0.25 * pi),
+defaultPosition{0.f, 5.f, 20.f},
+defaultFront{0.f, 0.f, -1.f},
+defaultUp{0.f, 1.f, 0.f},
+defaultPitch{0.f},
+defaultYaw{-90.f},
+defaultFov{0.25f * pi},
 
 // non-owned classes
 time{Time::getInstance()},

@@ -13,7 +13,10 @@
 //==============================================================================
 OpenGLWindow::OpenGLWindow(void) :
 window(nullptr),
-glfwIsRunning(false)
+glfwIsRunning(false),
+time(Time::getInstance()),
+input(Input::getInstance()),
+camera(Camera::getInstance())
 {
 
 }
@@ -32,7 +35,9 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     if (makeWindow(title, size)) {return true; }
     if (setupGLEW()) {return true; }
     
-    Camera::getInstance().setWindowProperties(window, windowSize);
+    camera.setWindowProperties(window, windowSize);
+    glfwSetKeyCallback(window, input.keyPressed);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     GravityBall::setup();
     
     return false;
@@ -117,6 +122,9 @@ void OpenGLWindow::loop(void) noexcept
         
         GravityBall::render();
         
+        time.update();
+        input.handleFirstPresses();
+        camera.update();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
