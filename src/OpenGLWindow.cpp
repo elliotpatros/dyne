@@ -122,10 +122,10 @@ void OpenGLWindow::loop(void) noexcept
         
         GravityBall::render();
         
+        glfwSwapBuffers(window);
+        glfwPollEvents();
         time.update();
         input.handleFirstPresses();
         camera.update();
-        glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 }
