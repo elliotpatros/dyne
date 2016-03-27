@@ -14,7 +14,7 @@
 // glsl uniform locations
 GLuint GravityBall::viewPosLoc{0};
 GLuint GravityBall::projectionLoc{0};
-GLuint GravityBall::modelLoc[128]{0};
+GLuint GravityBall::modelLoc[100]{0};
 
 // shader, sphere model and camera
 Shader GravityBall::shader{Shader()};
@@ -42,7 +42,7 @@ void GravityBall::setup(void) noexcept
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
-    for (int i = 0; i < 128; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         modelLoc[i] = glGetUniformLocation(id,
                       ("model[" + std::to_string(i) + "]").c_str());
@@ -71,8 +71,7 @@ void GravityBall::render(void) noexcept
     const vec3 viewPos{camera.getPosition()};
     glUniform3f(viewPosLoc, viewPos.x, viewPos.y, viewPos.z);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
-                       glm::value_ptr(camera.getProjection() *
-                                      camera.getLookAt()));
+                       glm::value_ptr(camera.getProjection()));
     
     // update model
     const GLuint nBalls = (GLuint)gravityBalls.size();

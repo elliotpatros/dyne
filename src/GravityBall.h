@@ -27,7 +27,7 @@ private:
     // glsl uniform locations
     static GLuint viewPosLoc;
     static GLuint projectionLoc;
-    static GLuint modelLoc[128];
+    static GLuint modelLoc[100];
     
     // gravity ball transform matrix
 //    void updateGraphics(void) noexcept;
