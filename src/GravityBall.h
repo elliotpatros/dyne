@@ -26,19 +26,19 @@ public:
 private:
     // glsl uniform locations
     static GLuint viewPosLoc;
-    static GLuint lookAtLoc;
-    static GLuint transformLoc;
+    static GLuint projectionLoc;
+    static GLuint modelLoc[128];
     
     // gravity ball transform matrix
-    void updateGraphics(void) noexcept;
+//    void updateGraphics(void) noexcept;
     
     // camera
     static Camera& camera;
-    static void updateCamera(void) noexcept;
+//    static void updateCamera(void) noexcept;
     
     // shader and model
     static Shader shader;
-    static Model model;
+    static Model sphere;
     
     // all balls
     static vector<GravityBall*> gravityBalls;

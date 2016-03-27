@@ -11,9 +11,12 @@
 //==============================================================================
 // loop
 //==============================================================================
-void Model::draw(void) const noexcept
+void Model::draw(const GLuint nInstances) const noexcept
 {
-    for (GLuint i = 0; i < nMeshes; ++i) {meshes[i].draw(); }
+    for (GLuint i = 0; i < nMeshes; ++i)
+    {
+        meshes[i].draw(nInstances);
+    }
 }
 
 //==============================================================================

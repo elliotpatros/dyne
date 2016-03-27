@@ -12,9 +12,9 @@ struct PointLight {
     float shininess;
 };
 
-in vec3 fsPos;
-in vec3 fsColor;
+in vec3 fsPosition;
 in vec3 fsNormal;
+in vec3 fsColor;
 
 out vec4 color;
 
@@ -24,8 +24,8 @@ uniform PointLight light;
 void main()
 {
     // properties
-    vec3 lightDist = vec3(light.position - fsPos);
-    vec3 viewDir = normalize(viewPos - fsPos);
+    vec3 lightDist = light.position - fsPosition;
+    vec3 viewDir = normalize(viewPos - fsPosition);
     vec3 normal = normalize(fsNormal);
     vec3 lightDir = normalize(lightDist);
     

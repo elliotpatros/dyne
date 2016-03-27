@@ -16,7 +16,7 @@
 class Model
 {
 public:
-    void draw(void) const noexcept;
+    void draw(const GLuint nInstances) const noexcept;
     void load(const string path) noexcept;
     
     

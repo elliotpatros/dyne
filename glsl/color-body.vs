@@ -4,20 +4,19 @@ layout (location = 0) in vec3 vsPosition;
 layout (location = 1) in vec3 vsNormal;
 layout (location = 2) in vec3 vsColor;
 
-out vec3 fsPos;
+out vec3 fsPosition;
 out vec3 fsNormal;
 out vec3 fsColor;
 
-uniform mat4 model;
-uniform mat4 lookAt;
 uniform mat4 projection;
+uniform mat4 model[128];
 
 void main()
 {
-    vec4 pos = model * vec4(vsPosition, 1.f);
-    gl_Position = projection * (lookAt * pos);
+    vec4 pos = model[gl_InstanceID] * vec4(vsPosition, 1.f);
+    gl_Position = projection * pos;
     
-    fsPos = pos.xyz;
+    fsPosition = pos.xyz;
     fsNormal = vsNormal;
     fsColor = vsColor;
 }

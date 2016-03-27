@@ -102,9 +102,13 @@ void Mesh::initialize(void)
 //==============================================================================
 // loop
 //==============================================================================
-void Mesh::draw(void) const noexcept
+void Mesh::draw(const GLuint nInstances) const noexcept
 {
     glBindVertexArray(vertexArray);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES,
+                            nIndices,
+                            GL_UNSIGNED_INT,
+                            0,
+                            nInstances);
     glBindVertexArray(0);
 }

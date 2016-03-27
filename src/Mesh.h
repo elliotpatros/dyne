@@ -29,7 +29,7 @@ class Mesh
 public:
     explicit Mesh(aiMesh* m);
     
-    void draw(void) const noexcept;
+    void draw(const GLuint nInstances) const noexcept;
     
     
 private:
