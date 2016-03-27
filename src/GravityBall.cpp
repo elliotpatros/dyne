@@ -14,7 +14,7 @@
 // glsl uniform locations
 GLuint GravityBall::viewPosLoc{0};
 GLuint GravityBall::projectionLoc{0};
-GLuint GravityBall::modelLoc[100]{0};
+GLuint GravityBall::modelLoc[DYNE_MAX_INSTANCES]{0};
 
 // shader, sphere model and camera
 Shader GravityBall::shader{Shader()};
@@ -42,7 +42,7 @@ void GravityBall::setup(void) noexcept
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < DYNE_MAX_INSTANCES; ++i)
     {
         modelLoc[i] = glGetUniformLocation(id,
                       ("model[" + std::to_string(i) + "]").c_str());
@@ -84,22 +84,3 @@ void GravityBall::render(void) noexcept
     
     sphere.draw(nBalls);
 }
-
-//void GravityBall::updateCamera(void) noexcept
-//{
-//    
-//}
-
-//void GravityBall::updateGraphics(void) noexcept
-//{
-//    const size_t nBalls = gravityBalls.size();
-//    for (size_t i = 0; i < nBalls; ++i)
-//    {
-//        mat4 model{glm::translate(mat4(), vec3(getRandomBetween(-3.f, 3.f),
-//                                               getRandomBetween(-3.f, 3.f),
-//                                               getRandomBetween(-3.f, 3.f)))};
-//        model = glm::scale(model, vec3(getRandomBetween(0.f, 1.f)));
-//        
-//        glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE, glm::value_ptr(model));
-//    }
-//}

@@ -14,6 +14,8 @@
 #include <fstream> // for ifstream
 #include <sstream> // for stringstream
 
+#define DYNE_MAX_INSTANCES 100
+
 using std::ifstream;
 using std::stringstream;
 using std::istreambuf_iterator;
