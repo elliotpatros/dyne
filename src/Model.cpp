@@ -22,9 +22,9 @@ void Model::draw(void) const noexcept
 void Model::load(const string path) noexcept
 {
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile("resources/" + path,
-                                             aiProcess_Triangulate |
-                                             aiProcess_JoinIdenticalVertices);
+    const aiScene* scene{importer.ReadFile("resources/" + path,
+                                           aiProcess_Triangulate |
+                                           aiProcess_JoinIdenticalVertices)};
     
     if ((scene == nullptr) ||
         (scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE) ||
@@ -42,7 +42,7 @@ void Model::processNode(aiNode* node, const aiScene* scene) noexcept
 {
     for (GLuint i = 0; i < node->mNumMeshes; ++i)
     {
-        meshes.emplace_back(Mesh(scene->mMeshes[node->mMeshes[i]]));
+        meshes.emplace_back(scene->mMeshes[node->mMeshes[i]]);
     }
     
     for (GLuint i = 0; i < node->mNumChildren; ++i)

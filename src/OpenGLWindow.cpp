@@ -121,8 +121,8 @@ void OpenGLWindow::loop(void) noexcept
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         GravityBall::render();
-        
         glfwSwapBuffers(window);
+        
         glfwPollEvents();
         time.update();
         input.handleFirstPresses();

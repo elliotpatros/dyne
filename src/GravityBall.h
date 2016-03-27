@@ -30,7 +30,6 @@ private:
     static GLuint transformLoc;
     
     // gravity ball transform matrix
-    mat4 transform;
     void updateGraphics(void) noexcept;
     
     // camera

@@ -27,10 +27,10 @@ void Mesh::load(aiMesh* m) noexcept
         vertices[vertex] = {.position = vec3(m->mVertices[vertex].x,
                                              m->mVertices[vertex].y,
                                              m->mVertices[vertex].z),
-            .normal = vec3(m->mNormals[vertex].x,
-                           m->mNormals[vertex].y,
-                           m->mNormals[vertex].z),
-            .color = vec3(1.f)};
+                            .normal = vec3(m->mNormals[vertex].x,
+                                           m->mNormals[vertex].y,
+                                           m->mNormals[vertex].z),
+                            .color = vec3(1.f)};
     }
     
     // load indices

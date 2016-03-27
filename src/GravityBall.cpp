@@ -38,7 +38,7 @@ void GravityBall::setup(void) noexcept
     shader = Shader("color-body.vs", "color-body.fs");
     model.load("smooth-iso.obj");
     
-    const GLuint id(shader.useAndGetId());
+    const GLuint id{shader.useAndGetId()};
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     lookAtLoc = glGetUniformLocation (id, "lookAt");
     transformLoc = glGetUniformLocation (id, "model");
@@ -74,16 +74,17 @@ void GravityBall::render(void) noexcept
 
 void GravityBall::updateCamera(void) noexcept
 {
-    const vec3 viewPos(camera.getPosition());
+    const vec3 viewPos{camera.getPosition()};
     glUniform3f(viewPosLoc, viewPos.x, viewPos.y, viewPos.z);
     glUniformMatrix4fv(lookAtLoc, 1, GL_FALSE, glm::value_ptr(camera.getLookAt()));
 }
 
 void GravityBall::updateGraphics(void) noexcept
 {
-    transform = glm::translate(mat4(), vec3(getRandomBetween(-10.f, 10.f),
-                                            getRandomBetween(-10.f, 10.f),
-                                            getRandomBetween(-10.f, 10.f)));
+    mat4 transform{glm::translate(mat4(), vec3(getRandomBetween(-3.f, 3.f),
+                                               getRandomBetween(-3.f, 3.f),
+                                               getRandomBetween(-3.f, 3.f)))};
     transform = glm::scale(transform, vec3(getRandomBetween(0.f, 1.f)));
+    
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 }
