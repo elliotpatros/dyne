@@ -73,11 +73,17 @@ void GravityBall::render(void) noexcept
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
                        glm::value_ptr(camera.getProjection()));
     
+    const float f{5};
+    
     // update model
     const GLuint nBalls = (GLuint)gravityBalls.size();
     for (GLuint i = 0; i < nBalls; ++i)
     {
-        const mat4 model{glm::translate(mat4(), vec3(i))};
+        mat4 model{glm::translate(mat4(), vec3(getRandomBetween(-f, f),
+                                               getRandomBetween(-f, f),
+                                               getRandomBetween(-f, f)))};
+        model = glm::scale(model, vec3(getRandomBetween(-f, f)));
+        
         glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
                            glm::value_ptr(model));
     }
