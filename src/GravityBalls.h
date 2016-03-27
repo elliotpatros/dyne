@@ -1,13 +1,13 @@
 //
-//  GravityBall.h
+//  GravityBalls.h
 //  dyne
 //
 //  Created by Elliot Patros on 3/25/16.
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#ifndef __dyne__GravityBall__
-#define __dyne__GravityBall__
+#ifndef __dyne__GravityBalls__
+#define __dyne__GravityBalls__
 
 #include "DyneBase.h"
 
@@ -15,16 +15,18 @@
 #include "Shader.h"
 #include "Camera.h"
 
-class GravityBall
+class GravityBalls
 {
 public:
-    GravityBall(void);
+    GravityBalls(void);
     
-    static void render(void) noexcept;
-    static void setup(void) noexcept;
+    void render(void) noexcept;
+    void setup(const GLuint nBallsAtStart) noexcept;
     
     
 private:
+    GLuint nBalls;
+    
     // glsl uniform locations
     static GLuint viewPosLoc;
     static GLuint projectionLoc;
@@ -34,9 +36,6 @@ private:
     static Shader shader;
     static Model sphere;
     static Camera& camera;
-    
-    // all balls
-    static vector<GravityBall*> gravityBalls;
 };
 
 #endif

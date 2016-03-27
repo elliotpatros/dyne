@@ -16,7 +16,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "Camera.h"
-#include "GravityBall.h"
+#include "GravityBalls.h"
 
 class OpenGLWindow
 {
@@ -36,7 +36,7 @@ public:
     
     
 private:
-    GravityBall ball[100];
+    GravityBalls balls;
     
     // GLFW
     GLFWwindow* window;

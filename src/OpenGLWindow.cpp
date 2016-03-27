@@ -38,7 +38,7 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     camera.setWindowProperties(window, windowSize);
     glfwSetKeyCallback(window, input.keyPressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    GravityBall::setup();
+    balls.setup(DYNE_MAX_INSTANCES);
     
     return false;
 }
@@ -120,7 +120,7 @@ void OpenGLWindow::loop(void) noexcept
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        GravityBall::render();
+        balls.render();
         glfwSwapBuffers(window);
         
         glfwPollEvents();

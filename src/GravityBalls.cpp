@@ -1,40 +1,38 @@
 //
-//  GravityBall.cpp
+//  GravityBalls.cpp
 //  dyne
 //
 //  Created by Elliot Patros on 3/25/16.
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#include "GravityBall.h"
+#include "GravityBalls.h"
 
 //==============================================================================
 // initialize static members
 //==============================================================================
 // glsl uniform locations
-GLuint GravityBall::viewPosLoc{0};
-GLuint GravityBall::projectionLoc{0};
-GLuint GravityBall::modelLoc[DYNE_MAX_INSTANCES]{0};
+GLuint GravityBalls::viewPosLoc{0};
+GLuint GravityBalls::projectionLoc{0};
+GLuint GravityBalls::modelLoc[DYNE_MAX_INSTANCES]{0};
 
 // shader, sphere model and camera
-Shader GravityBall::shader{Shader()};
-Model GravityBall::sphere{Model()};
-Camera& GravityBall::camera{Camera::getInstance()};
-
-// all balls
-vector<GravityBall*> GravityBall::gravityBalls{vector<GravityBall*>()};
+Shader GravityBalls::shader{Shader()};
+Model GravityBalls::sphere{Model()};
+Camera& GravityBalls::camera{Camera::getInstance()};
 
 
 //==============================================================================
 // start up
 //==============================================================================
-GravityBall::GravityBall(void)
+GravityBalls::GravityBalls(void)
 {
-    gravityBalls.push_back(this);
+    nBalls = 0;
 }
 
-void GravityBall::setup(void) noexcept
+void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
 {
+    nBalls = nBallsAtStart;
     shader = Shader("color-body.vs", "color-body.fs");
     sphere.load("smooth-iso.obj");
     
@@ -46,10 +44,7 @@ void GravityBall::setup(void) noexcept
     {
         modelLoc[i] = glGetUniformLocation(id,
                       ("model[" + std::to_string(i) + "]").c_str());
-        IO::post("model loc ", i, " = ", modelLoc[i]);
     }
-    
-    IO::post("nBalls = ", gravityBalls.size());
     
     glUniform3f(glGetUniformLocation(id, "light.position"), 10.f, 10.f, 10.f);
     glUniform3f(glGetUniformLocation(id, "light.ambient"), 0.5f, 0.48f, 0.51f);
@@ -63,7 +58,7 @@ void GravityBall::setup(void) noexcept
 //==============================================================================
 // loop
 //==============================================================================
-void GravityBall::render(void) noexcept
+void GravityBalls::render(void) noexcept
 {
     shader.use();
     
@@ -73,16 +68,11 @@ void GravityBall::render(void) noexcept
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
                        glm::value_ptr(camera.getProjection()));
     
-    const float f{5};
-    
     // update model
-    const GLuint nBalls = (GLuint)gravityBalls.size();
     for (GLuint i = 0; i < nBalls; ++i)
     {
-        mat4 model{glm::translate(mat4(), vec3(getRandomBetween(-f, f),
-                                               getRandomBetween(-f, f),
-                                               getRandomBetween(-f, f)))};
-        model = glm::scale(model, vec3(getRandomBetween(-f, f)));
+        mat4 model{glm::translate(mat4(), vec3(i%10, 0, (int)i/10))};
+        model = glm::scale(model, vec3(getRandomBetween(0.5f, 0.6f)));
         
         glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
                            glm::value_ptr(model));
