@@ -36,7 +36,7 @@ public:
     
     
 private:
-    GravityBall ball;
+    GravityBall ball[50];
     
     // GLFW
     GLFWwindow* window;

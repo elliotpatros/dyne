@@ -14,6 +14,7 @@
 #include "GLMBase.h"
 #include "AssimpBase.h"
 
+#include "Maths.h"
 #include "Shader.h"
 
 struct Vertex
@@ -26,13 +27,15 @@ struct Vertex
 class Mesh
 {
 public:
-    void draw(void) const noexcept;
-    void initialize(void);
+    explicit Mesh(aiMesh* m);
     
-    void loadVertices(aiMesh* m) noexcept;
-    void loadIndices(aiMesh* m) noexcept;
+    void draw(void) const noexcept;
+    
     
 private:
+    void initialize(void);
+    void load(aiMesh* m) noexcept;
+    
     GLuint vertexArray, vertexBuffer, elementBuffer;
     GLsizei nIndices;
     vector<Vertex> vertices;

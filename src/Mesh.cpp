@@ -11,6 +11,39 @@
 //==============================================================================
 // startup
 //==============================================================================
+Mesh::Mesh(aiMesh* m)
+{
+    load(m);
+    initialize();
+}
+
+void Mesh::load(aiMesh* m) noexcept
+{
+    // load vertices
+    vertices.resize(m->mNumVertices);
+    
+    for (GLuint vertex = 0; vertex < m->mNumVertices; ++vertex)
+    {
+        vertices[vertex] = {.position = vec3(m->mVertices[vertex].x,
+                                             m->mVertices[vertex].y,
+                                             m->mVertices[vertex].z),
+            .normal = vec3(m->mNormals[vertex].x,
+                           m->mNormals[vertex].y,
+                           m->mNormals[vertex].z),
+            .color = vec3(1.f)};
+    }
+    
+    // load indices
+    for (GLuint face = 0; face < m->mNumFaces; ++face)
+    {
+        aiFace aiface(m->mFaces[face]);
+        for (GLuint i = 0; i < aiface.mNumIndices; ++i)
+        {
+            indices.push_back(aiface.mIndices[i]);
+        }
+    }
+}
+
 void Mesh::initialize(void)
 {
     nIndices = static_cast<GLsizei>(indices.size());
@@ -64,34 +97,6 @@ void Mesh::initialize(void)
                           (GLvoid*)offsetof(Vertex, color));
     
     glBindVertexArray(0);
-}
-
-void Mesh::loadVertices(aiMesh* m) noexcept
-{
-    vertices.resize(m->mNumVertices);
-    
-    for (GLuint vertex = 0; vertex < m->mNumVertices; ++vertex)
-    {
-        vertices[vertex] = {.position = vec3(m->mVertices[vertex].x,
-                                             m->mVertices[vertex].y,
-                                             m->mVertices[vertex].z),
-                            .normal = vec3(m->mNormals[vertex].x,
-                                           m->mNormals[vertex].y,
-                                           m->mNormals[vertex].z),
-                            .color = vec3(1.f, 1.f, 1.f) };
-    }
-}
-
-void Mesh::loadIndices(aiMesh* m) noexcept
-{
-    for (GLuint face = 0; face < m->mNumFaces; ++face)
-    {
-        aiFace aiface(m->mFaces[face]);
-        for (GLuint i = 0; i < aiface.mNumIndices; ++i)
-        {
-            indices.push_back(aiface.mIndices[i]);
-        }
-    }
 }
 
 //==============================================================================

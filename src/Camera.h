@@ -34,6 +34,7 @@ public:
     void update(void) noexcept;
     void resetFirstMouse(void) noexcept;
     
+    
 private:
     // singleton stuff
     Camera(void);

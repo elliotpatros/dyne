@@ -81,7 +81,9 @@ void GravityBall::updateCamera(void) noexcept
 
 void GravityBall::updateGraphics(void) noexcept
 {
-    transform = glm::translate(mat4(), vec3(0.f));
-    transform = glm::scale(transform, vec3(1.f));
+    transform = glm::translate(mat4(), vec3(getRandomBetween(-10.f, 10.f),
+                                            getRandomBetween(-10.f, 10.f),
+                                            getRandomBetween(-10.f, 10.f)));
+    transform = glm::scale(transform, vec3(getRandomBetween(0.f, 1.f)));
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 }

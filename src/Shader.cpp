@@ -8,7 +8,7 @@
 
 #include "Shader.h"
 
-const string Shader::glslPath{"/Users/empco/Dropbox/dyne/glsl/"};
+const string Shader::glslPath{"glsl/"};
 
 Shader::Shader(void)
 {

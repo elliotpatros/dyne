@@ -25,7 +25,6 @@ private:
     vector<Mesh> meshes;
     
     void processNode(aiNode* node, const aiScene* scene) noexcept;
-    Mesh processMesh(aiMesh* mesh) noexcept;
 };
 
 #endif

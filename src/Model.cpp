@@ -22,7 +22,7 @@ void Model::draw(void) const noexcept
 void Model::load(const string path) noexcept
 {
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile("/Users/empco/Dropbox/dyne/resources/" + path,
+    const aiScene* scene = importer.ReadFile("resources/" + path,
                                              aiProcess_Triangulate |
                                              aiProcess_JoinIdenticalVertices);
     
@@ -42,22 +42,11 @@ void Model::processNode(aiNode* node, const aiScene* scene) noexcept
 {
     for (GLuint i = 0; i < node->mNumMeshes; ++i)
     {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh));
-        meshes.back().initialize();
+        meshes.emplace_back(Mesh(scene->mMeshes[node->mMeshes[i]]));
     }
     
     for (GLuint i = 0; i < node->mNumChildren; ++i)
     {
         processNode(node->mChildren[i], scene);
     }
-}
-
-Mesh Model::processMesh(aiMesh* aimesh) noexcept
-{
-    Mesh mesh;
-    mesh.loadVertices(aimesh);
-    mesh.loadIndices(aimesh);
-    
-    return mesh;
 }

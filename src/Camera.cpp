@@ -110,22 +110,10 @@ void Camera::update(void) noexcept
     moveForward = front * speedNormalized;
     
     // keyboard stuff
-    if (input.getKeyState(GLFW_KEY_W))
-    {
-        position += moveForward;
-    }
-    if (input.getKeyState(GLFW_KEY_S))
-    {
-        position -= moveForward;
-    }
-    if (input.getKeyState(GLFW_KEY_A))
-    {
-        position -= strafe;
-    }
-    if (input.getKeyState(GLFW_KEY_D))
-    {
-        position += strafe;
-    }
+    if (input.getKeyState(GLFW_KEY_W)) {position += moveForward; }
+    if (input.getKeyState(GLFW_KEY_S)) {position -= moveForward; }
+    if (input.getKeyState(GLFW_KEY_A)) {position -= strafe; }
+    if (input.getKeyState(GLFW_KEY_D)) {position += strafe; }
 }
 
 void Camera::resetFirstMouse(void) noexcept
