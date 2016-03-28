@@ -46,13 +46,13 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
                       ("model[" + std::to_string(i) + "]").c_str());
     }
     
-    glUniform3f(glGetUniformLocation(id, "light.position"), 10.f, 10.f, 10.f);
-    glUniform3f(glGetUniformLocation(id, "light.ambient"), 0.5f, 0.48f, 0.51f);
-    glUniform3f(glGetUniformLocation(id, "light.diffuse"), 0.5f, 0.5f, 0.5f);
-    glUniform3f(glGetUniformLocation(id, "light.specular"), 0.4f, 0.4f, 0.4f);
-    glUniform1f(glGetUniformLocation(id, "light.linear"), 0.022f);
-    glUniform1f(glGetUniformLocation(id, "light.quadratic"), 0.0019f);
-    glUniform1f(glGetUniformLocation(id, "light.shininess"), 32.f);
+    glUniform3f(glGetUniformLocation(id, "light.position"), 30.f, -15.f, 30.f);
+    glUniform1f(glGetUniformLocation(id, "light.ambient"), 0.19225f);
+    glUniform1f(glGetUniformLocation(id, "light.diffuse"), 0.50754f);
+    glUniform1f(glGetUniformLocation(id, "light.specular"), 0.508273f);
+    glUniform1f(glGetUniformLocation(id, "light.linear"), 0.007f);
+    glUniform1f(glGetUniformLocation(id, "light.quadratic"), 0.0002f);
+    glUniform1f(glGetUniformLocation(id, "light.shininess"), 2.5f);
 }
 
 //==============================================================================
@@ -69,14 +69,19 @@ void GravityBalls::render(void) noexcept
                        glm::value_ptr(camera.getProjection()));
     
     // update model
-    for (GLuint i = 0; i < nBalls; ++i)
+    for (GLuint n = 0; n < 100; ++n)
     {
-        mat4 model{glm::translate(mat4(), vec3(i%10, 0, (int)i/10))};
-        model = glm::scale(model, vec3(getRandomBetween(0.5f, 0.6f)));
+        const float addX = (n%10)*11.f;
+        const float addZ = (n/10)*11.f;
+        for (GLuint i = 0; i < nBalls; ++i)
+        {
+            mat4 model{glm::translate(mat4(), vec3((i%10)+addX, -20, (i/10)+addZ))};
+            model = glm::scale(model, vec3(getRandomBetween(0.4f, 0.5f)));
+            
+            glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
+                               glm::value_ptr(model));
+        }
         
-        glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
-                           glm::value_ptr(model));
+        sphere.draw(nBalls);
     }
-    
-    sphere.draw(nBalls);
 }

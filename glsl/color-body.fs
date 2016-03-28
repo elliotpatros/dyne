@@ -3,9 +3,9 @@
 struct PointLight {
     vec3 position;
     
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
+    float ambient;
+    float diffuse;
+    float specular;
     
     float linear;
     float quadratic;
@@ -42,9 +42,9 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.f), light.shininess);
     
     // combined results
-    vec3 ambient = fsColor * light.ambient;
-    vec3 diffuse = light.diffuse * (diff * fsColor);
-    vec3 specular = light.specular * (spec * fsColor);
+    vec3 ambient = fsColor * vec3(light.ambient);
+    vec3 diffuse = vec3(light.diffuse) * (diff * fsColor);
+    vec3 specular = vec3(light.specular) * (spec * fsColor);
     vec3 lightColor = ambient + ((diffuse + specular) * atten);
     
     color = vec4(lightColor, 1.f);
