@@ -28,6 +28,7 @@ public:
     glm::vec3 getPosition(void) const noexcept;
     glm::mat4 getLookAt(void) const noexcept;
     glm::mat4 getProjection(void) const noexcept;
+    glm::mat4 getProjectionDotLookAt(void) const noexcept;
     
     // sets
     void setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept;

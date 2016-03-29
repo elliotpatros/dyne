@@ -16,15 +16,19 @@
 class Model
 {
 public:
-    void draw(const GLuint nInstances) const noexcept;
-    void load(const string path) noexcept;
+    void drawInstanced(const GLuint nInstances) const noexcept;
+    void draw(void) const noexcept;
+    void load(const string path,
+              VertexType::Flag type) noexcept;
     
     
 private:
     GLuint nMeshes;
     vector<Mesh> meshes;
     
-    void processNode(aiNode* node, const aiScene* scene) noexcept;
+    void processNode(aiNode* node,
+                     const aiScene* scene,
+                     VertexType::Flag type) noexcept;
 };
 
 #endif

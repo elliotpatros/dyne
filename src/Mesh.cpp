@@ -11,32 +11,39 @@
 //==============================================================================
 // startup
 //==============================================================================
-Mesh::Mesh(aiMesh* m)
+Mesh::Mesh(aiMesh* mesh, VertexType::Flag type)
 {
-    load(m);
-    initialize();
+    load(mesh, type);
+    initialize(type);
 }
 
-void Mesh::load(aiMesh* m) noexcept
+void Mesh::load(aiMesh* mesh, VertexType::Flag type) noexcept
 {
     // load vertices
-    vertices.resize(m->mNumVertices);
+    nVertices = mesh->mNumVertices;
     
-    for (GLuint vertex = 0; vertex < m->mNumVertices; ++vertex)
+    switch (type)
     {
-        vertices[vertex] = {.position = vec3(m->mVertices[vertex].x,
-                                             m->mVertices[vertex].y,
-                                             m->mVertices[vertex].z),
-                            .normal = vec3(m->mNormals[vertex].x,
-                                           m->mNormals[vertex].y,
-                                           m->mNormals[vertex].z),
-                            .color = vec3(1.f)};
+        case VertexType::PositionNormalColor:
+        {
+            makeColorVertex(mesh);
+            break;
+        }
+        case VertexType::Position:
+        {
+            makePositionVertex(mesh);
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
     
     // load indices
-    for (GLuint face = 0; face < m->mNumFaces; ++face)
+    for (GLuint face = 0; face < mesh->mNumFaces; ++face)
     {
-        aiFace aiface(m->mFaces[face]);
+        aiFace aiface(mesh->mFaces[face]);
         for (GLuint i = 0; i < aiface.mNumIndices; ++i)
         {
             indices.push_back(aiface.mIndices[i]);
@@ -44,7 +51,7 @@ void Mesh::load(aiMesh* m) noexcept
     }
 }
 
-void Mesh::initialize(void)
+void Mesh::initialize(VertexType::Flag type)
 {
     nIndices = static_cast<GLsizei>(indices.size());
     
@@ -56,45 +63,30 @@ void Mesh::initialize(void)
     glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);
     
-    // bind vertex information to vbo and ebo
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER,
-                 vertices.size() * sizeof(Vertex),
-                 &vertices[0],
-                 GL_STATIC_DRAW);
-    
+    // bind element buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
                  nIndices * sizeof(GLuint),
                  &indices[0],
                  GL_STATIC_DRAW);
     
-    // position
-    glEnableVertexAttribArray(0);           // location
-    glVertexAttribPointer(0,                // location
-                          3,                // n values
-                          GL_FLOAT,         // default
-                          GL_FALSE,         // default
-                          sizeof(Vertex),   // stride
-                          (GLvoid*)0);      // offset
-    
-    // normal
-    glEnableVertexAttribArray(1);          
-    glVertexAttribPointer(1,               
-                          3,               
-                          GL_FLOAT,        
-                          GL_FALSE,        
-                          sizeof(Vertex),
-                          (GLvoid*)offsetof(Vertex, normal));
-    
-    // color
-    glEnableVertexAttribArray(2);           
-    glVertexAttribPointer(2,                
-                          3,                
-                          GL_FLOAT,         
-                          GL_FALSE,         
-                          sizeof(Vertex),   
-                          (GLvoid*)offsetof(Vertex, color));
+    switch (type)
+    {
+        case VertexType::PositionNormalColor:
+        {
+            bindColorVertex();
+            break;
+        }
+        case VertexType::Position:
+        {
+            bindPositionVertex();
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
     
     glBindVertexArray(0);
 }
@@ -102,7 +94,7 @@ void Mesh::initialize(void)
 //==============================================================================
 // loop
 //==============================================================================
-void Mesh::draw(const GLuint nInstances) const noexcept
+void Mesh::drawInstanced(const GLuint nInstances) const noexcept
 {
     glBindVertexArray(vertexArray);
     glDrawElementsInstanced(GL_TRIANGLES,
@@ -111,4 +103,105 @@ void Mesh::draw(const GLuint nInstances) const noexcept
                             0,
                             nInstances);
     glBindVertexArray(0);
+}
+
+void Mesh::draw(void) const noexcept
+{
+    glBindVertexArray(vertexArray);
+    glDrawElements(GL_TRIANGLES,
+                   nIndices,
+                   GL_UNSIGNED_INT,
+                   0);
+    
+    glBindVertexArray(0);
+}
+
+//==============================================================================
+// how I'm going to handle different kinds of vertices for now
+//==============================================================================
+void Mesh::makeColorVertex(aiMesh* m) noexcept
+{
+    pncVertices.resize(m->mNumVertices);
+    
+    for (GLuint vertex = 0; vertex < nVertices; ++vertex)
+    {
+        pncVertices[vertex] =
+        {.position = vec3(m->mVertices[vertex].x,
+                          m->mVertices[vertex].y,
+                          m->mVertices[vertex].z),
+            .normal = vec3(m->mNormals[vertex].x,
+                           m->mNormals[vertex].y,
+                           m->mNormals[vertex].z),
+            .color = vec3(1.f)
+        };
+    }
+}
+
+void Mesh::bindColorVertex(void) noexcept
+{
+    // bind vertex information to vbo and ebo
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER,
+                 nVertices * sizeof(VertexType::PNC),
+                 &pncVertices[0],
+                 GL_STATIC_DRAW);
+    // position
+    glEnableVertexAttribArray(0);                  // location
+    glVertexAttribPointer(0,                       // location
+                          3,                       // n values
+                          GL_FLOAT,                // default
+                          GL_FALSE,                // default
+                          sizeof(VertexType::PNC), // stride
+                          (GLvoid*)0);             // offset
+    
+    // normal
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1,
+                          3,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          sizeof(VertexType::PNC),
+                          (GLvoid*)offsetof(VertexType::PNC, normal));
+    
+    // color
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2,
+                          3,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          sizeof(VertexType::PNC),
+                          (GLvoid*)offsetof(VertexType::PNC, color));
+}
+
+void Mesh::makePositionVertex(aiMesh* m) noexcept
+{
+    pVertices.resize(m->mNumVertices);
+    
+    for (GLuint vertex = 0; vertex < nVertices; ++vertex)
+    {
+        pVertices[vertex] =
+        {
+            vec3(m->mVertices[vertex].x,
+                 m->mVertices[vertex].y,
+                 m->mVertices[vertex].z)
+        };
+    }
+}
+
+void Mesh::bindPositionVertex(void) noexcept
+{
+    // bind vertex information to vbo and ebo
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER,
+                 nVertices * sizeof(VertexType::P),
+                 &pVertices[0],
+                 GL_STATIC_DRAW);
+    // position
+    glEnableVertexAttribArray(0);               
+    glVertexAttribPointer(0,                    
+                          3,                    
+                          GL_FLOAT,             
+                          GL_FALSE,             
+                          sizeof(VertexType::P),
+                          (GLvoid*)0);
 }

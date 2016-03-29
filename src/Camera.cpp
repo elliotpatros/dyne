@@ -65,6 +65,11 @@ glm::mat4 Camera::getLookAt(void) const noexcept
 
 glm::mat4 Camera::getProjection(void) const noexcept
 {
+    return projection;
+}
+
+glm::mat4 Camera::getProjectionDotLookAt(void) const noexcept
+{
     return projection * glm::lookAt(position, position + front, up);
 }
 

@@ -38,7 +38,9 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     camera.setWindowProperties(window, windowSize);
     glfwSetKeyCallback(window, input.keyPressed);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    
     balls.setup(DYNE_MAX_INSTANCES);
+    sky.setup();
     
     return false;
 }
@@ -121,6 +123,7 @@ void OpenGLWindow::loop(void) noexcept
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         balls.render();
+        sky.render();
         glfwSwapBuffers(window);
         
         glfwPollEvents();

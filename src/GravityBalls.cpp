@@ -34,7 +34,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
 {
     nBalls = nBallsAtStart;
     shader = Shader("color-body.vs", "color-body.fs");
-    sphere.load("smooth-iso.obj");
+    sphere.load("smooth-iso.obj", VertexType::PositionNormalColor);
     
     const GLuint id{shader.useAndGetId()};
     viewPosLoc = glGetUniformLocation(id, "viewPos");
@@ -66,7 +66,7 @@ void GravityBalls::render(void) noexcept
     const vec3 viewPos{camera.getPosition()};
     glUniform3f(viewPosLoc, viewPos.x, viewPos.y, viewPos.z);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
-                       glm::value_ptr(camera.getProjection()));
+                       glm::value_ptr(camera.getProjectionDotLookAt()));
     
     // update model
     for (GLuint n = 0; n < 100; ++n)
@@ -82,6 +82,6 @@ void GravityBalls::render(void) noexcept
                                glm::value_ptr(model));
         }
         
-        sphere.draw(nBalls);
+        sphere.drawInstanced(nBalls);
     }
 }

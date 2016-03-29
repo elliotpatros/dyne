@@ -11,18 +11,27 @@
 //==============================================================================
 // loop
 //==============================================================================
-void Model::draw(const GLuint nInstances) const noexcept
+void Model::drawInstanced(const GLuint nInstances) const noexcept
 {
     for (GLuint i = 0; i < nMeshes; ++i)
     {
-        meshes[i].draw(nInstances);
+        meshes[i].drawInstanced(nInstances);
+    }
+}
+
+void Model::draw(void) const noexcept
+{
+    for (GLuint i = 0; i < nMeshes; ++i)
+    {
+        meshes[i].draw();
     }
 }
 
 //==============================================================================
 // load
 //==============================================================================
-void Model::load(const string path) noexcept
+void Model::load(const string path,
+                 VertexType::Flag type) noexcept
 {
     Assimp::Importer importer;
     const aiScene* scene{importer.ReadFile("resources/" + path,
@@ -37,19 +46,21 @@ void Model::load(const string path) noexcept
         return;
     }
     
-    processNode(scene->mRootNode, scene);
+    processNode(scene->mRootNode, scene, type);
     nMeshes = static_cast<GLuint>(meshes.size());
 }
 
-void Model::processNode(aiNode* node, const aiScene* scene) noexcept
+void Model::processNode(aiNode* node,
+                        const aiScene* scene,
+                        VertexType::Flag type) noexcept
 {
     for (GLuint i = 0; i < node->mNumMeshes; ++i)
     {
-        meshes.emplace_back(scene->mMeshes[node->mMeshes[i]]);
+        meshes.emplace_back(scene->mMeshes[node->mMeshes[i]], type);
     }
     
     for (GLuint i = 0; i < node->mNumChildren; ++i)
     {
-        processNode(node->mChildren[i], scene);
+        processNode(node->mChildren[i], scene, type);
     }
 }

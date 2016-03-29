@@ -17,6 +17,7 @@
 #include "Input.h"
 #include "Camera.h"
 #include "GravityBalls.h"
+#include "CubeMap.h"
 
 class OpenGLWindow
 {
@@ -37,6 +38,7 @@ public:
     
 private:
     GravityBalls balls;
+    CubeMap sky;
     
     // GLFW
     GLFWwindow* window;

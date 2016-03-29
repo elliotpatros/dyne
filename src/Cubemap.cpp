@@ -1,27 +1,36 @@
 //
-//  Cubemap.cpp
+//  CubeMap.cpp
 //  dyne
 //
 //  Created by Elliot Patros on 3/28/16.
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#include "Cubemap.h"
+#include "CubeMap.h"
+
+// glsl uniform locations
+GLuint CubeMap::viewLoc{0};
+GLuint CubeMap::skyboxLoc{0};
 
 // shader, sphere model and camera
-Shader Cubemap::shader{Shader()};
-Model Cubemap::model{Model()};
-Camera& Cubemap::camera{Camera::getInstance()};
+Shader CubeMap::shader{Shader()};
+Model CubeMap::model{Model()};
+Camera& CubeMap::camera{Camera::getInstance()};
 
-void Cubemap::setup(void) noexcept
+void CubeMap::setup(void) noexcept
 {
     // load shader and model
-    shader = Shader("cubemap.vs", "cubemap.fs");
-    model.load("cube.obj");
+    shader = Shader("CubeMap.vs", "CubeMap.fs");
+    model.load("cube.obj", VertexType::Position);
     
     // get shader uniform info
     const GLuint id{shader.useAndGetId()};
     
+    viewLoc = glGetUniformLocation(id, "view");
+    glUniform1i(glGetUniformLocation(id, "skybox"), 0);
+    
+    glUniformMatrix4fv(glGetUniformLocation(id, "projection"), 1, GL_FALSE,
+                       glm::value_ptr(camera.getProjection()));
     
     // load textures
     glGenTextures(1, &textureID);
@@ -29,23 +38,17 @@ void Cubemap::setup(void) noexcept
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
     
     GLuint width, height;
-    vector<unsigned char> image;
-    for (GLuint i = 0; i < 6; ++i)
+    vector<vector<unsigned char>> image (6);
+    for (GLuint i = 0; i < image.size(); ++i)
     {
-        lodepng::decode(image,
+        lodepng::decode(image[i],
                         width,
                         height,
-                        "resources/textures/sky" + std::to_string(i) + ".png");
+                        "resources/textures/test.png");
+//                        string("resources/textures/test") + std::to_string(i) + string(".png"));
         
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                     0,
-                     GL_RGB,
-                     width,
-                     height,
-                     0,
-                     GL_RGBA,
-                     GL_UNSIGNED_BYTE,
-                     &image[0]);
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB,
+                     width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[i][0]);
     }
     
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -53,14 +56,25 @@ void Cubemap::setup(void) noexcept
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void Cubemap::render(void) noexcept
+void CubeMap::render(void) noexcept
 {
-    glDepthMask(GL_FALSE);
+    glDisable(GL_CULL_FACE);
+    glDepthFunc(GL_LEQUAL);
     shader.use();
     
-    // set view and projection matrix
+    // update camera
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE,
+//                       glm::value_ptr(camera.getLookAt()));
+                       glm::value_ptr(mat4(mat3(camera.getLookAt()))));
     
-//    glBindVertexArray(vao);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+    
+    model.draw();
+    
+    glDepthFunc(GL_LESS);
+    glEnable(GL_CULL_FACE);
 }

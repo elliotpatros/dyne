@@ -1,13 +1,13 @@
 //
-//  Cubemap.h
+//  CubeMap.h
 //  dyne
 //
 //  Created by Elliot Patros on 3/28/16.
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#ifndef __dyne__Cubemap__
-#define __dyne__Cubemap__
+#ifndef __dyne__CubeMap__
+#define __dyne__CubeMap__
 
 #include "DyneBase.h"
 #include "OpenGLBase.h"
@@ -19,7 +19,7 @@
 
 #include "lodepng.h"
 
-class Cubemap
+class CubeMap
 {
 public:
     
@@ -28,6 +28,10 @@ public:
     
 private:
     GLuint textureID;
+    
+    // glsl uniform locations
+    static GLuint viewLoc;
+    static GLuint skyboxLoc;
     
     // shader, model, and camera
     static Shader shader;

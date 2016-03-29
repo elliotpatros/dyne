@@ -418,10 +418,10 @@
 		581E64551CA6237C008C8BFC /* glsl */ = {
 			isa = PBXGroup;
 			children = (
-				581E64561CA62399008C8BFC /* color-body.vs */,
 				581E64571CA623A5008C8BFC /* color-body.fs */,
-				5874B4D91CAA4DC0000C37AB /* cubemap.vs */,
+				581E64561CA62399008C8BFC /* color-body.vs */,
 				5874B4DA1CAA4DC6000C37AB /* cubemap.fs */,
+				5874B4D91CAA4DC0000C37AB /* cubemap.vs */,
 			);
 			path = glsl;
 			sourceTree = "<group>";
