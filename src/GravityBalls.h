@@ -20,8 +20,8 @@ class GravityBalls
 public:
     GravityBalls(void);
     
-    void render(void) noexcept;
     void setup(const GLuint nBallsAtStart) noexcept;
+    void render(void) noexcept;
     
     
 private:

@@ -7,3 +7,9 @@
 //
 
 #include "TextureLoader.h"
+
+void TextureLoader::loadPNG(const string directory,
+                            GLuint* textureID) noexcept
+{
+    
+}

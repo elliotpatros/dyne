@@ -9,6 +9,16 @@
 #ifndef __dyne__TextureLoader__
 #define __dyne__TextureLoader__
 
-#include <stdio.h>
+#include "DyneBase.h"
+#include "OpenGLBase.h"
+#include "GLMBase.h"
+#include "lodepng.h"
 
-#endif /* defined(__dyne__TextureLoader__) */
+class TextureLoader
+{
+public:
+    static void loadPNG(const string directory,
+                        GLuint* textureID) noexcept;
+};
+
+#endif
