@@ -35,7 +35,7 @@ Application::~Application(void)
 //==============================================================================
 bool Application::setup(void)
 {   // returns true if errors
-    if (mainWindow->setup("dyne", {600, 400/*1280, 800*/})) {return true; }
+    if (mainWindow->setup("dyne", {600, 400})) {return true; }
     
     // drawable objects should be its own class, and should be set up here
     // capture mouse
