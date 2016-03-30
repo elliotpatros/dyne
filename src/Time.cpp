@@ -30,16 +30,16 @@ void Time::update(void) noexcept
     }
     else
     {
-        current = (GLfloat)glfwGetTime();
-        delta = current - last;
-        deltaSq = delta * delta;
+        current     = (GLfloat)glfwGetTime();
+        delta       = current - last;
+        deltaSq     = delta * delta;
         halfDeltaSq = deltaSq * 0.5f;
-        last = current;
+        last        = current;
         
         if (stretchIsThreadSafe)
         {
-            stretchedDelta = delta * timeStretch;
-            stretchedDeltaSq = stretchedDelta * stretchedDelta;
+            stretchedDelta       = delta * timeStretch;
+            stretchedDeltaSq     = stretchedDelta * stretchedDelta;
             stretchedHalfDeltaSq = stretchedDeltaSq * 0.5f;
         }
     }

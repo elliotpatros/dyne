@@ -84,6 +84,7 @@ inline int getRandomIntBetween(int min, int max) noexcept {
 const float pi {3.1415926535897932384626433832795f};
 const float twopi {2.f * pi};
 const float halfpi {0.5f * pi};
+const float threehalvespi {1.5f * pi};
 const float rTwopi {1.f / twopi};
 
 #endif
