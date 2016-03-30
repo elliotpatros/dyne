@@ -389,6 +389,7 @@
 		58820DAC1C9C9441006285C7 /* PosixThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThread.h; sourceTree = "<group>"; };
 		58D192091CA0870900D1617A /* OpenGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLWindow.cpp; sourceTree = "<group>"; };
 		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
+		B964DEC71CAB4AAF00DFB98D /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
 		B97B43741CA8555600F1ABB2 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
 		B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureLoader.cpp; sourceTree = "<group>"; };
 		B9EDC2DF1CA9FC8200CB40E4 /* TextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureLoader.h; sourceTree = "<group>"; };
@@ -991,6 +992,7 @@
 		B97B43731CA8555600F1ABB2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				B964DEC71CAB4AAF00DFB98D /* skybox.obj */,
 				5874B4DB1CAA505D000C37AB /* cube.obj */,
 				B97B43741CA8555600F1ABB2 /* smooth-iso.obj */,
 			);

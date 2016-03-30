@@ -21,7 +21,7 @@ void CubeMap::setup(void) noexcept
 {
     // load shader and model
     shader = Shader("CubeMap.vs", "CubeMap.fs");
-    model.load("cube.obj", VertexType::Position);
+    model.load("skybox.obj", VertexType::Position);
     
     // get shader uniform info
     const GLuint id{shader.useAndGetId()};
@@ -62,19 +62,19 @@ void CubeMap::setup(void) noexcept
 
 void CubeMap::render(void) noexcept
 {
-    glDisable(GL_CULL_FACE);
+    glFrontFace(GL_CW);
     glDepthFunc(GL_LEQUAL);
     shader.use();
     
     // update camera
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE,
-//                       glm::value_ptr(camera.getLookAt()));
-                       glm::value_ptr(mat4(mat3(camera.getLookAt()))));
+                       glm::value_ptr(camera.getLookAt()));
+//                       glm::value_ptr(mat4(mat3(camera.getLookAt()))));
     
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
     
     model.draw();
     
     glDepthFunc(GL_LESS);
-    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CCW);
 }

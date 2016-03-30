@@ -110,7 +110,8 @@ void Camera::update(void) noexcept
     pitch = tclip(pitch, -maxPitch, maxPitch);
     
     updateVectors();
-    speedNormalized = speed * time.getDelta();
+    speedNormalized = speed * time.getDelta()
+    * (input.getKeyState(GLFW_KEY_LEFT_SHIFT) ? 5.f : 1.f);
     strafe = glm::normalize(glm::cross(front, up)) * speedNormalized;
     moveForward = front * speedNormalized;
     
