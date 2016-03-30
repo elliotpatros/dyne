@@ -9,8 +9,6 @@
 #include "PosixThread.h"
 
 PosixThread::PosixThread(void)
-//: shouldQuit(false),
-//thread(0)
 {
     thread = 0;
     shouldQuit = true;
