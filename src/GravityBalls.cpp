@@ -69,19 +69,27 @@ void GravityBalls::render(void) noexcept
                        glm::value_ptr(camera.getProjectionDotLookAt()));
     
     // update model
-    for (GLuint n = 0; n < 100; ++n)
-    {
-        const float addX = (n%10)*11.f;
-        const float addZ = (n/10)*11.f;
-        for (GLuint i = 0; i < nBalls; ++i)
-        {
-            mat4 model{glm::translate(mat4(), vec3((i%10)+addX, -20, (i/10)+addZ))};
-            model = glm::scale(model, vec3(getRandomBetween(0.4f, 0.5f)));
-            
-            glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
-                               glm::value_ptr(model));
-        }
-        
-        sphere.drawInstanced(nBalls);
-    }
+    mat4 model{glm::translate(mat4(), vec3(0.f))};
+    glUniformMatrix4fv(modelLoc[0], 1, GL_FALSE,
+                       glm::value_ptr(model));
+    
+    sphere.draw();
+    
+//    for (GLuint n = 0; n < 100; ++n)
+//    {
+//        const float addX = (n%10)*11.f;
+//        const float addZ = (n/10)*11.f;
+//        for (GLuint i = 0; i < nBalls; ++i)
+//        {
+//            mat4 model{glm::translate(mat4(), vec3(((i%10)+addX) - 50.f,
+//                                                   -5.f,
+//                                                   ((i/10)+addZ) - 105.f))};
+//            model = glm::scale(model, vec3(0.5f)); // getRandomBetween(0.4f, 0.5f)));
+//            
+//            glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
+//                               glm::value_ptr(model));
+//        }
+//        
+//        sphere.drawInstanced(nBalls);
+//    }
 }

@@ -33,7 +33,6 @@ public:
     // sets
     void setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept;
     void update(void) noexcept;
-    void resetFirstMouse(void) noexcept;
     
     
 private:
@@ -41,13 +40,9 @@ private:
     Camera(void);
     Camera(Camera const&);
     void operator= (Camera const&);
-    
-    // private functions
-    void updateVectors(void) noexcept;
-    glm::vec3 updateStrafe(void) noexcept;
-    glm::vec3 updateMoveForward(void) noexcept;
-    
+
     // camera properties
+    GLfloat distanceFromCenter;
     glm::mat4 projection;
     glm::vec3 position;
     glm::vec3 front;
@@ -56,17 +51,8 @@ private:
     GLfloat yaw;
     GLfloat speedNormalized;
     
-    // mouse properties
-    bool firstMouseMove;
-    double mouseX, mouseY;
-    double smoothness;
-    double smoothedX, smoothedY;
-    glm::vec3 strafe, moveForward;
-    
     // constants
-    const GLfloat maxPitch;
     const GLfloat speed;
-    const GLfloat mouseSensitivity;
     const GLfloat nearField, farField;
     
     // defaults

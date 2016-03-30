@@ -37,7 +37,7 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     
     camera.setWindowProperties(window, windowSize);
     glfwSetKeyCallback(window, input.keyPressed);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     balls.setup(DYNE_MAX_INSTANCES);
     sky.setup();

@@ -13,6 +13,11 @@
 #include "OpenGLBase.h"
 
 //==============================================================================
+// limits
+//==============================================================================
+const float dyne_epsilon {std::numeric_limits<float>::epsilon()};
+
+//==============================================================================
 // comparisons
 //==============================================================================
 template <typename Type>
@@ -35,6 +40,8 @@ inline Type tclip(const Type val, const Type min, const Type max) noexcept {
 }
 
 inline bool isOdd(const int x) noexcept {return static_cast<bool> (x & 1); }
+
+inline bool isZero(const float x) noexcept {return fabsf(x) < dyne_epsilon; }
 
 //==============================================================================
 // conversions
