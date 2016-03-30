@@ -13,7 +13,7 @@
 #include "PosixThread.h"
 #include "Maths.h"
 #include <thread> // for sleep_until
-#include <ctime>  // for time types
+#include <ctime>  // for time types (e.g. microseconds)
 #include <chrono> // for system_clock
 
 using std::chrono::system_clock;
