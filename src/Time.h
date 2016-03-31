@@ -39,7 +39,11 @@ private:
     Time(void) :
     paused {false},
     last {1.f}
-    {}
+    {
+        glfwSetTime(last);
+        play();
+    }
+    
     Time(Time const&);
     void operator= (Time const&);
     

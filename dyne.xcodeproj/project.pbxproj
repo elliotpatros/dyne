@@ -29,6 +29,7 @@
 		58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DAB1C9C9441006285C7 /* PosixThread.cpp */; };
 		58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58D192091CA0870900D1617A /* OpenGLWindow.cpp */; };
 		58D192111CA09F5A00D1617A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 58820C451C9C8674006285C7 /* glew.c */; };
+		B99591DD1CAC9FE500F66EAD /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99591DB1CAC9FE500F66EAD /* Physics.cpp */; };
 		B9EDC2E01CA9FC8200CB40E4 /* TextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */; };
 		B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */; };
 /* End PBXBuildFile section */
@@ -391,6 +392,8 @@
 		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
 		B964DEC71CAB4AAF00DFB98D /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
 		B97B43741CA8555600F1ABB2 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
+		B99591DB1CAC9FE500F66EAD /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
+		B99591DC1CAC9FE500F66EAD /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureLoader.cpp; sourceTree = "<group>"; };
 		B9EDC2DF1CA9FC8200CB40E4 /* TextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureLoader.h; sourceTree = "<group>"; };
 		B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng.cpp; sourceTree = "<group>"; };
@@ -464,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				58820C3B1C9C8674006285C7 /* main.cpp */,
+				B99591DE1CAC9FEF00F66EAD /* Physics */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
 				B9EDC2E51CAA00D500CB40E4 /* Drawables */,
@@ -999,6 +1003,15 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
+		B99591DE1CAC9FEF00F66EAD /* Physics */ = {
+			isa = PBXGroup;
+			children = (
+				B99591DB1CAC9FE500F66EAD /* Physics.cpp */,
+				B99591DC1CAC9FE500F66EAD /* Physics.h */,
+			);
+			name = Physics;
+			sourceTree = "<group>";
+		};
 		B9EDC2E11CA9FCD100CB40E4 /* lodepng */ = {
 			isa = PBXGroup;
 			children = (
@@ -1085,6 +1098,7 @@
 				581E64541CA61923008C8BFC /* GravityBalls.cpp in Sources */,
 				581E64611CA625E2008C8BFC /* Time.cpp in Sources */,
 				5874B4D81CAA37E4000C37AB /* Cubemap.cpp in Sources */,
+				B99591DD1CAC9FE500F66EAD /* Physics.cpp in Sources */,
 				58820D791C9C8674006285C7 /* main.cpp in Sources */,
 				581E645E1CA625C2008C8BFC /* Input.cpp in Sources */,
 				581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */,

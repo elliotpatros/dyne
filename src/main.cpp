@@ -6,13 +6,9 @@
 //  Copyright (c) 2016 Elliot Patros. All rights reserved.
 //
 
-#include "AssimpBase.h"
-#include "FreeTypeBase.h"
-#include "GLMBase.h"
-#include "OpenGLBase.h"
-#include "OSCBase.h"
-#include "Maths.h"
 #include "Application.h"
+
+#include "Physics.h"
 
 /*
  * change application's current directory
@@ -28,11 +24,24 @@ void makeProjDirCurrentDir(void)
 
 int main(void)
 {
-    makeProjDirCurrentDir();
+    Physics p[10];
+    pthread_mutex_init(&Physics::lock, NULL);
     
-    Application& app {Application::getInstance() };
-    if (app.setup()) {return 1; }
-    app.run();
+    for (int i = 0; i < 10; ++i)
+    {p[i].instance = i; }
     
-    return 0;
+    for (int i = 0; i < 10; ++i)
+    {p[i].startMs(0); }
+    
+    usleep(1000*20000);
+    
+    for (int i = 0; i < 10; ++i) {p[i].stop(); }
+    
+//    makeProjDirCurrentDir();
+//    
+//    Application& app {Application::getInstance() };
+//    if (app.setup()) {return 1; }
+//    app.run();
+//    
+//    return 0;
 }
