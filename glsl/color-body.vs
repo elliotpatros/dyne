@@ -1,15 +1,17 @@
 #version 330 core
 
+#define DYNE_MAX_GBALLS 16
+
 layout (location = 0) in vec3 vsPosition;
 layout (location = 1) in vec3 vsNormal;
-layout (location = 2) in vec3 vsColor;
 
 out vec3 fsPosition;
 out vec3 fsNormal;
 out vec3 fsColor;
 
 uniform mat4 projection;
-uniform mat4 model[16];
+uniform vec3 color[DYNE_MAX_GBALLS];
+uniform mat4 model[DYNE_MAX_GBALLS];
 
 void main()
 {
@@ -18,5 +20,5 @@ void main()
     
     fsPosition = pos.xyz;
     fsNormal = vsNormal;
-    fsColor = vsColor;
+    fsColor = color[gl_InstanceID];
 }

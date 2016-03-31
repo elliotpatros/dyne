@@ -15,6 +15,8 @@
 #include "Shader.h"
 #include "Camera.h"
 
+#include "Time.h"
+
 class GravityBalls
 {
 public:
@@ -31,6 +33,7 @@ private:
     static GLuint viewPosLoc;
     static GLuint projectionLoc;
     static GLuint modelLoc[DYNE_MAX_GBALLS];
+    static GLuint colorLoc[DYNE_MAX_GBALLS];
     
     // shader, model, and camera
     static Shader shader;

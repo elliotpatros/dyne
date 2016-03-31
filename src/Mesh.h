@@ -21,15 +21,14 @@ struct VertexType
 {
     enum Flag
     {
-        PositionNormalColor = 0, // position, normal, color
-        Position        // position
+        PositionNormal = 0, // position, normal
+        Position            // position
     };
     
-    struct PNC
+    struct PN
     {
         vec3 position;
         vec3 normal;
-        vec3 color;
     };
     
     struct P
@@ -51,15 +50,15 @@ private:
     void initialize(VertexType::Flag type);
     void load(aiMesh* m, VertexType::Flag type) noexcept;
     
-    void makeColorVertex(aiMesh* m) noexcept;
-    void bindColorVertex(void) noexcept;
-    void makePositionVertex(aiMesh* m) noexcept;
-    void bindPositionVertex(void) noexcept;
+    void makePNVertex(aiMesh* m) noexcept;
+    void bindPNVertex(void) noexcept;
+    void makePVertex(aiMesh* m) noexcept;
+    void bindPVertex(void) noexcept;
     
     GLuint vertexArray, vertexBuffer, elementBuffer;
     GLsizei nIndices;
     GLuint nVertices;
-    vector<VertexType::PNC> pncVertices;
+    vector<VertexType::PN> pnVertices;
     vector<VertexType::P> pVertices;
     vector<GLuint> indices;
 };

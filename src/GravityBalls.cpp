@@ -15,6 +15,7 @@
 GLuint GravityBalls::viewPosLoc{0};
 GLuint GravityBalls::projectionLoc{0};
 GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS]{0};
+GLuint GravityBalls::colorLoc[DYNE_MAX_GBALLS]{0};
 
 // shader, sphere model and camera
 Shader GravityBalls::shader{Shader()};
@@ -34,7 +35,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
 {
     nBalls = nBallsAtStart;
     shader = Shader("color-body.vs", "color-body.fs");
-    sphere.load("smooth-iso.obj", VertexType::PositionNormalColor);
+    sphere.load("smooth-iso.obj", VertexType::PositionNormal);
     
     const GLuint id{shader.useAndGetId()};
     viewPosLoc = glGetUniformLocation(id, "viewPos");
@@ -42,8 +43,13 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     
     for (int i = 0; i < DYNE_MAX_GBALLS; ++i)
     {
+        const string sindex {std::to_string(i)};
         modelLoc[i] = glGetUniformLocation(id,
-                      ("model[" + std::to_string(i) + "]").c_str());
+                      ("model[" + sindex + "]").c_str());
+        colorLoc[i] = glGetUniformLocation(id,
+                      ("color[" + sindex + "]").c_str());
+        
+        glUniform3f(colorLoc[i], 1.f, 1.f, 1.f);
     }
     
     glUniform3f(glGetUniformLocation(id, "light.position"), 30.f, -15.f, 30.f);
