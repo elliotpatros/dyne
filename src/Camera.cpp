@@ -22,7 +22,7 @@ defaultPosition {0.f, 0.f, 50.f},
 defaultFront {0.f, 0.f, -1.f},
 defaultUp {0.f, 1.f, 0.f},
 defaultPitch {0.f},
-defaultYaw {-halfpi},
+defaultYaw {halfpi},
 defaultFov {0.25f * pi},
 
 // non-owned classes
@@ -92,7 +92,7 @@ void Camera::update(void) noexcept
     if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
     if (input.getKeyState(GLFW_KEY_D)) {yaw   -= angle; } // right
     
-    pitch = fmodf(((pitch < 0.f) ? twopi - fabsf(pitch) : pitch), twopi);
+    pitch = (pitch < 0.f) ? twopi - fabsf(pitch) : fmodf(pitch, twopi);
     up = ((pitch < halfpi) || (pitch > threehalvespi)) ? defaultUp : -defaultUp;
     position = distanceFromCenter * vec3(circle.cos(pitch) * circle.cos(yaw),
                                          circle.sin(pitch),

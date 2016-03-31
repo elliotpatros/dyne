@@ -10,7 +10,8 @@
 
 // glsl uniform locations
 GLuint CubeMap::viewLoc{0};
-GLuint CubeMap::skyboxLoc{0};
+//GLuint CubeMap::skyboxLoc{0};
+GLuint CubeMap::textureID{0};
 
 // shader, sphere model and camera
 Shader CubeMap::shader{Shader()};
@@ -27,7 +28,7 @@ void CubeMap::setup(void) noexcept
     const GLuint id{shader.useAndGetId()};
     
     viewLoc = glGetUniformLocation(id, "view");
-    glUniform1i(glGetUniformLocation(id, "skybox"), 0);
+//    glUniform1i(glGetUniformLocation(id, "skybox"), 0);
     
     glUniformMatrix4fv(glGetUniformLocation(id, "projection"), 1, GL_FALSE,
                        glm::value_ptr(camera.getProjection()));

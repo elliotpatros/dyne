@@ -12,10 +12,12 @@
 // initialize static members
 //==============================================================================
 // glsl uniform locations
-GLuint GravityBalls::viewPosLoc{0};
-GLuint GravityBalls::projectionLoc{0};
-GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS]{0};
-GLuint GravityBalls::colorLoc[DYNE_MAX_GBALLS]{0};
+GLuint GravityBalls::viewPosLoc {0};
+GLuint GravityBalls::projectionLoc {0};
+GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS] {0};
+GLuint GravityBalls::colorLoc[DYNE_MAX_GBALLS] {0};
+
+//GLuint GravityBalls::skyboxLoc {0};
 
 // shader, sphere model and camera
 Shader GravityBalls::shader{Shader()};
@@ -41,6 +43,8 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
+//    skyboxLoc = glGetUniformLocation(id, "skybox");
+    
     for (int i = 0; i < DYNE_MAX_GBALLS; ++i)
     {
         const string sindex {std::to_string(i)};
@@ -49,16 +53,16 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
         colorLoc[i] = glGetUniformLocation(id,
                       ("color[" + sindex + "]").c_str());
         
-        glUniform3f(colorLoc[i], 1.f, 1.f, 1.f);
+        glUniform3f(colorLoc[i], 1.f, 0.25f, 0.2f);
     }
     
-    glUniform3f(glGetUniformLocation(id, "light.position"), 30.f, -15.f, 30.f);
-    glUniform1f(glGetUniformLocation(id, "light.ambient"), 0.19225f);
-    glUniform1f(glGetUniformLocation(id, "light.diffuse"), 0.50754f);
-    glUniform1f(glGetUniformLocation(id, "light.specular"), 0.508273f);
-    glUniform1f(glGetUniformLocation(id, "light.linear"), 0.007f);
+    glUniform3f(glGetUniformLocation(id, "light.position"),  30.f, 15.f, 30.f);
+    glUniform1f(glGetUniformLocation(id, "light.ambient"),   0.25f); //0.19225f);
+    glUniform1f(glGetUniformLocation(id, "light.diffuse"),   0.4f); //0.50754f);
+    glUniform1f(glGetUniformLocation(id, "light.specular"),  0.774597f); //0.508273f);
+    glUniform1f(glGetUniformLocation(id, "light.linear"),    0.007f);
     glUniform1f(glGetUniformLocation(id, "light.quadratic"), 0.0002f);
-    glUniform1f(glGetUniformLocation(id, "light.shininess"), 2.5f);
+    glUniform1f(glGetUniformLocation(id, "light.shininess"), 4.f);
 }
 
 //==============================================================================
@@ -76,8 +80,12 @@ void GravityBalls::render(void) noexcept
     
     // update model
     mat4 model{glm::translate(mat4(), vec3(0.f))};
+    model = glm::scale(model, vec3(4.f));
     glUniformMatrix4fv(modelLoc[0], 1, GL_FALSE,
                        glm::value_ptr(model));
+    
+    // update texture
+    glBindTexture(GL_TEXTURE_CUBE_MAP, CubeMap::textureID);
     
     sphere.draw();
     

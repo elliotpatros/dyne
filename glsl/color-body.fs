@@ -18,6 +18,7 @@ in vec3 fsColor;
 
 out vec4 color;
 
+uniform samplerCube skybox;
 uniform vec3 viewPos;
 uniform PointLight light;
 
@@ -28,6 +29,9 @@ void main()
     vec3 viewDir = normalize(viewPos - fsPosition);
     vec3 normal = normalize(fsNormal);
     vec3 lightDir = normalize(lightDist);
+    
+    // reflections
+    vec3 R = reflect(-viewDir, normal);
     
     // attenuation
     float dist = length(lightDist);
@@ -47,5 +51,5 @@ void main()
     vec3 specular = vec3(light.specular) * (spec * fsColor);
     vec3 lightColor = ambient + ((diffuse + specular) * atten);
     
-    color = vec4(lightColor, 1.f);
+    color = mix(texture(skybox, R), vec4(lightColor, 1.f), 0.8f);
 }
