@@ -8,9 +8,7 @@
 
 #include "Physics.h"
 
-unsigned Physics::loopNum {0};
-pthread_mutex_t Physics::lock {0};
-
+float Physics::clockHz {200.f};
 
 Physics::Physics(void) {}
 
@@ -18,9 +16,9 @@ Physics::~Physics(void) {}
 
 void Physics::timerCallback(void)
 {
-    for (int i = 0; i < INT_MAX/10; ++i);
+    // do work here
     pthread_mutex_lock(&lock);
-    IO::post("loop ", instance, " = ", loopNum++);
+    // write variables here
     pthread_mutex_unlock(&lock);
 }
 

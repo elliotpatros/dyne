@@ -29,6 +29,7 @@
 		58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DAB1C9C9441006285C7 /* PosixThread.cpp */; };
 		58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58D192091CA0870900D1617A /* OpenGLWindow.cpp */; };
 		58D192111CA09F5A00D1617A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 58820C451C9C8674006285C7 /* glew.c */; };
+		B92101F01CACB58100493CC4 /* MassyObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B92101EE1CACB58100493CC4 /* MassyObject.cpp */; };
 		B99591DD1CAC9FE500F66EAD /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99591DB1CAC9FE500F66EAD /* Physics.cpp */; };
 		B9EDC2E01CA9FC8200CB40E4 /* TextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */; };
 		B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */; };
@@ -390,6 +391,8 @@
 		58820DAC1C9C9441006285C7 /* PosixThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThread.h; sourceTree = "<group>"; };
 		58D192091CA0870900D1617A /* OpenGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLWindow.cpp; sourceTree = "<group>"; };
 		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
+		B92101EE1CACB58100493CC4 /* MassyObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MassyObject.cpp; sourceTree = "<group>"; };
+		B92101EF1CACB58100493CC4 /* MassyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MassyObject.h; sourceTree = "<group>"; };
 		B964DEC71CAB4AAF00DFB98D /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
 		B97B43741CA8555600F1ABB2 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
 		B99591DB1CAC9FE500F66EAD /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
@@ -1008,6 +1011,8 @@
 			children = (
 				B99591DB1CAC9FE500F66EAD /* Physics.cpp */,
 				B99591DC1CAC9FE500F66EAD /* Physics.h */,
+				B92101EE1CACB58100493CC4 /* MassyObject.cpp */,
+				B92101EF1CACB58100493CC4 /* MassyObject.h */,
 			);
 			name = Physics;
 			sourceTree = "<group>";
@@ -1104,6 +1109,7 @@
 				581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */,
 				B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */,
 				581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */,
+				B92101F01CACB58100493CC4 /* MassyObject.cpp in Sources */,
 				58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

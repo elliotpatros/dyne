@@ -23,25 +23,12 @@ void makeProjDirCurrentDir(void)
 }
 
 int main(void)
-{
-    Physics p[10];
-    pthread_mutex_init(&Physics::lock, NULL);
+{    
+    makeProjDirCurrentDir();
     
-    for (int i = 0; i < 10; ++i)
-    {p[i].instance = i; }
+    Application& app {Application::getInstance() };
+    if (app.setup()) {return 1; }
+    app.run();
     
-    for (int i = 0; i < 10; ++i)
-    {p[i].startMs(0); }
-    
-    usleep(1000*20000);
-    
-    for (int i = 0; i < 10; ++i) {p[i].stop(); }
-    
-//    makeProjDirCurrentDir();
-//    
-//    Application& app {Application::getInstance() };
-//    if (app.setup()) {return 1; }
-//    app.run();
-//    
-//    return 0;
+    return 0;
 }

@@ -22,16 +22,14 @@ public:
     Physics(void);
     ~Physics(void);
     
-//    void setup(const float clockHz);
-    void timerCallback(void);
-    
-    int instance;
-    static unsigned loopNum;
-    static pthread_mutex_t lock;
+    void setup(const float clockHz);
     
     
 private:
+    void timerCallback(void);
     
+    static float clockHz;
+    pthread_mutex_t lock;
 };
 
 
