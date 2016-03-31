@@ -14,7 +14,7 @@
 // glsl uniform locations
 GLuint GravityBalls::viewPosLoc{0};
 GLuint GravityBalls::projectionLoc{0};
-GLuint GravityBalls::modelLoc[DYNE_MAX_INSTANCES]{0};
+GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS]{0};
 
 // shader, sphere model and camera
 Shader GravityBalls::shader{Shader()};
@@ -40,7 +40,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
-    for (int i = 0; i < DYNE_MAX_INSTANCES; ++i)
+    for (int i = 0; i < DYNE_MAX_GBALLS; ++i)
     {
         modelLoc[i] = glGetUniformLocation(id,
                       ("model[" + std::to_string(i) + "]").c_str());
@@ -75,7 +75,7 @@ void GravityBalls::render(void) noexcept
     
     sphere.draw();
     
-//    for (GLuint n = 0; n < 100; ++n)
+//    for (GLuint n = 0; n < DYNE_MAX_GBALLS; ++n)
 //    {
 //        const float addX = (n%10)*11.f;
 //        const float addZ = (n/10)*11.f;

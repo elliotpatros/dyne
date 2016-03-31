@@ -9,7 +9,7 @@ out vec3 fsNormal;
 out vec3 fsColor;
 
 uniform mat4 projection;
-uniform mat4 model[100];
+uniform mat4 model[16];
 
 void main()
 {

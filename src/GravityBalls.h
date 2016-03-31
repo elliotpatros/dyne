@@ -30,7 +30,7 @@ private:
     // glsl uniform locations
     static GLuint viewPosLoc;
     static GLuint projectionLoc;
-    static GLuint modelLoc[DYNE_MAX_INSTANCES];
+    static GLuint modelLoc[DYNE_MAX_GBALLS];
     
     // shader, model, and camera
     static Shader shader;

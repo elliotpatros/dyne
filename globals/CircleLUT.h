@@ -39,7 +39,7 @@ private:
     N(powf(2.f, 16.f) ),
     nOverTwopi(N * rTwopi),
     nMinusOne(unsigned(roundToInt(N) ) - 1),
-    cosPhase(N/4.f)
+    cosPhase(unsigned(N/4.f))
     {
         const unsigned uiN = unsigned (N);
         try

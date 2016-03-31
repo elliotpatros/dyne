@@ -29,7 +29,6 @@
 		58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58820DAB1C9C9441006285C7 /* PosixThread.cpp */; };
 		58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58D192091CA0870900D1617A /* OpenGLWindow.cpp */; };
 		58D192111CA09F5A00D1617A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 58820C451C9C8674006285C7 /* glew.c */; };
-		B92101F01CACB58100493CC4 /* MassyObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B92101EE1CACB58100493CC4 /* MassyObject.cpp */; };
 		B99591DD1CAC9FE500F66EAD /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99591DB1CAC9FE500F66EAD /* Physics.cpp */; };
 		B9EDC2E01CA9FC8200CB40E4 /* TextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */; };
 		B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */; };
@@ -385,14 +384,13 @@
 		58820DA11C9C8A47006285C7 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
 		58820DA31C9C8CFE006285C7 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
 		58820DA41C9C8CFE006285C7 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
-		58820DA71C9C9058006285C7 /* CircleLUT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLUT.h; sourceTree = "<group>"; };
-		58820DA81C9C9058006285C7 /* Maths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maths.h; sourceTree = "<group>"; };
+		58820DA71C9C9058006285C7 /* CircleLUT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleLUT.h; path = ../globals/CircleLUT.h; sourceTree = "<group>"; };
+		58820DA81C9C9058006285C7 /* Maths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Maths.h; path = ../globals/Maths.h; sourceTree = "<group>"; };
 		58820DAB1C9C9441006285C7 /* PosixThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PosixThread.cpp; sourceTree = "<group>"; };
 		58820DAC1C9C9441006285C7 /* PosixThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosixThread.h; sourceTree = "<group>"; };
+		58AD2D2A1CADA42500DDFBD4 /* Lowpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lowpass.h; sourceTree = "<group>"; };
 		58D192091CA0870900D1617A /* OpenGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLWindow.cpp; sourceTree = "<group>"; };
 		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
-		B92101EE1CACB58100493CC4 /* MassyObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MassyObject.cpp; sourceTree = "<group>"; };
-		B92101EF1CACB58100493CC4 /* MassyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MassyObject.h; sourceTree = "<group>"; };
 		B964DEC71CAB4AAF00DFB98D /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
 		B97B43741CA8555600F1ABB2 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
 		B99591DB1CAC9FE500F66EAD /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
@@ -449,7 +447,6 @@
 			children = (
 				58820C3A1C9C8674006285C7 /* src */,
 				58820D991C9C87CF006285C7 /* includes */,
-				58820DA61C9C9058006285C7 /* globals */,
 				581E64551CA6237C008C8BFC /* glsl */,
 				58820C3C1C9C8674006285C7 /* thirdparty */,
 				B97B43731CA8555600F1ABB2 /* resources */,
@@ -473,6 +470,7 @@
 				B99591DE1CAC9FEF00F66EAD /* Physics */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
+				58AD2D2A1CADA42500DDFBD4 /* Lowpass.h */,
 				B9EDC2E51CAA00D500CB40E4 /* Drawables */,
 				581E645B1CA625A4008C8BFC /* UserControls */,
 				58D1920C1CA0871100D1617A /* Timing */,
@@ -953,17 +951,10 @@
 				58820D9D1C9C87CF006285C7 /* GLMBase.h */,
 				58820D9E1C9C87CF006285C7 /* OpenGLBase.h */,
 				58820D9F1C9C87CF006285C7 /* OSCBase.h */,
-			);
-			path = includes;
-			sourceTree = "<group>";
-		};
-		58820DA61C9C9058006285C7 /* globals */ = {
-			isa = PBXGroup;
-			children = (
 				58820DA71C9C9058006285C7 /* CircleLUT.h */,
 				58820DA81C9C9058006285C7 /* Maths.h */,
 			);
-			path = globals;
+			path = includes;
 			sourceTree = "<group>";
 		};
 		58D1920C1CA0871100D1617A /* Timing */ = {
@@ -1011,8 +1002,6 @@
 			children = (
 				B99591DB1CAC9FE500F66EAD /* Physics.cpp */,
 				B99591DC1CAC9FE500F66EAD /* Physics.h */,
-				B92101EE1CACB58100493CC4 /* MassyObject.cpp */,
-				B92101EF1CACB58100493CC4 /* MassyObject.h */,
 			);
 			name = Physics;
 			sourceTree = "<group>";
@@ -1109,7 +1098,6 @@
 				581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */,
 				B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */,
 				581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */,
-				B92101F01CACB58100493CC4 /* MassyObject.cpp in Sources */,
 				58820DAD1C9C9441006285C7 /* PosixThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

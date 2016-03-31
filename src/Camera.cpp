@@ -86,7 +86,7 @@ void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept
 
 void Camera::update(void) noexcept
 {
-    const float angle {speed * time.getDelta()};
+    const GLfloat angle {speed * time.getDelta()};
     if (input.getKeyState(GLFW_KEY_W)) {pitch += angle; } // up
     if (input.getKeyState(GLFW_KEY_S)) {pitch -= angle; } // down
     if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
@@ -100,3 +100,32 @@ void Camera::update(void) noexcept
     
     front = -position;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

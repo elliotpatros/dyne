@@ -8,12 +8,34 @@
 
 #include "Physics.h"
 
+//==============================================================================
+// static variables
+//==============================================================================
+// gravity
 float Physics::clockHz {200.f};
+const GLfloat Physics::gravityConstant {6.67408f * powf (10.f, -11.f) };
+GLfloat Physics::gravityScaler {1000000.f};
+GLfloat Physics::gravity {gravityConstant * gravityScaler};
+Time& Physics::time {Time::getInstance() };
 
+//==============================================================================
+// constructor and destructor
+//==============================================================================
 Physics::Physics(void) {}
-
 Physics::~Physics(void) {}
 
+//==============================================================================
+// public functions
+//==============================================================================
+//void Physics::setup(const float clockHz)
+//{
+//    pthread_mutex_init(&Physics::lock, NULL);
+//    startHz(hz);
+//}
+
+//==============================================================================
+// threaded physics update
+//==============================================================================
 void Physics::timerCallback(void)
 {
     // do work here
@@ -22,8 +44,11 @@ void Physics::timerCallback(void)
     pthread_mutex_unlock(&lock);
 }
 
-//void Physics::setup(const float clockHz)
-//{
-//    pthread_mutex_init(&Physics::lock, NULL);
-//    startHz(hz);
-//}
+//==============================================================================
+// physics helper functions
+//==============================================================================
+
+
+
+
+

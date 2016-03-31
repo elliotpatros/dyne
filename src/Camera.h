@@ -15,6 +15,7 @@
 
 #include "Maths.h"
 #include "CircleLUT.h"
+#include "Lowpass.h"
 
 #include "Time.h"
 #include "Input.h"
@@ -67,6 +68,7 @@ private:
     Time& time;
     Input& input;
     CircleLUT& circle;
+    Lowpass<GLfloat> pitchLP, yawLP;
     
     GLFWwindow* mainWindow;
 };

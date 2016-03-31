@@ -8,23 +8,9 @@
 
 #include "Application.h"
 
-#include "Physics.h"
-
-/*
- * change application's current directory
- * to project build folder
- */
-void makeProjDirCurrentDir(void)
-{
-    char* baseDir = getenv("HOME");
-    const char* appDir = "/Dropbox/dyne";
-    chdir(strcat(baseDir, appDir));
-
-}
-
 int main(void)
-{    
-    makeProjDirCurrentDir();
+{
+    chdir(strcat(getenv("HOME"), "/Dropbox/dyne"));
     
     Application& app {Application::getInstance() };
     if (app.setup()) {return 1; }
