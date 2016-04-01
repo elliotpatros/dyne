@@ -34,6 +34,7 @@ public:
     // sets
     void setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept;
     void update(void) noexcept;
+    static void setDistanceFromCenter(GLFWwindow* w, double x, double y) noexcept;
     
     
 private:
@@ -43,7 +44,7 @@ private:
     void operator= (Camera const&);
 
     // camera properties
-    GLfloat distanceFromCenter;
+    static GLfloat distanceFromCenter;
     glm::mat4 projection;
     glm::vec3 position;
     glm::vec3 front;

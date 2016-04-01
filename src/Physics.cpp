@@ -14,7 +14,11 @@
 
 
 // gravity
-float Physics::clockHz {200.f};
+float Physics::clockHz {1000.f};
+float Physics::tDelta {hzToMs(clockHz) / 1000.f};
+float Physics::tHalfDeltaSq {Physics::tDelta * Physics::tDelta * 0.5f};
+float Physics::rTDelta {1.f / Physics::tDelta};
+
 const GLfloat Physics::gravityConstant {6.67408f * powf(10.f, -11.f) };
 GLfloat Physics::gravityScaler {1000000.f};
 GLfloat Physics::gravity {gravityConstant * gravityScaler};
@@ -36,7 +40,7 @@ void Physics::setNMasses(const size_t n)
     nMasses = (n == 0) ? 0 : masses.size();
     nMassesMinusOne = nMasses - 1;
     
-    const float pos = 5.f;
+    const float pos = 15.f;
     for (size_t i = 0; i < nMasses; ++i)
     {
         masses[i].position = vec3(getRandomBetween(-pos, pos),
@@ -58,25 +62,19 @@ void Physics::setup(const size_t nMassesAtStart)
 //==============================================================================
 void Physics::timerCallback(void) noexcept
 {
-    // get time variables
-    const GLfloat tDelta{time.getDelta()};
-    const GLfloat tHalfDeltaSq{time.getHalfDeltaSq()};
-    const GLfloat rTDelta{1.f / tDelta};
-    
     // reset displacement
     for (size_t i = 0; i < nMasses; ++i) {masses[i].displacement = vec3(0.f);}
     
     pthread_mutex_lock(&lock);
-    accumulateDisplacement(tDelta, tHalfDeltaSq);
-    moveMasses(rTDelta);
+    accumulateDisplacement();
+    moveMasses();
     pthread_mutex_unlock(&lock);
 }
 
 //==============================================================================
 // physics helper functions
 //==============================================================================
-void Physics::accumulateDisplacement(const GLfloat tDelta,
-                                     const GLfloat tHalfTDeltaSq) noexcept
+void Physics::accumulateDisplacement(void) noexcept
 {
     for (size_t a = 0; a < nMassesMinusOne; ++a)
     {
@@ -102,7 +100,7 @@ void Physics::accumulateDisplacement(const GLfloat tDelta,
         
         // calculate actual displacement
         masses[i].displacement = masses[i].velocity     * tDelta
-                               + masses[i].displacement * tHalfTDeltaSq;
+                               + masses[i].displacement * tHalfDeltaSq;
     }
 }
 
@@ -116,12 +114,12 @@ void Physics::handleCollision(void) noexcept
     
 }
 
-void Physics::moveMasses(const GLfloat rTimeDelta) noexcept
+void Physics::moveMasses() noexcept
 {
     for (size_t i = 0; i < nMasses; ++i)
     {
         const vec3 displacement {masses[i].displacement};
         masses[i].position += displacement;
-        masses[i].velocity = rTimeDelta * displacement;
+        masses[i].velocity = rTDelta * displacement;
     }
 }

@@ -57,18 +57,17 @@ private:
     void timerCallback(void) noexcept;
     
     // physics helper functions
-    void accumulateDisplacement(const GLfloat tDelta,
-                                const GLfloat tHalfTDeltaSq) noexcept;
+    void accumulateDisplacement(void) noexcept;
     void testCollision(void) noexcept;
     void handleCollision(void) noexcept;
-    void moveMasses(const GLfloat rTimeDelta) noexcept;
+    void moveMasses() noexcept;
     
     // physical objects
     size_t nMasses, nMassesMinusOne;
     
     // threaded variables
     static float clockHz;
-    
+    static float tDelta, tHalfDeltaSq, rTDelta;
     
     // gravity
     static const GLfloat gravityConstant;
