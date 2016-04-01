@@ -28,7 +28,6 @@ void CubeMap::setup(void) noexcept
     const GLuint id{shader.useAndGetId()};
     
     viewLoc = glGetUniformLocation(id, "view");
-//    glUniform1i(glGetUniformLocation(id, "skybox"), 0);
     
     glUniformMatrix4fv(glGetUniformLocation(id, "projection"), 1, GL_FALSE,
                        glm::value_ptr(camera.getProjection()));

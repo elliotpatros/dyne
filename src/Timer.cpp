@@ -14,6 +14,11 @@ Timer::Timer(void)
     stop();
 }
 
+void Timer::setHz(float hz)
+{
+    setIntervalMs(hzToMs(hz));
+}
+
 bool Timer::start(void)
 {
     fromtime = system_clock::now();

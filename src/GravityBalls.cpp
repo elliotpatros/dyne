@@ -17,8 +17,6 @@ GLuint GravityBalls::projectionLoc {0};
 GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS] {0};
 GLuint GravityBalls::colorLoc[DYNE_MAX_GBALLS] {0};
 
-//GLuint GravityBalls::skyboxLoc {0};
-
 // shader, sphere model and camera
 Shader GravityBalls::shader{Shader()};
 Model GravityBalls::sphere{Model()};
@@ -53,16 +51,26 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
         colorLoc[i] = glGetUniformLocation(id,
                       ("color[" + sindex + "]").c_str());
         
-        glUniform3f(colorLoc[i], 1.f, 0.25f, 0.2f);
+        glUniform3f(colorLoc[i], getRandomBetween(0.f, 1.f),
+                                 getRandomBetween(0.f, 1.f),
+                                 getRandomBetween(0.f, 1.f));
     }
     
     glUniform3f(glGetUniformLocation(id, "light.position"),  30.f, 15.f, 30.f);
-    glUniform1f(glGetUniformLocation(id, "light.ambient"),   0.25f); //0.19225f);
+    glUniform1f(glGetUniformLocation(id, "light.ambient"),   0.5f); //0.19225f);
     glUniform1f(glGetUniformLocation(id, "light.diffuse"),   0.4f); //0.50754f);
     glUniform1f(glGetUniformLocation(id, "light.specular"),  0.774597f); //0.508273f);
     glUniform1f(glGetUniformLocation(id, "light.linear"),    0.007f);
     glUniform1f(glGetUniformLocation(id, "light.quadratic"), 0.0002f);
     glUniform1f(glGetUniformLocation(id, "light.shininess"), 4.f);
+    
+    
+    physics.setup(nBallsAtStart);
+}
+
+void GravityBalls::startPhysics(void) noexcept
+{
+    physics.start();
 }
 
 //==============================================================================
@@ -78,32 +86,22 @@ void GravityBalls::render(void) noexcept
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
                        glm::value_ptr(camera.getProjectionDotLookAt()));
     
-    // update model
-    mat4 model{glm::translate(mat4(), vec3(0.f))};
-    model = glm::scale(model, vec3(4.f));
-    glUniformMatrix4fv(modelLoc[0], 1, GL_FALSE,
-                       glm::value_ptr(model));
-    
-    // update texture
+    // update active texture
     glBindTexture(GL_TEXTURE_CUBE_MAP, CubeMap::textureID);
     
-    sphere.draw();
+    // lock masses (wait if busy)
+    pthread_mutex_lock(&physics.lock);
+
+    for (GLuint n = 0; n < nBalls; ++n)
+    {
+        // update model
+        mat4 model {glm::translate(mat4(), physics.masses[n].position)};
+        model = glm::scale(model, vec3(physics.masses[n].radius));
+        glUniformMatrix4fv(modelLoc[n], 1, GL_FALSE, glm::value_ptr(model));
+    }
     
-//    for (GLuint n = 0; n < DYNE_MAX_GBALLS; ++n)
-//    {
-//        const float addX = (n%10)*11.f;
-//        const float addZ = (n/10)*11.f;
-//        for (GLuint i = 0; i < nBalls; ++i)
-//        {
-//            mat4 model{glm::translate(mat4(), vec3(((i%10)+addX) - 50.f,
-//                                                   -5.f,
-//                                                   ((i/10)+addZ) - 105.f))};
-//            model = glm::scale(model, vec3(0.5f)); // getRandomBetween(0.4f, 0.5f)));
-//            
-//            glUniformMatrix4fv(modelLoc[i], 1, GL_FALSE,
-//                               glm::value_ptr(model));
-//        }
-//        
-//        sphere.drawInstanced(nBalls);
-//    }
+    pthread_mutex_unlock(&physics.lock);
+    
+    // draw everything
+    sphere.drawInstanced(nBalls);
 }

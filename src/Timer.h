@@ -29,6 +29,7 @@ public:
     bool startMs(float ms);
     bool startHz(float hz);
     void stop(void);
+    void setHz(float hz);
     virtual void timerCallback(void) = 0;
     
     

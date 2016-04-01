@@ -25,13 +25,13 @@ public:
     
     void setup(void) noexcept;
     void render(void) noexcept;
+    
     static GLuint textureID;
     
     
 private:
     // glsl uniform locations
     static GLuint viewLoc;
-//    static GLuint skyboxLoc;
     
     // shader, model, and camera
     static Shader shader;

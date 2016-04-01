@@ -18,7 +18,7 @@ nearField {0.1f},
 farField {1000.0},
 
 // defaults
-defaultPosition {0.f, 0.f, 50.f},
+defaultPosition {0.f, 0.f, 100.f},
 defaultFront {0.f, 0.f, -1.f},
 defaultUp {0.f, 1.f, 0.f},
 defaultPitch {0.f},

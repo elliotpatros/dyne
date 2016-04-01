@@ -31,7 +31,7 @@ void main()
     vec3 lightDir = normalize(lightDist);
     
     // reflections
-    vec3 R = reflect(-viewDir, normal);
+    vec3 reflection = reflect(-viewDir, normal);
     
     // attenuation
     float dist = length(lightDist);
@@ -51,5 +51,5 @@ void main()
     vec3 specular = vec3(light.specular) * (spec * fsColor);
     vec3 lightColor = ambient + ((diffuse + specular) * atten);
     
-    color = mix(texture(skybox, R), vec4(lightColor, 1.f), 0.8f);
+    color = mix(texture(skybox, reflection), vec4(lightColor, 1.f), 0.6f);
 }

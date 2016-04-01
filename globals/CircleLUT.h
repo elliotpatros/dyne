@@ -29,7 +29,7 @@ public:
     }
     inline float cos (const float radFreq) const noexcept
     {
-        return sineTable[ (static_cast<unsigned> (nOverTwopi * radFreq) + cosPhase) & nMinusOne];
+        return sineTable[(static_cast<unsigned> (nOverTwopi * radFreq) + cosPhase) & nMinusOne];
     }
     
     

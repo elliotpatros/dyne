@@ -22,19 +22,19 @@ struct MassyObject
 {
     // constructor
     MassyObject(void) :
-    displacement {vec3(0)},
-    position {vec3(0)},
-    velocity {vec3(0)},
-    mass {1},
-    radius {1}
+    displacement {vec3(0.f)},
+    position {vec3(0.f)},
+    velocity {vec3(0.f)},
+    mass {500000.f},
+    radius {getRandomBetween(2.f, 3.f)}
     { }
     
     // state variables
+    GLfloat mass;
+    GLfloat radius;
     vec3    displacement;
     vec3    position;
     vec3    velocity;
-    GLfloat mass;
-    GLfloat radius;
 };
 
 class Physics : public Timer
@@ -45,19 +45,30 @@ public:
     ~Physics(void);
     
     // public functions
-    void setup(const float clockHz);
+    void setup(const size_t nMassesAtStart);
+    void setNMasses(const size_t n);
+    
+    pthread_mutex_t lock;
+    vector<MassyObject> masses;
     
     
 private:
     // calculates one frame of all physical interactions
-    void timerCallback(void);
+    void timerCallback(void) noexcept;
+    
+    // physics helper functions
+    void accumulateDisplacement(const GLfloat tDelta,
+                                const GLfloat tHalfTDeltaSq) noexcept;
+    void testCollision(void) noexcept;
+    void handleCollision(void) noexcept;
+    void moveMasses(const GLfloat rTimeDelta) noexcept;
     
     // physical objects
-    vector<MassyObject> objects;
+    size_t nMasses, nMassesMinusOne;
     
     // threaded variables
     static float clockHz;
-    pthread_mutex_t lock;
+    
     
     // gravity
     static const GLfloat gravityConstant;
