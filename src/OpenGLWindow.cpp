@@ -94,7 +94,19 @@ bool OpenGLWindow::setupGLEW(void) noexcept
 bool OpenGLWindow::makeWindow(const string title, const ivec2 size) noexcept
 {   // returns true if errors
     // make window
-    window = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
+    GLFWmonitor* mainMonitor {glfwGetPrimaryMonitor()};
+    if (mainMonitor == nullptr)
+    {
+        IO::post("could not find primary monitor");
+        return true;
+    }
+    
+    const GLFWvidmode* mode = glfwGetVideoMode(mainMonitor);
+    window = glfwCreateWindow((size.x < 1) ? mode->width : size.x,
+                              (size.y < 1) ? mode->height: size.y,
+                               title.c_str(),
+                              (tmax(size.x, size.y) < 1) ? mainMonitor : NULL,
+                               NULL);
     if (window == nullptr)
     {
         IO::post("failed to create GLFW window");

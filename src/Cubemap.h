@@ -27,7 +27,7 @@ public:
     void render(void) noexcept;
     
     static GLuint textureID;
-    
+    static const string faceNames[6];
     
 private:
     // glsl uniform locations

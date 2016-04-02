@@ -18,6 +18,11 @@ Shader CubeMap::shader{Shader()};
 Model CubeMap::model{Model()};
 Camera& CubeMap::camera{Camera::getInstance()};
 
+// face names
+const string CubeMap::faceNames[6] {"_right", "_left",
+                                    "_top", "_bottom",
+                                    "_back", "_front"};
+
 void CubeMap::setup(void) noexcept
 {
     // load shader and model
@@ -41,11 +46,20 @@ void CubeMap::setup(void) noexcept
     vector<vector<unsigned char>> image (6);
     for (GLuint i = 0; i < image.size(); ++i)
     {
-        lodepng::decode(image[i],
-                        width,
-                        height,
-//                        "resources/textures/test.png");
-                        string("resources/textures/sky") + std::to_string(i) + string(".png"));
+        const string filename {"resources/textures/cube" + faceNames[i] + ".png"};
+        IO::post(filename);
+        unsigned error = lodepng::decode(image[i],
+                                         width,
+                                         height,
+                                         filename);
+//                                         string("resources/textures/galaxy"
+//                                        + std::to_string(i)
+//                                        + ".png"));
+        
+        if (error)
+        {
+            IO::post("lodepng error ", error, ": ", lodepng_error_text(error));
+        }
         
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB,
                      width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[i][0]);

@@ -57,7 +57,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     }
     
     glUniform3f(glGetUniformLocation(id, "light.position"),  30.f, 15.f, 30.f);
-    glUniform1f(glGetUniformLocation(id, "light.ambient"),   0.5f); //0.19225f);
+    glUniform1f(glGetUniformLocation(id, "light.ambient"),   0.9f); //0.19225f);
     glUniform1f(glGetUniformLocation(id, "light.diffuse"),   0.4f); //0.50754f);
     glUniform1f(glGetUniformLocation(id, "light.specular"),  0.774597f); //0.508273f);
     glUniform1f(glGetUniformLocation(id, "light.linear"),    0.007f);

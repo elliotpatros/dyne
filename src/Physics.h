@@ -17,7 +17,6 @@
 #include "Timer.h" // for setting physics clock
 #include "Time.h"  // for getting altered time (e.g. stretched, paused)
 
-
 struct MassyObject
 {
     // constructor
@@ -30,6 +29,7 @@ struct MassyObject
     { }
     
     // state variables
+    bool    hit;
     GLfloat mass;
     GLfloat radius;
     vec3    displacement;
@@ -58,8 +58,7 @@ private:
     
     // physics helper functions
     void accumulateDisplacement(void) noexcept;
-    void testCollision(void) noexcept;
-    void handleCollision(void) noexcept;
+    void collide(void) noexcept;
     void moveMasses() noexcept;
     
     // physical objects
@@ -70,6 +69,7 @@ private:
     static float tDelta, tHalfDeltaSq, rTDelta;
     
     // gravity
+    static const GLfloat elasticity;
     static const GLfloat gravityConstant;
     static GLfloat gravityScaler;
     static GLfloat gravity;
