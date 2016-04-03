@@ -67,7 +67,6 @@
 		5874B4D71CAA37E4000C37AB /* Cubemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cubemap.h; sourceTree = "<group>"; };
 		5874B4D91CAA4DC0000C37AB /* cubemap.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = cubemap.vs; sourceTree = "<group>"; };
 		5874B4DA1CAA4DC6000C37AB /* cubemap.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = cubemap.fs; sourceTree = "<group>"; };
-		5874B4DB1CAA505D000C37AB /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		58820C301C9C8369006285C7 /* dyne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dyne; sourceTree = BUILT_PRODUCTS_DIR; };
 		58820C3B1C9C8674006285C7 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		58820C401C9C8674006285C7 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
@@ -391,8 +390,10 @@
 		58AD2D2A1CADA42500DDFBD4 /* Lowpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lowpass.h; sourceTree = "<group>"; };
 		58D192091CA0870900D1617A /* OpenGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLWindow.cpp; sourceTree = "<group>"; };
 		58D1920A1CA0870900D1617A /* OpenGLWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLWindow.h; sourceTree = "<group>"; };
-		B964DEC71CAB4AAF00DFB98D /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
-		B97B43741CA8555600F1ABB2 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
+		58FB38C71CB1822500B1D4E5 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		58FB38C81CB1822500B1D4E5 /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
+		58FB38C91CB1822500B1D4E5 /* smooth-iso.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "smooth-iso.obj"; sourceTree = "<group>"; };
+		58FB38CB1CB1822500B1D4E5 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		B99591DB1CAC9FE500F66EAD /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
 		B99591DC1CAC9FE500F66EAD /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureLoader.cpp; sourceTree = "<group>"; };
@@ -987,12 +988,29 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		58FB38C61CB1822500B1D4E5 /* obj */ = {
+			isa = PBXGroup;
+			children = (
+				58FB38C71CB1822500B1D4E5 /* cube.obj */,
+				58FB38C81CB1822500B1D4E5 /* skybox.obj */,
+				58FB38C91CB1822500B1D4E5 /* smooth-iso.obj */,
+			);
+			path = obj;
+			sourceTree = "<group>";
+		};
+		58FB38CA1CB1822500B1D4E5 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				58FB38CB1CB1822500B1D4E5 /* test.png */,
+			);
+			path = textures;
+			sourceTree = "<group>";
+		};
 		B97B43731CA8555600F1ABB2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				B964DEC71CAB4AAF00DFB98D /* skybox.obj */,
-				5874B4DB1CAA505D000C37AB /* cube.obj */,
-				B97B43741CA8555600F1ABB2 /* smooth-iso.obj */,
+				58FB38C61CB1822500B1D4E5 /* obj */,
+				58FB38CA1CB1822500B1D4E5 /* textures */,
 			);
 			path = resources;
 			sourceTree = "<group>";

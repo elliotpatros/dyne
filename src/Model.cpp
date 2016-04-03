@@ -34,7 +34,7 @@ void Model::load(const string path,
                  VertexType::Flag type) noexcept
 {
     Assimp::Importer importer;
-    const aiScene* scene{importer.ReadFile("resources/" + path,
+    const aiScene* scene{importer.ReadFile("resources/obj/" + path,
                                            aiProcess_Triangulate |
                                            aiProcess_JoinIdenticalVertices)};
     
