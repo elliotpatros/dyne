@@ -47,14 +47,10 @@ void CubeMap::setup(void) noexcept
     for (GLuint i = 0; i < image.size(); ++i)
     {
         const string filename {"resources/textures/cube" + faceNames[i] + ".png"};
-        IO::post(filename);
         unsigned error = lodepng::decode(image[i],
                                          width,
                                          height,
                                          filename);
-//                                         string("resources/textures/galaxy"
-//                                        + std::to_string(i)
-//                                        + ".png"));
         
         if (error)
         {

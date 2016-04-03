@@ -14,7 +14,7 @@
 #include <pthread.h>
 #include <unistd.h> // for chdir and usleep
 
-#define DYNE_MAX_GBALLS 3
+#define DYNE_MAX_GBALLS 5
 
 using std::cout;
 using std::endl;

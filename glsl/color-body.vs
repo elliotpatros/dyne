@@ -1,6 +1,6 @@
 #version 330 core
 
-#define DYNE_MAX_GBALLS 3
+#define DYNE_MAX_GBALLS 5
 
 layout (location = 0) in vec3 vsPosition;
 layout (location = 1) in vec3 vsNormal;
