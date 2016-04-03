@@ -40,7 +40,7 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     glfwSetScrollCallback(window, Camera::setDistanceFromCenter);
     
     sky.setup();
-    balls.setup(DYNE_MAX_GBALLS);
+    balls.setup(2);
     balls.startPhysics();
     oscIn.startThread();
     

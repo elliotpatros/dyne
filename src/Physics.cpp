@@ -32,12 +32,21 @@ bool Physics::readyToPlay {true};
 Time& Physics::time {Time::getInstance() };
 pthread_mutex_t Physics::lock (PTHREAD_MUTEX_INITIALIZER);
 
+// masses
+size_t Physics::nMasses {0};
+size_t Physics::nMassesMinusOne {0};
+vector<MassyObject> Physics::masses {vector<MassyObject> ()};
+GLfloat MassyObject::pos {45.f};
+
 //==============================================================================
 // constructor and destructor
 //==============================================================================
 Physics::Physics(void)
 {
     pause(0.f);
+    masses.reserve(DYNE_MAX_GBALLS);
+    masses.clear();
+    masses.resize(1);
 }
 
 Physics::~Physics(void) {}
@@ -49,15 +58,7 @@ void Physics::setNMasses(const size_t n)
 {
     masses.resize(n);
     nMasses = (n == 0) ? 0 : masses.size();
-    nMassesMinusOne = nMasses - 1;
-    
-    const GLfloat pos = 25.f;
-    for (size_t i = 0; i < nMasses; ++i)
-    {
-        masses[i].position = vec3(getRandomBetween(-pos, pos),
-                                  getRandomBetween(-pos, pos),
-                                  getRandomBetween(-pos, pos));
-    }
+    nMassesMinusOne = (nMasses == 0) ? 0 : nMasses - 1;
 }
 
 void Physics::setup(const size_t nMassesAtStart)

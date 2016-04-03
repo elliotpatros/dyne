@@ -22,6 +22,8 @@ Shader GravityBalls::shader{Shader()};
 Model GravityBalls::sphere{Model()};
 Camera& GravityBalls::camera{Camera::getInstance()};
 
+// user controls
+GLuint GravityBalls::nBalls {0};
 
 //==============================================================================
 // start up
@@ -71,6 +73,17 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
 void GravityBalls::startPhysics(void) noexcept
 {
     physics.start();
+}
+
+//==============================================================================
+// user controls
+//==============================================================================
+void GravityBalls::setNBalls(const GLfloat n) noexcept
+{
+    pthread_mutex_lock(&Physics::lock);
+    nBalls = roundToInt(n);
+    Physics::setNMasses(nBalls);
+    pthread_mutex_unlock(&Physics::lock);
 }
 
 //==============================================================================

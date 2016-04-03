@@ -29,9 +29,10 @@ public:
     void startPhysics(void) noexcept;
     void render(void) noexcept;
     
+    static void setNBalls(const GLfloat n) noexcept;
     
 private:
-    GLuint nBalls;
+    static GLuint nBalls;
     
     // glsl uniform locations
     static GLuint viewPosLoc;

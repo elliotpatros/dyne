@@ -22,7 +22,9 @@ struct MassyObject
     // constructor
     MassyObject(void) :
     displacement {vec3(0.f)},
-    position {vec3(0.f)},
+    position {vec3(getRandomBetween(-pos, pos),
+                   getRandomBetween(-pos, pos),
+                   getRandomBetween(-pos, pos))},
     velocity {vec3(0.f)},
     mass {500000.f},
     radius {getRandomBetween(2.f, 3.f)}
@@ -35,6 +37,8 @@ struct MassyObject
     vec3    displacement;
     vec3    position;
     vec3    velocity;
+    
+    static GLfloat pos;
 };
 
 class Physics : public Timer
@@ -46,7 +50,7 @@ public:
     
     // public functions
     void setup(const size_t nMassesAtStart);
-    void setNMasses(const size_t n);
+    static void setNMasses(const size_t n);
     
     // user functions
     static void scaleTime(const GLfloat scale) noexcept;
@@ -56,7 +60,7 @@ public:
     
     // public variables
     static pthread_mutex_t lock;
-    vector<MassyObject> masses;
+    static vector<MassyObject> masses;
     
     
 private:
@@ -70,7 +74,7 @@ private:
     void moveMasses() noexcept;
     
     // physical objects
-    size_t nMasses, nMassesMinusOne;
+    static size_t nMasses, nMassesMinusOne;
     static const GLfloat centerMassConstant;
     static GLfloat centerMass;
     

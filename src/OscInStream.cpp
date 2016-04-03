@@ -73,6 +73,10 @@ void OscInStream::ProcessMessage (const osc::ReceivedMessage& m,
         {
             Physics::pause(extractFloat(m.ArgumentStream()));
         }
+        else if (std::strcmp(pattern, "/nMasses") == 0)
+        {
+            GravityBalls::setNBalls(extractFloat(m.ArgumentStream()));
+        }
     }
     catch (osc::Exception& e)
     {
