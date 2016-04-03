@@ -18,6 +18,7 @@
 #include "Camera.h"
 #include "GravityBalls.h"
 #include "CubeMap.h"
+#include "OscInStream.h"
 
 class OpenGLWindow
 {
@@ -53,6 +54,7 @@ private:
     Time& time;
     Input& input;
     Camera& camera;
+    OscInStreamThread oscIn;
     
     // size (pixels)
     ivec2 windowSize;

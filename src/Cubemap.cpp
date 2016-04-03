@@ -46,7 +46,7 @@ void CubeMap::setup(void) noexcept
     vector<vector<unsigned char>> image (6);
     for (GLuint i = 0; i < image.size(); ++i)
     {
-        const string filename {"resources/textures/cube" + faceNames[i] + ".png"};
+        const string filename {"resources/textures/test.png"}; // cube2" + faceNames[i] + ".png"};
         unsigned error = lodepng::decode(image[i],
                                          width,
                                          height,

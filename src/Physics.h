@@ -48,13 +48,21 @@ public:
     void setup(const size_t nMassesAtStart);
     void setNMasses(const size_t n);
     
-    pthread_mutex_t lock;
+    // user functions
+    static void scaleTime(const GLfloat scale) noexcept;
+    static void scaleGravity(const GLfloat scale) noexcept;
+    static void scaleCenterMass(const GLfloat scale) noexcept;
+    static void pause(const GLfloat pauseIfNonZero) noexcept;
+    
+    // public variables
+    static pthread_mutex_t lock;
     vector<MassyObject> masses;
     
     
 private:
     // calculates one frame of all physical interactions
-    void timerCallback(void) noexcept;
+    void timerCallback(void) noexcept;    
+    static bool readyToPlay;
     
     // physics helper functions
     void accumulateDisplacement(void) noexcept;
@@ -63,15 +71,16 @@ private:
     
     // physical objects
     size_t nMasses, nMassesMinusOne;
+    static const GLfloat centerMassConstant;
+    static GLfloat centerMass;
     
     // threaded variables
-    static float clockHz;
-    static float tDelta, tHalfDeltaSq, rTDelta;
+    static const GLfloat clockHz, tDeltaConstant;
+    static GLfloat tDelta, tHalfDeltaSq, rTDelta;
     
     // gravity
     static const GLfloat elasticity;
     static const GLfloat gravityConstant;
-    static GLfloat gravityScaler;
     static GLfloat gravity;
     static Time& time;
 };

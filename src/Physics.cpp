@@ -14,21 +14,31 @@
 
 
 // gravity
-float Physics::clockHz {1000.f};
-float Physics::tDelta {hzToMs(clockHz) / 1000.f};
-float Physics::tHalfDeltaSq {Physics::tDelta * Physics::tDelta * 0.5f};
-float Physics::rTDelta {1.f / Physics::tDelta};
+const GLfloat Physics::clockHz {1000.f};
+const GLfloat Physics::tDeltaConstant {hzToMs(clockHz) / 1000.f};
+GLfloat Physics::tDelta {tDeltaConstant};
+GLfloat Physics::tHalfDeltaSq {Physics::tDelta * Physics::tDelta * 0.5f};
+GLfloat Physics::rTDelta {1.f / Physics::tDelta};
 
 const GLfloat Physics::gravityConstant {6.67408f * powf(10.f, -5.f)};
 const GLfloat Physics::elasticity {1.f};
-GLfloat Physics::gravityScaler {1.f};
-GLfloat Physics::gravity {gravityConstant * gravityScaler};
+GLfloat Physics::gravity {gravityConstant};
+const GLfloat Physics::centerMassConstant {10000.f};
+GLfloat Physics::centerMass {centerMassConstant};
+
+// time
+bool Physics::readyToPlay {true};
+
 Time& Physics::time {Time::getInstance() };
+pthread_mutex_t Physics::lock (PTHREAD_MUTEX_INITIALIZER);
 
 //==============================================================================
 // constructor and destructor
 //==============================================================================
-Physics::Physics(void) {}
+Physics::Physics(void)
+{
+    pause(0.f);
+}
 
 Physics::~Physics(void) {}
 
@@ -41,7 +51,7 @@ void Physics::setNMasses(const size_t n)
     nMasses = (n == 0) ? 0 : masses.size();
     nMassesMinusOne = nMasses - 1;
     
-    const float pos = 25.f;
+    const GLfloat pos = 25.f;
     for (size_t i = 0; i < nMasses; ++i)
     {
         masses[i].position = vec3(getRandomBetween(-pos, pos),
@@ -52,14 +62,40 @@ void Physics::setNMasses(const size_t n)
 
 void Physics::setup(const size_t nMassesAtStart)
 {
-    tDelta *= 5.f;
-    tHalfDeltaSq = tDelta * tDelta * 0.5f;
-    rTDelta = 1.f / tDelta;
-    
     setHz(clockHz);
     setNMasses(nMassesAtStart);
     
     pthread_mutex_init(&lock, NULL);
+}
+
+void Physics::scaleTime(const GLfloat scale) noexcept
+{
+    pthread_mutex_lock(&lock);
+    tDelta = tDeltaConstant * scale;
+    tHalfDeltaSq = tDelta * tDelta * 0.5f;
+    rTDelta = 1.f / tDelta;
+    pthread_mutex_unlock(&lock);
+}
+
+void Physics::scaleGravity(const GLfloat scale) noexcept
+{
+    pthread_mutex_lock(&lock);
+    gravity = gravityConstant * scale;
+    pthread_mutex_unlock(&lock);
+}
+
+void Physics::scaleCenterMass(const GLfloat scale) noexcept
+{
+    pthread_mutex_lock(&lock);
+    centerMass = centerMassConstant * scale;
+    pthread_mutex_unlock(&lock);
+}
+
+void Physics::pause(const GLfloat pauseIfZero) noexcept
+{
+    pthread_mutex_lock(&lock);
+    readyToPlay = pauseIfZero != 0;
+    pthread_mutex_unlock(&lock);
 }
 
 //==============================================================================
@@ -67,18 +103,21 @@ void Physics::setup(const size_t nMassesAtStart)
 //==============================================================================
 void Physics::timerCallback(void) noexcept
 {
-    // reset displacement and hit
-    for (size_t i = 0; i < nMasses; ++i)
+    if (readyToPlay)
     {
-        masses[i].hit = false;
-        masses[i].displacement = vec3(0.f);
+        // reset displacement and hit
+        for (size_t i = 0; i < nMasses; ++i)
+        {
+            masses[i].hit = false;
+            masses[i].displacement = vec3(0.f);
+        }
+        
+        pthread_mutex_lock(&lock);
+        accumulateDisplacement();
+        collide();
+        moveMasses();
+        pthread_mutex_unlock(&lock);
     }
-    
-    pthread_mutex_lock(&lock);
-    accumulateDisplacement();
-    collide();
-    moveMasses();
-    pthread_mutex_unlock(&lock);
 }
 
 //==============================================================================
@@ -104,7 +143,7 @@ void Physics::accumulateDisplacement(void) noexcept
     {
         // make a gravitational center without size
         const vec3 d {-masses[i].position};
-        const GLfloat F {gravity * masses[i].mass * 10000.f
+        const GLfloat F {gravity * masses[i].mass * centerMass
                       / tmax (d.x * d.x + d.y * d.y + d.z * d.z, 10.f)};
         masses[i].displacement += (F / masses[i].mass) * d;
         
@@ -146,8 +185,8 @@ void Physics::collide(void) noexcept
             
             if (tmax(CPA.x, CPA.y, CPA.z) < dyne_epsilon)
             {   // if collision is head on
-                masses[A].velocity = -masses[A].displacement * elasticity / tDelta;
-                masses[B].velocity = -masses[B].displacement * elasticity / tDelta;
+                masses[A].velocity = -masses[A].displacement * elasticity * rTDelta;
+                masses[B].velocity = -masses[B].displacement * elasticity * rTDelta;
             }
             else
             {
@@ -179,8 +218,8 @@ void Physics::collide(void) noexcept
                 Bv = rotateBack * Bv + masses[B].displacement;
                 
                 // update velocity
-                masses[A].velocity = Av / tDelta;
-                masses[B].velocity = Bv / tDelta;
+                masses[A].velocity = Av * rTDelta;
+                masses[B].velocity = Bv * rTDelta;
             }
             
             // update position

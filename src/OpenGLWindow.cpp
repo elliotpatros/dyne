@@ -41,6 +41,8 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     
     sky.setup();
     balls.setup(DYNE_MAX_GBALLS);
+    balls.startPhysics();
+    oscIn.startThread();
     
     return false;
 }
@@ -130,8 +132,6 @@ void OpenGLWindow::hide(void) noexcept {glfwHideWindow(window); }
 //==============================================================================
 void OpenGLWindow::loop(void) noexcept
 {
-    balls.startPhysics();
-    
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
