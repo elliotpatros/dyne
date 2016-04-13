@@ -8,7 +8,7 @@
 
 #include "Shader.h"
 
-const string Shader::glslPath{"glsl/"};
+const string Shader::glslPath ("glsl/");
 
 Shader::Shader(void)
 {
@@ -36,16 +36,16 @@ Shader::Shader(const string vsDir, const string fsDir)
         IO::post("shader ifstream failed", error.what());
     }
     
-    const GLchar* vsCode{svsCode.c_str()};
-    const GLchar* fsCode{sfsCode.c_str()};
+    const GLchar* vsCode (svsCode.c_str());
+    const GLchar* fsCode (sfsCode.c_str());
     
     // compile shaders
-    const GLuint vsId{glCreateShader(GL_VERTEX_SHADER)};
+    const GLuint vsId (glCreateShader(GL_VERTEX_SHADER));
     glShaderSource(vsId, 1, &vsCode, NULL);
     glCompileShader(vsId);
     checkCompileError(vsId);
     
-    const GLuint fsId{glCreateShader(GL_FRAGMENT_SHADER)};
+    const GLuint fsId (glCreateShader(GL_FRAGMENT_SHADER));
     glShaderSource(fsId, 1, &fsCode, NULL);
     glCompileShader(fsId);
     checkCompileError(fsId);
@@ -67,7 +67,7 @@ bool Shader::checkCompileError(const GLuint shader) const noexcept
 {
     // returns true if error
     GLint success;
-    const unsigned logSize(512);
+    const unsigned logSize (512);
     GLchar infoLog[logSize];
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success)
@@ -85,7 +85,7 @@ bool Shader::checkCompileError(const GLuint shader) const noexcept
 bool Shader::checkLinkingError(const GLuint program) const noexcept
 {
     GLint success;
-    const unsigned logSize(512);
+    const unsigned logSize (512);
     GLchar infoLog[logSize];
     glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success)

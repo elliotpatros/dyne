@@ -34,9 +34,9 @@ void Model::load(const string path,
                  VertexType::Flag type) noexcept
 {
     Assimp::Importer importer;
-    const aiScene* scene{importer.ReadFile("resources/obj/" + path,
-                                           aiProcess_Triangulate |
-                                           aiProcess_JoinIdenticalVertices)};
+    const aiScene* scene (importer.ReadFile("resources/obj/" + path,
+                                            aiProcess_Triangulate |
+                                            aiProcess_JoinIdenticalVertices));
     
     if ((scene == nullptr) ||
         (scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE) ||

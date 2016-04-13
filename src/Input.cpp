@@ -11,17 +11,14 @@
 #include "Input.h"
 
 Input::Input(void) :
-nKeys{GLFW_KEY_LAST + 1},
-keyStates{new vector<bool>(nKeys)},
-firstKeyPresses{new vector<int>()},
-callbacks{new vector<Callback>(nKeys, nullCallback)}
+nKeys (GLFW_KEY_LAST + 1),
+keyStates {new vector<bool>(nKeys)},
+firstKeyPresses {new vector<int>()},
+callbacks {new vector<Callback>(nKeys, nullCallback)}
 {
     firstKeyPresses->reserve(nKeys);
     
-    for (unsigned i = 0; i < nKeys; ++i)
-    {
-        (*keyStates) [i] = false;
-    }
+    for (unsigned i = 0; i < nKeys; ++i) {(*keyStates) [i] = false; }
 }
 
 Input& Input::getInstance(void)

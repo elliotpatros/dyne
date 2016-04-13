@@ -10,10 +10,10 @@
 
 #include "Time.h"
 
-GLfloat Time::timeStretch{1.f};
-GLfloat Time::delta{1.f};
-GLfloat Time::stretchedDelta{0.1f};
-bool Time::stretchIsThreadSafe{true};
+GLfloat Time::timeStretch (1.f);
+GLfloat Time::delta (1.f);
+GLfloat Time::stretchedDelta (0.1f);
+bool Time::stretchIsThreadSafe (true);
 
 Time& Time::getInstance(void) noexcept
 {

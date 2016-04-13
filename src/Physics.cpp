@@ -14,29 +14,27 @@
 
 
 // gravity
-const GLfloat Physics::clockHz {1000.f};
-const GLfloat Physics::tDeltaConstant {hzToMs(clockHz) / 1000.f};
-GLfloat Physics::tDelta {tDeltaConstant};
-GLfloat Physics::tHalfDeltaSq {Physics::tDelta * Physics::tDelta * 0.5f};
-GLfloat Physics::rTDelta {1.f / Physics::tDelta};
+const GLfloat Physics::clockHz (1000.f);
+const GLfloat Physics::tDeltaConstant (hzToMs(clockHz) / 1000.f);
+GLfloat Physics::tDelta (tDeltaConstant);
+GLfloat Physics::tHalfDeltaSq (Physics::tDelta * Physics::tDelta * 0.5f);
+GLfloat Physics::rTDelta (1.f / Physics::tDelta);
 
-const GLfloat Physics::gravityConstant {6.67408f * powf(10.f, -5.f)};
-const GLfloat Physics::elasticity {1.f};
-GLfloat Physics::gravity {gravityConstant};
-const GLfloat Physics::centerMassConstant {10000.f};
-GLfloat Physics::centerMass {centerMassConstant};
+const GLfloat Physics::gravityConstant (6.67408f * powf(10.f, -5.f));
+const GLfloat Physics::elasticity (1.f);
+GLfloat Physics::gravity (gravityConstant);
+const GLfloat Physics::centerMassConstant (10000.f);
+GLfloat Physics::centerMass (centerMassConstant);
 
 // time
-bool Physics::readyToPlay {true};
-
-Time& Physics::time {Time::getInstance() };
+bool Physics::readyToPlay (true);
 pthread_mutex_t Physics::lock (PTHREAD_MUTEX_INITIALIZER);
 
 // masses
-size_t Physics::nMasses {0};
-size_t Physics::nMassesMinusOne {0};
+size_t Physics::nMasses (0);
+size_t Physics::nMassesMinusOne (0);
 vector<MassyObject> Physics::masses {vector<MassyObject> ()};
-GLfloat MassyObject::pos {45.f};
+GLfloat MassyObject::pos (45.f);
 
 //==============================================================================
 // constructor and destructor
@@ -128,14 +126,14 @@ void Physics::accumulateDisplacement(void) noexcept
 {
     for (size_t A = 0; A < nMassesMinusOne; ++A)
     {
-        const GLfloat ATimesGravity {gravity * masses[A].mass};
+        const GLfloat ATimesGravity (gravity * masses[A].mass);
         
         for (size_t B = A + 1; B < nMasses; ++B)
         {
-            const vec3 AB {masses[B].position - masses[A].position};
-            const GLfloat F {ATimesGravity * masses[B].mass
-                          / (AB.x * AB.x + AB.y * AB.y + AB.z * AB.z)};
-            masses[A].displacement += (F / masses[A].mass) * AB;
+            const vec3 AB (masses[B].position - masses[A].position);
+            const GLfloat F (ATimesGravity * masses[B].mass
+                          / (AB.x * AB.x + AB.y * AB.y + AB.z * AB.z));
+            masses[A].displacement += (F / masses[A].mass) *  AB;
             masses[B].displacement += (F / masses[B].mass) * -AB;
         }
     }
@@ -143,9 +141,9 @@ void Physics::accumulateDisplacement(void) noexcept
     for (size_t i = 0; i < nMasses; ++i)
     {
         // make a gravitational center without size
-        const vec3 d {-masses[i].position};
-        const GLfloat F {gravity * masses[i].mass * centerMass
-                      / tmax (d.x * d.x + d.y * d.y + d.z * d.z, 10.f)};
+        const vec3 d (-masses[i].position);
+        const GLfloat F (gravity * masses[i].mass * centerMass
+                      / tmax (d.x * d.x + d.y * d.y + d.z * d.z, 10.f));
         masses[i].displacement += (F / masses[i].mass) * d;
         
         // calculate actual displacement
@@ -159,62 +157,62 @@ void Physics::collide(void) noexcept
     for (size_t A = 0; A < nMassesMinusOne; ++A)
     {
         for (size_t B = A + 1; B < nMasses; ++B)
-        {
-            vec3 V {masses[A].displacement - masses[B].displacement};
-            const vec3 P {masses[A].position - masses[B].position};
-            const GLfloat radii {masses[A].radius + masses[B].radius};
-            const GLfloat a {2.f * glm::dot(V, V)};
-            const GLfloat b {-2.f * glm::dot(P, V)};
-            const GLfloat c {glm::dot(P, P) - (radii * radii)};
-            const GLfloat discriminant {b * b - 2.f * a * c};
+        {   // test for collision in this frame
+            vec3 V (masses[A].displacement - masses[B].displacement);
+            const vec3 P (masses[A].position - masses[B].position);
+            const GLfloat radii (masses[A].radius + masses[B].radius);
+            const GLfloat a ( 2.f * glm::dot(V, V));
+            const GLfloat b (-2.f * glm::dot(P, V));
+            const GLfloat c (glm::dot(P, P) - (radii * radii));
+            const GLfloat discriminant (b * b - 2.f * a * c);
             
             // if discriminant is positive, the linear paths of A and B collide
             if (discriminant <= 0.f) {continue; }
-            const GLfloat hitTime {(b - sqrtf(discriminant)) / a};
+            const GLfloat hitTime ((b - sqrtf(discriminant)) / a);
             
             // if hit time is between 0 and 1, A and B hit in this frame
             if (hitTime < 0.f || hitTime > 1.f) {continue; }
             else {masses[A].hit = masses[B].hit = true; }
             
-            const GLfloat tCPA {b / a};
-            const vec3 CPA {glm::abs((masses[A].position + tCPA * masses[A].displacement)
-                                   - (masses[B].position + tCPA * masses[B].displacement))};
+            const GLfloat tCPA (b / a);
+            const vec3 CPA (glm::abs((masses[A].position + tCPA * masses[A].displacement)
+                                   - (masses[B].position + tCPA * masses[B].displacement)));
             
             // handle collision
-            const vec3 Ahitpos {masses[A].position + masses[A].displacement * hitTime};
-            const vec3 Bhitpos {masses[B].position + masses[B].displacement * hitTime};
+            const vec3 Ahitpos (masses[A].position + masses[A].displacement * hitTime);
+            const vec3 Bhitpos (masses[B].position + masses[B].displacement * hitTime);
             
             if (tmax(CPA.x, CPA.y, CPA.z) < dyne_epsilon)
-            {   // if collision is head on
-                masses[A].velocity = -masses[A].displacement * elasticity * rTDelta;
-                masses[B].velocity = -masses[B].displacement * elasticity * rTDelta;
+            {   // collision is head on. only need to negate velocity
+                masses[A].velocity *= -elasticity;
+                masses[B].velocity *= -elasticity;
             }
             else
-            {
+            {   // collision is not head on, get ready...
                 // transform into B space
-                vec3 Ap {Ahitpos - Bhitpos};
-                vec3 Av {V};
+                vec3 Ap (Ahitpos - Bhitpos);
+                vec3 Av (V);
                 
                 // rotate Av onto xy plane
-                const GLfloat thetaZ {atanf(Ap.z / Ap.x)};
-                const GLfloat startY {atanf(Ap.y / sqrtf(Ap.x * Ap.x + Ap.z * Ap.z))};
-                const GLfloat thetaY {(Ap.x > 0.f) ? startY : pi - startY};
-                const mat3 rotateZ {glm::rotate(mat4(), thetaZ, vec3(0.f, 1.f,  0.f))};
-                const mat3 rotateY {glm::rotate(mat4(), thetaY, vec3(0.f, 0.f, -1.f))};
+                const GLfloat thetaZ (atanf(Ap.z / Ap.x));
+                const GLfloat startY (atanf(Ap.y / sqrtf(Ap.x * Ap.x + Ap.z * Ap.z)));
+                const GLfloat thetaY ((Ap.x > 0.f) ? startY : pi - startY);
+                const mat3 rotateZ (glm::rotate(mat4(), thetaZ, vec3(0.f, 1.f,  0.f)));
+                const mat3 rotateY (glm::rotate(mat4(), thetaY, vec3(0.f, 0.f, -1.f)));
                 Av = rotateY * (rotateZ * Av);
-                const mat3 rotateX {glm::rotate(mat4(), atanf(Av.z / Av.y), vec3(-1.f, 0.f, 0.f))};
+                const mat3 rotateX (glm::rotate(mat4(), atanf(Av.z / Av.y), vec3(-1.f, 0.f, 0.f)));
                 Av = rotateX * Av;
                 
-                // handle collision
-                const GLfloat Avx {(masses[A].mass * Av.x - masses[B].mass * elasticity * Av.x)
-                    / (masses[A].mass + masses[B].mass)};
-                vec3 Bv {elasticity * Av.x + Avx, 0.f, 0.f};
+                // handle collision in 2D
+                const GLfloat Avx ((masses[A].mass * Av.x - masses[B].mass * elasticity * Av.x)
+                                 / (masses[A].mass + masses[B].mass));
+                vec3 Bv (elasticity * Av.x + Avx, 0.f, 0.f);
                 Av = vec3(Avx, Av.y, 0.f);
                 
                 // transform back into global space
-                const mat3 rotateBack {glm::transpose(rotateZ)
-                                     * glm::transpose(rotateY)
-                                     * glm::transpose(rotateX)};
+                const mat3 rotateBack (glm::transpose(rotateZ)
+                                    * (glm::transpose(rotateY)
+                                    *  glm::transpose(rotateX)));
                 Av = rotateBack * Av + masses[B].displacement;
                 Bv = rotateBack * Bv + masses[B].displacement;
                 
@@ -224,7 +222,7 @@ void Physics::collide(void) noexcept
             }
             
             // update position
-            const GLfloat timeAfterHit {tDelta * (1.f - hitTime)};
+            const GLfloat timeAfterHit (tDelta * (1.f - hitTime));
             masses[A].position = Ahitpos + masses[A].velocity * timeAfterHit;
             masses[B].position = Bhitpos + masses[B].velocity * timeAfterHit;
             
@@ -239,8 +237,7 @@ void Physics::moveMasses() noexcept
     for (size_t i = 0; i < nMasses; ++i)
     {
         if (masses[i].hit) {continue; }
-        const vec3 displacement {masses[i].displacement};
-        masses[i].position += displacement;
-        masses[i].velocity = rTDelta * displacement;
+        masses[i].position += masses[i].displacement;
+        masses[i].velocity = masses[i].displacement * rTDelta;
     }
 }

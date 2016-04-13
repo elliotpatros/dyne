@@ -8,24 +8,24 @@
 
 #include "Camera.h"
 
-GLfloat Camera::distanceFromCenter {0.f};
+GLfloat Camera::distanceFromCenter (0.f);
 
 //==============================================================================
 // init stuff
 //==============================================================================
 Camera::Camera(void) :
 // constants
-speed {0.8f},
-nearField {0.1f},
-farField {1000.0},
+speed (0.8f),
+nearField (0.1f),
+farField (1000.0),
 
 // defaults
-defaultPosition {0.f, 0.f, 100.f},
-defaultFront {0.f, 0.f, -1.f},
-defaultUp {0.f, 1.f, 0.f},
-defaultPitch {0.f},
-defaultYaw {halfpi},
-defaultFov {0.25f * pi},
+defaultPosition (0.f, 0.f, 100.f),
+defaultFront (0.f, 0.f, -1.f),
+defaultUp (0.f, 1.f, 0.f),
+defaultPitch (0.f),
+defaultYaw (halfpi),
+defaultFov (0.25f * pi),
 
 // non-owned classes
 time {Time::getInstance()},
@@ -94,7 +94,7 @@ void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept
 
 void Camera::update(void) noexcept
 {
-    const GLfloat angle {speed * time.getDelta()};
+    const GLfloat angle (speed * time.getDelta());
     if (input.getKeyState(GLFW_KEY_W)) {pitch += angle; } // up
     if (input.getKeyState(GLFW_KEY_S)) {pitch -= angle; } // down
     if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
@@ -108,32 +108,3 @@ void Camera::update(void) noexcept
     
     front = -position;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

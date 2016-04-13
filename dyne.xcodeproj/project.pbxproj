@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5804A9DB1CB450EC0018F3D5 /* OscOutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5804A9D91CB450EC0018F3D5 /* OscOutStream.cpp */; };
 		581E64481CA5FF9F008C8BFC /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64461CA5FF9F008C8BFC /* Mesh.cpp */; };
 		581E644E1CA60DB0008C8BFC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E644C1CA60DB0008C8BFC /* Model.cpp */; };
 		581E64541CA61923008C8BFC /* GravityBalls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 581E64521CA61923008C8BFC /* GravityBalls.cpp */; };
@@ -31,7 +32,6 @@
 		58D192111CA09F5A00D1617A /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = 58820C451C9C8674006285C7 /* glew.c */; };
 		58FB38CE1CB1874000B1D4E5 /* OscInStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FB38CC1CB1874000B1D4E5 /* OscInStream.cpp */; };
 		B99591DD1CAC9FE500F66EAD /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99591DB1CAC9FE500F66EAD /* Physics.cpp */; };
-		B9EDC2E01CA9FC8200CB40E4 /* TextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */; };
 		B9EDC2E41CA9FCD100CB40E4 /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5804A9D91CB450EC0018F3D5 /* OscOutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscOutStream.cpp; sourceTree = "<group>"; };
+		5804A9DA1CB450EC0018F3D5 /* OscOutStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscOutStream.h; sourceTree = "<group>"; };
 		581E64461CA5FF9F008C8BFC /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		581E64471CA5FF9F008C8BFC /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		581E644C1CA60DB0008C8BFC /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
@@ -398,8 +400,6 @@
 		58FB38CD1CB1874000B1D4E5 /* OscInStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscInStream.h; sourceTree = "<group>"; };
 		B99591DB1CAC9FE500F66EAD /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
 		B99591DC1CAC9FE500F66EAD /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
-		B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureLoader.cpp; sourceTree = "<group>"; };
-		B9EDC2DF1CA9FC8200CB40E4 /* TextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureLoader.h; sourceTree = "<group>"; };
 		B9EDC2E21CA9FCD100CB40E4 /* lodepng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng.cpp; sourceTree = "<group>"; };
 		B9EDC2E31CA9FCD100CB40E4 /* lodepng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lodepng.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +443,8 @@
 				581E645D1CA625C2008C8BFC /* Input.h */,
 				58FB38CC1CB1874000B1D4E5 /* OscInStream.cpp */,
 				58FB38CD1CB1874000B1D4E5 /* OscInStream.h */,
+				5804A9D91CB450EC0018F3D5 /* OscOutStream.cpp */,
+				5804A9DA1CB450EC0018F3D5 /* OscOutStream.h */,
 			);
 			name = UserControls;
 			sourceTree = "<group>";
@@ -472,9 +474,9 @@
 			isa = PBXGroup;
 			children = (
 				58820C3B1C9C8674006285C7 /* main.cpp */,
-				B99591DE1CAC9FEF00F66EAD /* Physics */,
 				58820DA01C9C8A47006285C7 /* Application.cpp */,
 				58820DA11C9C8A47006285C7 /* Application.h */,
+				B99591DE1CAC9FEF00F66EAD /* Physics */,
 				B9EDC2E51CAA00D500CB40E4 /* Drawables */,
 				581E645B1CA625A4008C8BFC /* UserControls */,
 				58D1920C1CA0871100D1617A /* Timing */,
@@ -985,8 +987,6 @@
 				581E64471CA5FF9F008C8BFC /* Mesh.h */,
 				581E644C1CA60DB0008C8BFC /* Model.cpp */,
 				581E644D1CA60DB0008C8BFC /* Model.h */,
-				B9EDC2DE1CA9FC8200CB40E4 /* TextureLoader.cpp */,
-				B9EDC2DF1CA9FC8200CB40E4 /* TextureLoader.h */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -1103,11 +1103,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9EDC2E01CA9FC8200CB40E4 /* TextureLoader.cpp in Sources */,
 				581E645A1CA62566008C8BFC /* Camera.cpp in Sources */,
 				58D192111CA09F5A00D1617A /* glew.c in Sources */,
 				58820DA51C9C8CFE006285C7 /* Timer.cpp in Sources */,
 				58D1920B1CA0870900D1617A /* OpenGLWindow.cpp in Sources */,
+				5804A9DB1CB450EC0018F3D5 /* OscOutStream.cpp in Sources */,
 				58820DA21C9C8A47006285C7 /* Application.cpp in Sources */,
 				583244611CA5F43100D14A4D /* Shader.cpp in Sources */,
 				581E64541CA61923008C8BFC /* GravityBalls.cpp in Sources */,

@@ -12,11 +12,11 @@
 // constructor & destructor
 //==============================================================================
 OpenGLWindow::OpenGLWindow(void) :
-window(nullptr),
-glfwIsRunning(false),
-time(Time::getInstance()),
-input(Input::getInstance()),
-camera(Camera::getInstance())
+window (nullptr),
+glfwIsRunning (false),
+time {Time::getInstance()},
+input {Input::getInstance()},
+camera {Camera::getInstance()}
 {
 
 }
@@ -43,6 +43,7 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     balls.setup(2);
     balls.startPhysics();
     oscIn.startThread();
+    oscOut.sendBang("/reset-all");
     
     return false;
 }
@@ -96,7 +97,7 @@ bool OpenGLWindow::setupGLEW(void) noexcept
 bool OpenGLWindow::makeWindow(const string title, const ivec2 size) noexcept
 {   // returns true if errors
     // make window
-    GLFWmonitor* mainMonitor {glfwGetPrimaryMonitor()};
+    GLFWmonitor* mainMonitor (glfwGetPrimaryMonitor());
     if (mainMonitor == nullptr)
     {
         IO::post("could not find primary monitor");
@@ -144,5 +145,6 @@ void OpenGLWindow::loop(void) noexcept
         time.update();
         input.handleFirstPresses();
         camera.update();
+        oscOut.sendPhysicsInfo(&Physics::masses);
     }
 }

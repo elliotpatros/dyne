@@ -9,14 +9,13 @@
 #include "CubeMap.h"
 
 // glsl uniform locations
-GLuint CubeMap::viewLoc{0};
-//GLuint CubeMap::skyboxLoc{0};
-GLuint CubeMap::textureID{0};
+GLuint CubeMap::viewLoc (0);
+GLuint CubeMap::textureID (0);
 
 // shader, sphere model and camera
-Shader CubeMap::shader{Shader()};
-Model CubeMap::model{Model()};
-Camera& CubeMap::camera{Camera::getInstance()};
+Shader CubeMap::shader {Shader()};
+Model CubeMap::model {Model()};
+Camera& CubeMap::camera {Camera::getInstance()};
 
 // face names
 const string CubeMap::faceNames[6] {"_right", "_left",
@@ -30,7 +29,7 @@ void CubeMap::setup(void) noexcept
     model.load("skybox.obj", VertexType::Position);
     
     // get shader uniform info
-    const GLuint id{shader.useAndGetId()};
+    const GLuint id (shader.useAndGetId());
     
     viewLoc = glGetUniformLocation(id, "view");
     
@@ -46,7 +45,7 @@ void CubeMap::setup(void) noexcept
     vector<vector<unsigned char>> image (6);
     for (GLuint i = 0; i < image.size(); ++i)
     {
-        const string filename {"resources/textures/test.png"}; // cube2" + faceNames[i] + ".png"};
+        const string filename ("resources/textures/test.png"); // cube2" + faceNames[i] + ".png"};
         unsigned error = lodepng::decode(image[i],
                                          width,
                                          height,

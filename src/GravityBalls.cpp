@@ -12,18 +12,18 @@
 // initialize static members
 //==============================================================================
 // glsl uniform locations
-GLuint GravityBalls::viewPosLoc {0};
-GLuint GravityBalls::projectionLoc {0};
+GLuint GravityBalls::viewPosLoc (0);
+GLuint GravityBalls::projectionLoc (0);
 GLuint GravityBalls::modelLoc[DYNE_MAX_GBALLS] {0};
 GLuint GravityBalls::colorLoc[DYNE_MAX_GBALLS] {0};
 
 // shader, sphere model and camera
-Shader GravityBalls::shader{Shader()};
-Model GravityBalls::sphere{Model()};
-Camera& GravityBalls::camera{Camera::getInstance()};
+Shader GravityBalls::shader {Shader()};
+Model GravityBalls::sphere {Model()};
+Camera& GravityBalls::camera {Camera::getInstance()};
 
 // user controls
-GLuint GravityBalls::nBalls {0};
+GLuint GravityBalls::nBalls (0);
 
 //==============================================================================
 // start up
@@ -39,7 +39,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     shader = Shader("color-body.vs", "color-body.fs");
     sphere.load("smooth-iso.obj", VertexType::PositionNormal);
     
-    const GLuint id{shader.useAndGetId()};
+    const GLuint id (shader.useAndGetId());
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
@@ -47,7 +47,7 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     
     for (int i = 0; i < DYNE_MAX_GBALLS; ++i)
     {
-        const string sindex {std::to_string(i)};
+        const string sindex (std::to_string(i));
         modelLoc[i] = glGetUniformLocation(id,
                       ("model[" + sindex + "]").c_str());
         colorLoc[i] = glGetUniformLocation(id,
@@ -94,7 +94,7 @@ void GravityBalls::render(void) noexcept
     shader.use();
     
     // update camera
-    const vec3 viewPos{camera.getPosition()};
+    const vec3 viewPos (camera.getPosition());
     glUniform3f(viewPosLoc, viewPos.x, viewPos.y, viewPos.z);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE,
                        glm::value_ptr(camera.getProjectionDotLookAt()));
@@ -108,7 +108,7 @@ void GravityBalls::render(void) noexcept
     for (GLuint n = 0; n < nBalls; ++n)
     {
         // update model
-        mat4 model {glm::translate(mat4(), physics.masses[n].position)};
+        mat4 model (glm::translate(mat4(), physics.masses[n].position));
         model = glm::scale(model, vec3(physics.masses[n].radius));
         glUniformMatrix4fv(modelLoc[n], 1, GL_FALSE, glm::value_ptr(model));
     }

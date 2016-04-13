@@ -15,7 +15,7 @@
 //==============================================================================
 // limits
 //==============================================================================
-const float dyne_epsilon {std::numeric_limits<float>::epsilon()};
+const float dyne_epsilon (std::numeric_limits<float>::epsilon());
 
 //==============================================================================
 // comparisons
@@ -68,7 +68,7 @@ static inline int floorToInt(const float i) noexcept {
 //==============================================================================
 // random
 //==============================================================================
-static const float rIntMax = 1.f / float(INT_MAX);
+static const float rIntMax (1.0 / double(INT_MAX));
 
 static inline float getRandomBetween(float min, float max) noexcept {
     return float (rand()) * rIntMax * (max - min) + min;
@@ -81,11 +81,11 @@ static inline int getRandomIntBetween(int min, int max) noexcept {
 //==============================================================================
 // pies
 //==============================================================================
-const float pi {3.1415926535897932384626433832795f};
-const float twopi {2.f * pi};
-const float halfpi {0.5f * pi};
-const float threehalvespi {1.5f * pi};
-const float rTwopi {1.f / twopi};
+const float pi (3.1415926535897932384626433832795f);
+const float twopi (2.f * pi);
+const float halfpi (0.5f * pi);
+const float threehalvespi (1.5f * pi);
+const float rTwopi (1.f / twopi);
 
 #endif
 

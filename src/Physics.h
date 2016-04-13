@@ -15,19 +15,18 @@
 #include "Maths.h"
 
 #include "Timer.h" // for setting physics clock
-#include "Time.h"  // for getting altered time (e.g. stretched, paused)
 
 struct MassyObject
 {
     // constructor
     MassyObject(void) :
-    displacement {vec3(0.f)},
-    position {vec3(getRandomBetween(-pos, pos),
+    displacement (vec3(0.f)),
+    position (vec3(getRandomBetween(-pos, pos),
                    getRandomBetween(-pos, pos),
-                   getRandomBetween(-pos, pos))},
-    velocity {vec3(0.f)},
-    mass {500000.f},
-    radius {getRandomBetween(2.f, 3.f)}
+                   getRandomBetween(-pos, pos))),
+    velocity (vec3(0.f)),
+    mass (getRandomBetween(300000.f, 750000.f)),
+    radius (getRandomBetween(2.f, 3.f))
     { }
     
     // state variables
@@ -86,7 +85,6 @@ private:
     static const GLfloat elasticity;
     static const GLfloat gravityConstant;
     static GLfloat gravity;
-    static Time& time;
 };
 
 

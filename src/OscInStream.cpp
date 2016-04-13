@@ -56,7 +56,7 @@ void OscInStream::ProcessMessage (const osc::ReceivedMessage& m,
 {
     try
     {
-        const char* pattern {m.AddressPattern()};
+        const char* pattern (m.AddressPattern());
         if (std::strcmp(pattern, "/gravity") == 0)
         {
             Physics::scaleGravity(extractFloat(m.ArgumentStream()));
