@@ -41,7 +41,7 @@ GLfloat MassyObject::pos (45.f);
 //==============================================================================
 Physics::Physics(void)
 {
-    pause(0.f);
+    pause(1.f);
     masses.reserve(DYNE_MAX_GBALLS);
     masses.clear();
     masses.resize(1);

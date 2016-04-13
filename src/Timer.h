@@ -39,7 +39,7 @@ private:
     
     inline void setIntervalMs(float ms) noexcept;
     microseconds intervalMicro;
-    system_clock::time_point fromtime, totime;
+    system_clock::time_point totime;
     
     void threadedFunction(void* arg) noexcept;
 };

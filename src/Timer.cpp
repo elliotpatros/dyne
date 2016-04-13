@@ -21,8 +21,7 @@ void Timer::setHz(float hz)
 
 bool Timer::start(void)
 {
-    fromtime = system_clock::now();
-    totime = fromtime + intervalMicro;
+    totime = system_clock::now() + intervalMicro;
     
     return runThread();
 }
@@ -51,7 +50,6 @@ void Timer::threadedFunction(void* arg) noexcept
     while (!t->shouldQuit)
     {
         t->timerCallback();
-        fromtime = totime;
         totime += intervalMicro;
         sleep_until(totime);
     }
