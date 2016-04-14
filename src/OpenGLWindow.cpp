@@ -37,7 +37,7 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     
     camera.setWindowProperties(window, windowSize);
     glfwSetKeyCallback(window, input.keyPressed);
-    glfwSetScrollCallback(window, Camera::setDistanceFromCenter);
+    glfwSetScrollCallback(window, Camera::handleMouseScroll);
     
     sky.setup();
     balls.setup(2);

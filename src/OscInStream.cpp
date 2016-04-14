@@ -77,6 +77,10 @@ void OscInStream::ProcessMessage (const osc::ReceivedMessage& m,
         {
             Camera::setDistanceFromCenter(extractFloat(m.ArgumentStream()));
         }
+        else if (std::strcmp(pattern, "/camRot") == 0)
+        {
+            Camera::setRotationSpeed(extractFloat(m.ArgumentStream()));
+        }
         else if (std::strcmp(pattern, "/pause") == 0)
         {
             Physics::pause(extractFloat(m.ArgumentStream()));

@@ -43,8 +43,6 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
     viewPosLoc = glGetUniformLocation(id, "viewPos");
     projectionLoc = glGetUniformLocation(id, "projection");
     
-//    skyboxLoc = glGetUniformLocation(id, "skybox");
-    
     for (int i = 0; i < DYNE_MAX_GBALLS; ++i)
     {
         const string sindex (std::to_string(i));
@@ -53,9 +51,9 @@ void GravityBalls::setup(const GLuint nBallsAtStart) noexcept
         colorLoc[i] = glGetUniformLocation(id,
                       ("color[" + sindex + "]").c_str());
         
-        glUniform3f(colorLoc[i], getRandomBetween(0.f, 1.f),
-                                 getRandomBetween(0.f, 1.f),
-                                 getRandomBetween(0.f, 1.f));
+        glUniform3f(colorLoc[i], getRandomBetween(0.125f, 1.f),
+                                 getRandomBetween(0.125f, 1.f),
+                                 getRandomBetween(0.125f, 1.f));
     }
     
     glUniform3f(glGetUniformLocation(id, "light.position"),  30.f, 15.f, 30.f);

@@ -243,6 +243,7 @@ void Physics::collide(void) noexcept
 
 void Physics::moveMasses() noexcept
 {
+    // move any unhit masses based on velocity and position
     for (size_t i = 0; i < nMasses; ++i)
     {
         if (masses[i].hit) {continue; }

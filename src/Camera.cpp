@@ -79,18 +79,18 @@ glm::mat4 Camera::getProjectionDotLookAt(void) const noexcept
 //==============================================================================
 void Camera::handleMouseScroll(GLFWwindow* w, double x, double y) noexcept
 {
-    setDistanceFromCenter(y);
+    distanceFromCenter += y;
+    distanceFromCenter = tclip(distanceFromCenter, 50.f, 400.f);
 }
 
 void Camera::setDistanceFromCenter(double d) noexcept
 {
-    distanceFromCenter += d;
-    distanceFromCenter = tclip(distanceFromCenter, 50.f, 400.f);
+    distanceFromCenter = tclip(d, 50., 400.);
 }
 
 void Camera::setRotationSpeed(double s) noexcept
 {
-    
+    rotationSpeed = s;
 }
 
 void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept
@@ -105,12 +105,13 @@ void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept
 
 void Camera::update(void) noexcept
 {
-    const GLfloat angle (speed * time.getDelta());
-    if (input.getKeyState(GLFW_KEY_W)) {pitch += angle; } // up
-    if (input.getKeyState(GLFW_KEY_S)) {pitch -= angle; } // down
-    if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
-    if (input.getKeyState(GLFW_KEY_D)) {yaw   -= angle; } // right
+//    const GLfloat angle (speed * time.getDelta());
+//    if (input.getKeyState(GLFW_KEY_W)) {pitch += angle; } // up
+//    if (input.getKeyState(GLFW_KEY_S)) {pitch -= angle; } // down
+//    if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
+//    if (input.getKeyState(GLFW_KEY_D)) {yaw   -= angle; } // right
     
+    yaw += rotationSpeed * time.getDelta();
     pitch = (pitch < 0.f) ? twopi - fabsf(pitch) : fmodf(pitch, twopi);
     up = ((pitch < halfpi) || (pitch > threehalvespi)) ? defaultUp : -defaultUp;
     position = distanceFromCenter * vec3(circle.cos(pitch) * circle.cos(yaw),
