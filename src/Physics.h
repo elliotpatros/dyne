@@ -20,17 +20,20 @@ struct MassyObject
 {
     // constructor
     MassyObject(void) :
+    hit(false),
+    hitSinceLastDrawn(false),
+    mass (getRandomBetween(300000.f, 750000.f)),
+    radius (getRandomBetween(2.f, 3.f)),
     displacement (vec3(0.f)),
     position (vec3(getRandomBetween(-pos, pos),
                    getRandomBetween(-pos, pos),
                    getRandomBetween(-pos, pos))),
-    velocity (vec3(0.f)),
-    mass (getRandomBetween(300000.f, 750000.f)),
-    radius (getRandomBetween(2.f, 3.f))
+    velocity (vec3(0.f))
     { }
     
     // state variables
     bool    hit;
+    bool    hitSinceLastDrawn;
     GLfloat mass;
     GLfloat radius;
     vec3    displacement;

@@ -33,7 +33,9 @@ public:
     // sets
     void setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept;
     void update(void) noexcept;
-    static void setDistanceFromCenter(GLFWwindow* w, double x, double y) noexcept;
+    static void handleMouseScroll(GLFWwindow* w, double x, double y) noexcept;
+    static void setDistanceFromCenter(double y) noexcept;
+    static void setRotationSpeed(double s) noexcept;
     
     
 private:
@@ -44,6 +46,7 @@ private:
 
     // camera properties
     static GLfloat distanceFromCenter;
+    static GLfloat rotationSpeed;
     glm::mat4 projection;
     glm::vec3 position;
     glm::vec3 front;

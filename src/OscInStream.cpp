@@ -69,13 +69,17 @@ void OscInStream::ProcessMessage (const osc::ReceivedMessage& m,
         {
             Physics::scaleCenterMass(extractFloat(m.ArgumentStream()));
         }
-        else if (std::strcmp(pattern, "/pause") == 0)
-        {
-            Physics::pause(extractFloat(m.ArgumentStream()));
-        }
         else if (std::strcmp(pattern, "/nMasses") == 0)
         {
             GravityBalls::setNBalls(extractFloat(m.ArgumentStream()));
+        }
+        else if (std::strcmp(pattern, "/camDist") == 0)
+        {
+            Camera::setDistanceFromCenter(extractFloat(m.ArgumentStream()));
+        }
+        else if (std::strcmp(pattern, "/pause") == 0)
+        {
+            Physics::pause(extractFloat(m.ArgumentStream()));
         }
     }
     catch (osc::Exception& e)

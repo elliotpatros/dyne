@@ -26,6 +26,7 @@ private:
     int port;
     static const int bufferSize;
     static const char* positionTag;
+    static const char* hitTag;
     static string numberTag[DYNE_MAX_GBALLS];
     
     UdpTransmitSocket transmitSocket;

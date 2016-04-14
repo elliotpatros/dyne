@@ -9,8 +9,9 @@
 #include "OscOutStream.h"
 
 const char* OscOutStream::address ("127.0.0.1");
-const int OscOutStream::bufferSize (4096);
+const int OscOutStream::bufferSize (5120);
 const char* OscOutStream::positionTag ("/pos");
+const char* OscOutStream::hitTag ("/hit");
 string OscOutStream::numberTag[DYNE_MAX_GBALLS] {string()};
 
 OscOutStream::OscOutStream(void) :
@@ -34,13 +35,24 @@ void OscOutStream::sendPhysicsInfo(vector<MassyObject>* masses) noexcept
     {
         const vec3 pos (masses->at(m).position);
         
-        packet << osc::BeginMessage((positionTag + numberTag[m]).c_str())
+        packet
+        << osc::BeginMessage((hitTag + numberTag[m]).c_str())
+        << masses->at(m).hitSinceLastDrawn
+        << osc::EndMessage;
+        
+        packet
+        << osc::BeginMessage((positionTag + numberTag[m]).c_str())
         << pos.x << pos.y << pos.z
         << osc::EndMessage;
     }
     
     packet << osc::EndBundle;
     transmitSocket.Send(packet.Data(), packet.Size());
+    
+    for (size_t m = 0; m < nMasses; ++m)
+    {
+        masses->at(m).hitSinceLastDrawn = false;
+    }
 }
 
 void OscOutStream::sendBang(const char* tag) noexcept

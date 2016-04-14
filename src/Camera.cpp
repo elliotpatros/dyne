@@ -9,6 +9,7 @@
 #include "Camera.h"
 
 GLfloat Camera::distanceFromCenter (0.f);
+GLfloat Camera::rotationSpeed (0.f);
 
 //==============================================================================
 // init stuff
@@ -76,10 +77,20 @@ glm::mat4 Camera::getProjectionDotLookAt(void) const noexcept
 //==============================================================================
 // sets
 //==============================================================================
-void Camera::setDistanceFromCenter(GLFWwindow* w, double x, double y) noexcept
+void Camera::handleMouseScroll(GLFWwindow* w, double x, double y) noexcept
 {
-    distanceFromCenter += y;
+    setDistanceFromCenter(y);
+}
+
+void Camera::setDistanceFromCenter(double d) noexcept
+{
+    distanceFromCenter += d;
     distanceFromCenter = tclip(distanceFromCenter, 50.f, 400.f);
+}
+
+void Camera::setRotationSpeed(double s) noexcept
+{
+    
 }
 
 void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept

@@ -171,8 +171,17 @@ void Physics::collide(void) noexcept
             const GLfloat hitTime ((b - sqrtf(discriminant)) / a);
             
             // if hit time is between 0 and 1, A and B hit in this frame
-            if (hitTime < 0.f || hitTime > 1.f) {continue; }
-            else {masses[A].hit = masses[B].hit = true; }
+            if (hitTime < 0.f || hitTime > 1.f)
+            {
+                continue;
+            }
+            else
+            {
+                masses[A].hitSinceLastDrawn =
+                masses[A].hit =
+                masses[B].hitSinceLastDrawn =
+                masses[B].hit = true;
+            }
             
             const GLfloat tCPA (b / a);
             const vec3 CPA (glm::abs((masses[A].position + tCPA * masses[A].displacement)
