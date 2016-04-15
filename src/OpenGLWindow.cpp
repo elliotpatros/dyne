@@ -14,8 +14,6 @@
 OpenGLWindow::OpenGLWindow(void) :
 window (nullptr),
 glfwIsRunning (false),
-time {Time::getInstance()},
-input {Input::getInstance()},
 camera {Camera::getInstance()}
 {
 
@@ -37,8 +35,6 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     
     camera.setWindowProperties(window, windowSize);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-//    glfwSetKeyCallback(window, input.keyPressed);
-//    glfwSetScrollCallback(window, Camera::handleMouseScroll);
     
     sky.setup();
     balls.setup(2);
@@ -141,12 +137,12 @@ void OpenGLWindow::loop(void) noexcept
         glfwSwapBuffers(window);
         
         glfwPollEvents();
-        time.update();
-        input.handleFirstPresses();
         camera.update();
         
         pthread_mutex_lock(&Physics::lock);
         oscOut.sendPhysicsInfo(&Physics::masses);
         pthread_mutex_unlock(&Physics::lock);
     }
+    
+    oscOut.sendBang("/done");
 }

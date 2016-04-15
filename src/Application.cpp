@@ -37,12 +37,6 @@ bool Application::setup(void)
 {   // returns true if errors
     if (mainWindow->setup("dyne", {0, 0})) {return true; }
     
-    
-    // drawable objects should be its own class, and should be set up here
-    // capture mouse
-    // set key callbacks
-    // setup camera
-    
     return false;
 }
 

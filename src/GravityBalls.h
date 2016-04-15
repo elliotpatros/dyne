@@ -15,7 +15,6 @@
 #include "Shader.h"
 #include "Camera.h"
 
-#include "Time.h"
 #include "Cubemap.h"
 
 #include "Physics.h"

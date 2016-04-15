@@ -13,8 +13,6 @@
 #include "GLMBase.h"
 #include "OpenGLBase.h"
 
-#include "Time.h"
-#include "Input.h"
 #include "Camera.h"
 #include "GravityBalls.h"
 #include "CubeMap.h"
@@ -52,8 +50,6 @@ private:
     bool setupGLEW(void) noexcept;
     
     // global things
-    Time& time;
-    Input& input;
     Camera& camera;
     OscInStreamThread oscIn;
     OscOutStream oscOut;

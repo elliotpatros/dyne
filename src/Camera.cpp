@@ -24,13 +24,11 @@ farField (1000.0),
 defaultPosition (0.f, 0.f, 100.f),
 defaultFront (0.f, 0.f, -1.f),
 defaultUp (0.f, 1.f, 0.f),
-defaultPitch (0.f),
+defaultPitch (halfpi * 0.125f),
 defaultYaw (halfpi),
 defaultFov (0.25f * pi),
 
 // non-owned classes
-time {Time::getInstance()},
-input {Input::getInstance()},
 circle {CircleLUT::getInstance()}
 {
     // camera properties
@@ -41,6 +39,8 @@ circle {CircleLUT::getInstance()}
     yaw = defaultYaw;
     
     distanceFromCenter = glm::distance(vec3(0), position);
+    
+    glfwSetTime(lastTime = 1);
     
     update();
 }
@@ -80,12 +80,12 @@ glm::mat4 Camera::getProjectionDotLookAt(void) const noexcept
 void Camera::handleMouseScroll(GLFWwindow* w, double x, double y) noexcept
 {
     distanceFromCenter += y;
-    distanceFromCenter = tclip(distanceFromCenter, 50.f, 400.f);
+    distanceFromCenter = tclip(distanceFromCenter, 50.f, 450.f);
 }
 
-void Camera::setDistanceFromCenter(double d) noexcept
+void Camera::setDistanceFromCenter(GLfloat d) noexcept
 {
-    distanceFromCenter = tclip(d, 50., 400.);
+    distanceFromCenter = tclip(d, 50.f, 450.f);
 }
 
 void Camera::setRotationSpeed(double s) noexcept
@@ -105,18 +105,15 @@ void Camera::setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept
 
 void Camera::update(void) noexcept
 {
-//    const GLfloat angle (speed * time.getDelta());
-//    if (input.getKeyState(GLFW_KEY_W)) {pitch += angle; } // up
-//    if (input.getKeyState(GLFW_KEY_S)) {pitch -= angle; } // down
-//    if (input.getKeyState(GLFW_KEY_A)) {yaw   += angle; } // left
-//    if (input.getKeyState(GLFW_KEY_D)) {yaw   -= angle; } // right
+    const GLfloat now (glfwGetTime());
+    yaw += rotationSpeed * (now - lastTime);
+    if      (yaw < -twopi) {yaw += twopi; }
+    else if (yaw > twopi)  {yaw -= twopi; }
     
-    yaw += rotationSpeed * time.getDelta();
-    pitch = (pitch < 0.f) ? twopi - fabsf(pitch) : fmodf(pitch, twopi);
-    up = ((pitch < halfpi) || (pitch > threehalvespi)) ? defaultUp : -defaultUp;
     position = distanceFromCenter * vec3(circle.cos(pitch) * circle.cos(yaw),
                                          circle.sin(pitch),
                                          circle.cos(pitch) * circle.sin(yaw));
     
     front = -position;
+    lastTime = now;
 }

@@ -111,6 +111,7 @@ void GravityBalls::render(void) noexcept
         glUniformMatrix4fv(modelLoc[n], 1, GL_FALSE, glm::value_ptr(model));
     }
     
+    // unlock masses
     pthread_mutex_unlock(&physics.lock);
     
     // draw everything

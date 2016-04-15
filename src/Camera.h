@@ -16,9 +16,6 @@
 #include "Maths.h"
 #include "CircleLUT.h"
 
-#include "Time.h"
-#include "Input.h"
-
 class Camera
 {
 public:
@@ -34,7 +31,7 @@ public:
     void setWindowProperties(GLFWwindow* window, const ivec2 size) noexcept;
     void update(void) noexcept;
     static void handleMouseScroll(GLFWwindow* w, double x, double y) noexcept;
-    static void setDistanceFromCenter(double y) noexcept;
+    static void setDistanceFromCenter(GLfloat y) noexcept;
     static void setRotationSpeed(double s) noexcept;
     
     
@@ -54,6 +51,7 @@ private:
     GLfloat pitch;
     GLfloat yaw;
     GLfloat speedNormalized;
+    GLfloat lastTime;
     
     // constants
     const GLfloat speed;
@@ -68,8 +66,6 @@ private:
     const GLfloat defaultFov;
     
     // non-owned classes
-    Time& time;
-    Input& input;
     CircleLUT& circle;
     
     GLFWwindow* mainWindow;

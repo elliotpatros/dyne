@@ -9,7 +9,7 @@
 #include "OscOutStream.h"
 
 const char* OscOutStream::address ("127.0.0.1");
-const int OscOutStream::bufferSize (5120);
+const int OscOutStream::bufferSize (4096);
 const char* OscOutStream::positionTag ("/pos");
 const char* OscOutStream::hitTag ("/hit");
 string OscOutStream::numberTag[DYNE_MAX_GBALLS] {string()};
