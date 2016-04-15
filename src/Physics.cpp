@@ -44,7 +44,7 @@ Physics::Physics(void)
     pause(1.f);
     masses.reserve(DYNE_MAX_GBALLS);
     masses.clear();
-    masses.resize(1);
+//    masses.resize(DYNE_MAX_GBALLS);
 }
 
 Physics::~Physics(void) {}
@@ -57,6 +57,8 @@ void Physics::setNMasses(const size_t n)
     masses.resize(n);
     nMasses = (n == 0) ? 0 : masses.size();
     nMassesMinusOne = (nMasses == 0) ? 0 : nMasses - 1;
+//    nMasses = n;
+//    nMassesMinusOne = nMasses - 1;
 }
 
 void Physics::setup(const size_t nMassesAtStart)

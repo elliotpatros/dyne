@@ -63,7 +63,7 @@ public:
     // public variables
     static pthread_mutex_t lock;
     static vector<MassyObject> masses;
-    
+    static size_t nMasses;
     
 private:
     // calculates one frame of all physical interactions
@@ -76,7 +76,7 @@ private:
     void moveMasses() noexcept;
     
     // physical objects
-    static size_t nMasses, nMassesMinusOne;
+    static size_t nMassesMinusOne;
     static const GLfloat centerMassConstant;
     static GLfloat centerMass;
     

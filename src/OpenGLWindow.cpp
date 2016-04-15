@@ -36,8 +36,9 @@ bool OpenGLWindow::setup(const string title, const ivec2 size) noexcept
     if (setupGLEW()) {return true; }
     
     camera.setWindowProperties(window, windowSize);
-    glfwSetKeyCallback(window, input.keyPressed);
-    glfwSetScrollCallback(window, Camera::handleMouseScroll);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetKeyCallback(window, input.keyPressed);
+//    glfwSetScrollCallback(window, Camera::handleMouseScroll);
     
     sky.setup();
     balls.setup(2);
@@ -85,9 +86,7 @@ bool OpenGLWindow::setupGLEW(void) noexcept
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glClearColor(0.2f, 0.2f, 0.2f, 1.f); // 1.f, 0.5f, 0.f, 1.f);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.f);
     glfwSwapInterval(1);
     
     
@@ -105,8 +104,8 @@ bool OpenGLWindow::makeWindow(const string title, const ivec2 size) noexcept
     }
     
     const GLFWvidmode* mode = glfwGetVideoMode(mainMonitor);
-    window = glfwCreateWindow((size.x < 1) ? mode->width : size.x,
-                              (size.y < 1) ? mode->height: size.y,
+    window = glfwCreateWindow((size.x < 1) ? mode->width  : size.x,
+                              (size.y < 1) ? mode->height : size.y,
                                title.c_str(),
                               (tmax(size.x, size.y) < 1) ? mainMonitor : NULL,
                                NULL);
@@ -145,6 +144,9 @@ void OpenGLWindow::loop(void) noexcept
         time.update();
         input.handleFirstPresses();
         camera.update();
+        
+        pthread_mutex_lock(&Physics::lock);
         oscOut.sendPhysicsInfo(&Physics::masses);
+        pthread_mutex_unlock(&Physics::lock);
     }
 }

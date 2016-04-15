@@ -50,8 +50,10 @@ void Timer::threadedFunction(void* arg) noexcept
     while (!t->shouldQuit)
     {
         t->timerCallback();
+        const system_clock::time_point now (system_clock::now());
         totime += intervalMicro;
-        sleep_until(totime);
+        if (totime > now) {sleep_until(totime); }
+        else              {totime = now + intervalMicro; }
     }
 }
 
