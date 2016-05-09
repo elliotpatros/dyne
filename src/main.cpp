@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    chdir(strcat(getenv("HOME"), "/Dropbox/dyne"));
+    chdir(strcat(getenv("HOME"), "/Dropbox/Developer/Dyne_dev/dyne"));
     
     Application& app (Application::getInstance());
     if (app.setup()) {return 1; }
